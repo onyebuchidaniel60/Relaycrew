@@ -1,0 +1,82 @@
+# RelayCrew
+
+**RelayCrew is a working-name project for the Arc Microgrants: Built with Arc Studio hackathon.** It coordinates a fixed sequence of specialist stages using one parent-funded Arc USDC escrow. Approving a submitted stage pays the current provider and activates the next preassigned specialist in the same on-chain transaction.
+
+> Experimental hackathon software. The planned contract is not independently audited. USDC transfers are irreversible, task metadata is public, and the client is the only evaluator. Do not use sensitive tasks or more money than you can afford to lose.
+
+## Current status
+
+This repository package is a planning/handoff baseline only. The app, contract, deployments, and tests have not yet been implemented.
+
+- Arc Studio project: not yet created/verified.
+- Vercel Preview: not yet deployed.
+- Testnet/Mainnet contract address: not yet deployed.
+- GitHub URL and mainnet transaction hashes: not yet verified/executed.
+- Final visual design: pending operator reference/mockup approval after end-to-end functionality is proven.
+
+Never replace these entries with guessed URLs or fabricated evidence.
+
+## Start here
+
+Read the source-of-truth files in this order:
+
+1. [`PROJECT_SPEC.md`](PROJECT_SPEC.md) — product behavior, roles, flows, requirements and acceptance criteria.
+2. [`ARCHITECTURE.md`](ARCHITECTURE.md) — fixed system/contract architecture, data and security.
+3. [`IMPLEMENTATION_PLAN.md`](IMPLEMENTATION_PLAN.md) — phase-gated build sequence.
+4. [`AGENTS.md`](AGENTS.md) — non-negotiable implementation rules.
+5. [`AI_HANDOFF.md`](AI_HANDOFF.md) — current state and the one task to execute next.
+6. [`MASTER_BLUEPRINT.md`](MASTER_BLUEPRINT.md) — full planning record, audit, sources and rationale.
+7. [`docs/REQUIREMENT_MATRIX.md`](docs/REQUIREMENT_MATRIX.md) — feature-by-feature acceptance/edge-case matrix.
+
+The workflow methodology supplied by the operator is included in this package as `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md`. Preserve it in the repo and follow its inspect → small task → test → inspect/fix → commit → checkpoint → stop loop.
+
+## Product behavior
+
+1. Client defines 2–5 stages, with distinct provider wallets, titles, public briefs, fixed budgets and durations.
+2. Client grants an exact USDC allowance and funds the total budget.
+3. First stage becomes Active; later stages are Queued but budget-reserved in the same escrow.
+4. Provider submits a public HTTPS/IPFS deliverable reference.
+5. Client approves or rejects. Approval pays the active provider and activates the next stage in one transaction. Final approval completes the pipeline.
+6. Rejection or eligible expiry refunds unpaid escrow to the client. Previous payouts cannot be reversed.
+
+## Fixed design limits
+
+- Arc Mainnet: chain ID `5042`; RPC `https://rpc.mainnet.arc.io`; explorer `https://explorer.arc.io`.
+- Arc Testnet: chain ID `5042002`; RPC `https://rpc.testnet.arc.io`; explorer `https://explorer.testnet.arc.io`.
+- USDC ERC-20 interface: `0x3600000000000000000000000000000000000000`, 6 decimals per current official Arc docs. Reverify before deployment.
+- Stage count: 2–5.
+- Per-stage minimum: 1 USDC. Per-pipeline maximum: 100 USDC.
+- Stage work period: 15 minutes–7 days from activation. Evaluation period: 24 hours.
+- Preview uses Arc Testnet only. Mainnet deployment/payment requires explicit operator authorization.
+- No backend/database/runtime AI/marketplace/reputation/arbitration/fees.
+
+## Developer setup (implementation phase)
+
+The actual install/test commands must be confirmed from the generated Arc Studio project and recorded here after Phase 1. Do not invent commands before inspecting the generated project. Expected tools are Node.js compatible with Arc Studio's current documented requirements, npm, Arc Studio, and a browser wallet. Use the actual lockfile and project scripts after generation.
+
+Once the app exists, this section must be replaced/expanded with verified commands for:
+
+- dependency installation;
+- local development;
+- lint/typecheck/build;
+- unit/integration/E2E tests;
+- contract testing in Arc Studio;
+- safe testnet configuration;
+- Vercel preview deployment;
+- exported-source verification and authorized manual mainnet release.
+
+## Environment safety
+
+Frontend build variables are public and begin with `VITE_`: network mode, chain ID, RPC, explorer, USDC address, deployed coordinator address and actual public GitHub repository URL. Never place a private key, seed phrase, Circle secret or deployer credential in client variables.
+
+`DEPLOYER_PRIVATE_KEY` is local-only and must never be committed, logged, sent to the frontend, placed in Vercel or pasted into Arc Studio prompts/screenshots. App users sign transactions in their own wallet.
+
+See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and [`docs/SECURITY.md`](docs/SECURITY.md).
+
+## Documentation and links
+
+The final app must include a working `/docs` route and a home-page footer Documentation link to it. A GitHub footer link must point to the actual public repository once verified. Do not guess or fabricate the repository URL. If the repository is private or disclosure becomes inappropriate, stop and obtain operator approval for an alternative instead of exposing it silently.
+
+## Hackathon evidence
+
+Before submission, record the real Arc Studio project URL, live app URL, mainnet contract address(es), at least one real mainnet USDC transaction hash and explorer link, public repository URL, video walkthrough, short project description, and actual builder profile URL. **Deadline warning (unresolved):** the previous handoff says 2026-11-02 04:59 UTC, while an Eventbrite listing mirrored from the organizer displays a noon-to-12:59 PM Pacific window on Nov 1 but labels it PDT despite Pacific daylight time ending that date. The direct official page returned HTTP 405 in automated verification. Use **2026-11-01 20:59 WAT** as the conservative planning cutoff and verify the actual submission form; do not rely on the later estimate.
