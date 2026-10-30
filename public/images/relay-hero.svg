@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Warm editorial illustration of a sunlit arch and landscape">
+  <defs>
+    <linearGradient id="hero-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#D9C9AF" />
+      <stop offset="0.48" stop-color="#C2B091" />
+      <stop offset="1" stop-color="#6F806C" />
+    </linearGradient>
+    <radialGradient id="hero-glow" cx="0.72" cy="0.18" r="0.62">
+      <stop offset="0" stop-color="#F8EED8" stop-opacity="0.95" />
+      <stop offset="0.55" stop-color="#F8EED8" stop-opacity="0.3" />
+      <stop offset="1" stop-color="#F8EED8" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="hero-hill" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#8B997D" />
+      <stop offset="1" stop-color="#2E4939" />
+    </linearGradient>
+    <linearGradient id="hero-arch" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFDF8" stop-opacity="0.34" />
+      <stop offset="1" stop-color="#FFFDF8" stop-opacity="0.04" />
+    </linearGradient>
+    <filter id="hero-grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncA type="table" tableValues="0 0.09" />
+      </feComponentTransfer>
+    </filter>
+  </defs>
+
+  <rect width="900" height="1000" fill="url(#hero-bg)" />
+  <rect width="900" height="1000" fill="url(#hero-glow)" />
+
+  <g opacity="0.16" stroke="#FFFDF8" stroke-width="1">
+    <path d="M0 90H900M0 180H900M0 270H900M0 360H900M0 450H900M0 540H900M0 630H900M0 720H900M0 810H900M0 900H900" />
+    <path d="M90 0V1000M180 0V1000M270 0V1000M360 0V1000M450 0V1000M540 0V1000M630 0V1000M720 0V1000M810 0V1000" />
+  </g>
+
+  <circle cx="660" cy="222" r="178" fill="none" stroke="#FFFDF8" stroke-opacity="0.3" stroke-width="1.5" />
+  <circle cx="660" cy="222" r="258" fill="none" stroke="#FFFDF8" stroke-opacity="0.15" stroke-width="1" />
+
+  <path
+    d="M516 660V436c0-86 70-156 156-156s156 70 156 156v224Z"
+    fill="url(#hero-arch)"
+    stroke="#FFFDF8"
+    stroke-opacity="0.42"
+    stroke-width="1.5"
+  />
+  <path
+    d="M566 660V446c0-60 49-109 109-109s109 49 109 109v214Z"
+    fill="#FFFDF8"
+    fill-opacity="0.055"
+    stroke="#FFFDF8"
+    stroke-opacity="0.22"
+    stroke-width="1"
+  />
+  <path d="M675 348V660" stroke="#FFFDF8" stroke-opacity="0.18" stroke-width="1" />
+  <path d="M566 512H784" stroke="#FFFDF8" stroke-opacity="0.18" stroke-width="1" />
+
+  <path
+    d="M0 742c132-64 246-68 370-16 132 55 234 89 330 70 76-15 143-48 200-90v294H0Z"
+    fill="url(#hero-hill)"
+    opacity="0.9"
+  />
+  <path
+    d="M0 842c150-76 276-52 404 14 122 63 224 82 316 55 72-21 132-56 180-98v187H0Z"
+    fill="#173D2C"
+    opacity="0.82"
+  />
+  <path
+    d="M0 596c142-54 228 4 236 93 8 87-58 151-145 155"
+    fill="none"
+    stroke="#A56A4A"
+    stroke-opacity="0.62"
+    stroke-width="2"
+  />
+  <path
+    d="M-30 676c132-42 208 10 208 94"
+    fill="none"
+    stroke="#FFFDF8"
+    stroke-opacity="0.2"
+    stroke-width="1"
+  />
+
+  <g fill="#FFFDF8" fill-opacity="0.55">
+    <circle cx="208" cy="286" r="3" />
+    <circle cx="252" cy="240" r="2" />
+    <circle cx="310" cy="300" r="2.4" />
+    <circle cx="172" cy="350" r="2" />
+  </g>
+</svg>

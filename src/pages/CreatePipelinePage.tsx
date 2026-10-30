@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAccount, useBalance, usePublicClient } from 'wagmi'
 import { isAddress, parseEventLogs, type Address, type Hash } from 'viem'
 import { PageHeader } from '../components/PageHeader'
+import { StatusPill } from '../components/StatusPill'
 import { useTxStatus } from '../context/TxStatusContext'
 import { useNetworkGuard } from '../hooks/useNetworkGuard'
 import { usePipelineWrites, type StageInput } from '../hooks/usePipelineContract'
@@ -16,6 +17,7 @@ import {
 } from '../lib/amounts'
 import { appConfig } from '../lib/config'
 import { pipelineCoordinatorAbi, pipelineCoordinatorAddress } from '../lib/contracts'
+import { shortAddress, type StatusTone } from '../lib/pipelineDisplay'
 import { usdcAbi } from '../lib/usdc'
 import { byteLength } from '../lib/validation'
 
@@ -152,6 +154,24 @@ export function CreatePipelinePage() {
     !insufficientBalance &&
     !noGasBalance &&
     !pendingCreateHash
+
+  const totalDisplay = formatUsdcDisplay(validation.totalBudget)
+  const stageStepDone = Boolean(address) && validation.problems.length === 0
+  const allowanceStepDone =
+    stageStepDone &&
+    validation.totalBudget > 0n &&
+    allowance.data !== undefined &&
+    allowance.data === validation.totalBudget
+  const draftTone: StatusTone = !address
+    ? 'neutral'
+    : validation.problems.length > 0
+      ? 'warm'
+      : 'active'
+  const draftLabel = !address
+    ? 'Wallet required'
+    : validation.problems.length > 0
+      ? 'Draft needs attention'
+      : `${stages.length} stages · valid`
 
   const updateStage = (id: string, patch: Partial<StageDraft>) => {
     setStages((current) => current.map((stage) => (stage.id === id ? { ...stage, ...patch } : stage)))
@@ -292,242 +312,359 @@ export function CreatePipelinePage() {
   }
 
   return (
-    <div className="space-y-8">
+    <div>
       <PageHeader
         eyebrow="Client action"
-        title="Create Pipeline"
-        description="Define a fixed sequence of 2–5 specialist stages and fund the full USDC budget in one escrow."
+        title="Create a pipeline"
+        description="Define a fixed sequence of 2–5 specialist agents and fund the full budget in one parent escrow. Every amount is exact; every stage is public."
+        breadcrumb={
+          <>
+            <Link to="/">RelayCrew</Link> / Create pipeline
+          </>
+        }
+        action={<StatusPill tone={draftTone}>{draftLabel}</StatusPill>}
       />
 
-      <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950">
-        <p className="font-semibold">Public and permanent data warning</p>
-        <p className="mt-1">
-          Provider addresses, titles, briefs, budgets, and deliverable URIs are public and permanent
-          on Arc. Do not include secrets, personal data, or confidential instructions.
-        </p>
-      </div>
+      <div className="grid items-start gap-3 lg:grid-cols-[230px_minmax(0,1fr)]">
+        <aside className="rc-card rc-card-soft p-5 lg:sticky lg:top-4">
+          <p className="rc-eyebrow">Relay setup</p>
+          <h2 className="mt-2 font-display text-[23px] font-medium leading-[1.05] tracking-[-0.045em] text-ink">
+            The right sequence, funded once.
+          </h2>
 
-      <div className="rounded-xl border border-slate-200 bg-white p-4 text-sm text-slate-600">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span>
-            Client wallet: <span className="font-mono">{address ?? 'not connected'}</span>
-          </span>
-          <span>
-            USDC balance:{' '}
-            <span className="font-semibold text-slate-900">
-              {balance.data === undefined ? '—' : `${formatUsdcDisplay(balance.data)} USDC`}
-            </span>
-          </span>
-          <span>
-            Current allowance:{' '}
-            <span className="font-semibold text-slate-900">
-              {allowance.data === undefined ? '—' : `${formatUsdcDisplay(allowance.data)} USDC`}
-            </span>
-          </span>
-        </div>
-        {balance.isError || nativeBalance.isError ? (
-          <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-3 text-red-800">
-            <span>Failed to load wallet data.</span>
-            <button
-              type="button"
-              onClick={() => {
-                void balance.refetch()
-                void nativeBalance.refetch()
-              }}
-              className="rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold"
+          <div className="mt-4 grid gap-1">
+            <div className={`rc-step ${address ? 'rc-step-done' : 'rc-step-current'}`}>
+              <span className="rc-step-marker">{address ? '✓' : '1'}</span>
+              <div>
+                <strong>Client wallet</strong>
+                <span>{address ? shortAddress(address) : 'Connect to identify the client'}</span>
+              </div>
+            </div>
+            <div
+              className={`rc-step ${
+                stageStepDone ? 'rc-step-done' : address ? 'rc-step-current' : ''
+              }`.trim()}
             >
-              Retry
-            </button>
-          </div>
-        ) : null}
-      </div>
-
-      <form
-        onSubmit={(event) => {
-          event.preventDefault()
-          void submit()
-        }}
-        className="space-y-5"
-      >
-        {stages.map((stage, index) => (
-          <section key={stage.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <h2 className="text-lg font-semibold text-slate-900">Stage {index + 1}</h2>
-              <button
-                type="button"
-                onClick={() => removeStage(stage.id)}
-                disabled={stages.length <= 2}
-                className="rounded-md border border-slate-300 px-2.5 py-1 text-xs font-semibold text-slate-600 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                Remove stage
-              </button>
+              <span className="rc-step-marker">{stageStepDone ? '✓' : '2'}</span>
+              <div>
+                <strong>Stages & budgets</strong>
+                <span>{stages.length} stage drafts · 2–5 allowed</span>
+              </div>
             </div>
-
-            <div className="grid gap-4 sm:grid-cols-2">
-              <label className="text-sm font-medium text-slate-700">
-                Provider address
-                <input
-                  value={stage.provider}
-                  onChange={(event) => updateStage(stage.id, { provider: event.target.value })}
-                  placeholder="0x…"
-                  spellCheck={false}
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm"
-                />
-              </label>
-
-              <label className="text-sm font-medium text-slate-700">
-                Budget (USDC)
-                <input
-                  value={stage.budget}
-                  onChange={(event) => updateStage(stage.id, { budget: event.target.value })}
-                  inputMode="decimal"
-                  placeholder="1.00"
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-                />
-              </label>
-
-              <label className="text-sm font-medium text-slate-700 sm:col-span-2">
-                Title
-                <input
-                  value={stage.title}
-                  onChange={(event) => updateStage(stage.id, { title: event.target.value })}
-                  maxLength={64}
-                  placeholder="Stage title"
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-                />
-                <span className="mt-1 block text-xs font-normal text-slate-500">
-                  {byteLength(stage.title.trim())}/64 bytes
+            <div
+              className={`rc-step ${
+                allowanceStepDone ? 'rc-step-done' : stageStepDone ? 'rc-step-current' : ''
+              }`.trim()}
+            >
+              <span className="rc-step-marker">{allowanceStepDone ? '✓' : '3'}</span>
+              <div>
+                <strong>Exact allowance</strong>
+                <span>
+                  {allowance.data === undefined
+                    ? 'Loading allowance…'
+                    : allowanceStepDone
+                      ? 'Covers the exact total'
+                      : 'Set automatically on submit'}
                 </span>
-              </label>
-
-              <label className="text-sm font-medium text-slate-700 sm:col-span-2">
-                Public brief
-                <textarea
-                  value={stage.brief}
-                  onChange={(event) => updateStage(stage.id, { brief: event.target.value })}
-                  maxLength={240}
-                  rows={3}
-                  placeholder="What should this specialist deliver?"
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-                />
-                <span className="mt-1 block text-xs font-normal text-slate-500">
-                  {byteLength(stage.brief.trim())}/240 bytes
-                </span>
-              </label>
-
-              <label className="text-sm font-medium text-slate-700">
-                Duration (seconds)
-                <input
-                  value={stage.duration}
-                  onChange={(event) => updateStage(stage.id, { duration: event.target.value })}
-                  inputMode="numeric"
-                  placeholder="86400"
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-                />
-                <span className="mt-1 block text-xs font-normal text-slate-500">
-                  900–604,800 seconds (15 minutes–7 days)
-                </span>
-              </label>
+              </div>
             </div>
-          </section>
-        ))}
-
-        <div className="flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={addStage}
-            disabled={stages.length >= 5}
-            className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Add stage
-          </button>
-          <span className="text-sm text-slate-500">{stages.length} of 5 stages</span>
-        </div>
-
-        <section className="rounded-2xl border border-slate-300 bg-slate-900 p-5 text-white">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-300">Total escrow</p>
-              <p className="mt-1 text-2xl font-bold">{formatUsdcDisplay(validation.totalBudget)} USDC</p>
-            </div>
-            <p className="max-w-md text-sm text-slate-300">
-              The exact total is approved and transferred once. No platform fee. The contract
-              revalidates every limit on-chain.
-            </p>
-          </div>
-        </section>
-
-        {validation.problems.length > 0 ? (
-          <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900" role="alert">
-            <p className="font-semibold">Fix these before funding:</p>
-            <ul className="mt-2 list-disc space-y-1 pl-5">
-              {validation.problems.slice(0, 8).map((problem) => (
-                <li key={problem}>{problem}</li>
-              ))}
-            </ul>
-          </div>
-        ) : null}
-
-        {insufficientBalance ? (
-          <p className="text-sm font-semibold text-red-700" role="alert">
-            Your wallet does not hold enough Arc Testnet USDC for this total.
-          </p>
-        ) : null}
-
-        {noGasBalance ? (
-          <p className="text-sm font-semibold text-red-700" role="alert">
-            Your wallet needs Arc Testnet USDC for gas before it can submit transactions.
-          </p>
-        ) : null}
-
-        {pendingCreateHash ? (
-          <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950" role="alert">
-            <p className="font-semibold">Transaction pending…</p>
-            <p className="mt-1">
-              The create transaction was submitted, but the receipt is not confirmed yet. Do not
-              submit again. Check your wallet or Arc Explorer for the receipt.
-            </p>
-            <div className="mt-3 flex flex-wrap items-center gap-3">
-              <a
-                href={`${appConfig.explorerUrl}/tx/${pendingCreateHash}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold underline underline-offset-2"
-              >
-                View transaction
-              </a>
-              <button
-                type="button"
-                onClick={() => void checkPendingReceipt()}
-                disabled={checkingPending}
-                className="rounded-md border border-amber-400 bg-white px-2.5 py-1 text-xs font-semibold disabled:opacity-50"
-              >
-                {checkingPending ? 'Checking…' : 'Check receipt'}
-              </button>
+            <div
+              className={`rc-step ${canSubmit && allowanceStepDone ? 'rc-step-current' : ''}`.trim()}
+            >
+              <span className="rc-step-marker">4</span>
+              <div>
+                <strong>Fund escrow</strong>
+                <span>{canSubmit && allowanceStepDone ? 'Ready to fund' : 'One wallet flow'}</span>
+              </div>
             </div>
           </div>
-        ) : null}
 
-        {!guard.isConnected ? (
-          <p className="text-sm text-slate-600">Connect a wallet to create and fund a pipeline.</p>
-        ) : guard.isWrongNetwork ? (
-          <p className="text-sm font-semibold text-red-700">
-            Switch your wallet to Arc Testnet before submitting.
-          </p>
-        ) : null}
+          <div className="rc-warning mt-4">
+            Provider addresses, titles, briefs, budgets, and deliverable URIs are public and
+            permanent. Do not enter secrets or confidential instructions.
+          </div>
+        </aside>
 
-        <button
-          type="submit"
-          disabled={!canSubmit}
-          className="w-full rounded-lg bg-slate-900 px-4 py-3 text-sm font-semibold text-white hover:bg-slate-700 disabled:cursor-not-allowed disabled:opacity-40"
+        <form
+          onSubmit={(event) => {
+            event.preventDefault()
+            void submit()
+          }}
+          className="min-w-0 space-y-4"
         >
-          {busy
-            ? 'Preparing transaction…'
-            : pendingCreateHash
-              ? 'Transaction pending — check receipt above'
-              : `Create & fund pipeline${validation.totalBudget > 0n ? ` — ${formatUsdcDisplay(validation.totalBudget)} USDC` : ''}`}
-        </button>
-      </form>
+          <div className="rc-card p-4">
+            <div className="grid gap-3 text-[10px] sm:grid-cols-3">
+              <div>
+                <span className="rc-eyebrow">Client wallet</span>
+                <span
+                  className="mt-1 block truncate font-mono text-[10px] text-ink"
+                  title={address ?? undefined}
+                >
+                  {address ? shortAddress(address) : 'Not connected'}
+                </span>
+              </div>
+              <div>
+                <span className="rc-eyebrow">USDC balance</span>
+                <span className="mt-1 block font-mono text-[11px] text-ink">
+                  {balance.data === undefined ? '—' : `${formatUsdcDisplay(balance.data)} USDC`}
+                </span>
+              </div>
+              <div>
+                <span className="rc-eyebrow">Current allowance</span>
+                <span className="mt-1 block font-mono text-[11px] text-ink">
+                  {allowance.data === undefined ? '—' : `${formatUsdcDisplay(allowance.data)} USDC`}
+                </span>
+              </div>
+            </div>
+            {balance.isError || nativeBalance.isError ? (
+              <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-line pt-3 text-[10px] text-rust">
+                <span>Failed to load wallet data.</span>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void balance.refetch()
+                    void nativeBalance.refetch()
+                  }}
+                  className="rc-button rc-button-sm border-rust-line bg-paper text-rust hover:bg-rust-soft"
+                >
+                  Retry
+                </button>
+              </div>
+            ) : null}
+          </div>
+
+          <div className="rc-card p-4 sm:p-5">
+            <div className="flex flex-wrap items-start justify-between gap-4 border-b border-line pb-4">
+              <div>
+                <p className="rc-eyebrow">Tell us about the relay</p>
+                <h2 className="mt-1.5 font-display text-[28px] font-medium leading-none tracking-[-0.05em] text-ink">
+                  Build the specialist chain.
+                </h2>
+                <p className="mt-2 max-w-[540px] text-[11px] leading-5 text-muted">
+                  The client is the evaluator for every stage. Providers must be unique, nonzero,
+                  and different from the client wallet.
+                </p>
+              </div>
+              <div className="flex flex-col items-end gap-1">
+                <button
+                  type="button"
+                  onClick={addStage}
+                  disabled={stages.length >= 5}
+                  className="rc-button rc-button-sm"
+                >
+                  + Add stage
+                </button>
+                <span className="text-[9px] text-muted">{stages.length} of 5 stages</span>
+              </div>
+            </div>
+
+            <div className="mt-4 grid gap-3">
+              {stages.map((stage, index) => (
+                <section key={stage.id} className="rounded-lg border border-line bg-[#fffefa] p-4">
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex min-w-0 items-center gap-2.5">
+                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-forest-line bg-forest-soft font-display text-[13px] text-forest">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="truncate font-display text-[17px] font-medium tracking-[-0.03em] text-ink">
+                          {stage.title.trim() || `Stage ${index + 1}`}
+                        </h3>
+                        <p className="rc-field-note">
+                          Stage {index + 1} · {index === 0 ? 'active first' : `starts after stage ${index}`}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => removeStage(stage.id)}
+                      disabled={stages.length <= 2}
+                      className="rc-button-text disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Remove
+                    </button>
+                  </div>
+
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <label className="rc-field-label sm:col-span-2">
+                      Provider address
+                      <input
+                        value={stage.provider}
+                        onChange={(event) => updateStage(stage.id, { provider: event.target.value })}
+                        placeholder="0x…"
+                        spellCheck={false}
+                        className="rc-input mt-1.5 font-mono"
+                      />
+                    </label>
+
+                    <label className="rc-field-label">
+                      Budget (USDC)
+                      <input
+                        value={stage.budget}
+                        onChange={(event) => updateStage(stage.id, { budget: event.target.value })}
+                        inputMode="decimal"
+                        placeholder="1.00"
+                        className="rc-input mt-1.5 font-mono"
+                      />
+                      <span className="rc-field-note mt-1">Minimum 1 USDC per stage.</span>
+                    </label>
+
+                    <label className="rc-field-label">
+                      Duration (seconds)
+                      <input
+                        value={stage.duration}
+                        onChange={(event) => updateStage(stage.id, { duration: event.target.value })}
+                        inputMode="numeric"
+                        placeholder="86400"
+                        className="rc-input mt-1.5 font-mono"
+                      />
+                      <span className="rc-field-note mt-1">900–604,800 seconds (15 minutes–7 days)</span>
+                    </label>
+
+                    <label className="rc-field-label sm:col-span-2">
+                      Title
+                      <input
+                        value={stage.title}
+                        onChange={(event) => updateStage(stage.id, { title: event.target.value })}
+                        maxLength={64}
+                        placeholder="Stage title"
+                        className="rc-input mt-1.5"
+                      />
+                      <span className="rc-field-note mt-1">{byteLength(stage.title.trim())}/64 bytes</span>
+                    </label>
+
+                    <label className="rc-field-label sm:col-span-2">
+                      Public brief
+                      <textarea
+                        value={stage.brief}
+                        onChange={(event) => updateStage(stage.id, { brief: event.target.value })}
+                        maxLength={240}
+                        rows={3}
+                        placeholder="What should this specialist deliver?"
+                        className="rc-textarea mt-1.5"
+                      />
+                      <span className="rc-field-note mt-1">{byteLength(stage.brief.trim())}/240 bytes</span>
+                    </label>
+                  </div>
+                </section>
+              ))}
+            </div>
+
+            {validation.problems.length > 0 ? (
+              <div className="rc-alert rc-alert-danger mt-4" role="alert">
+                <p className="font-semibold">Fix these before funding:</p>
+                <ul className="mt-2 list-disc space-y-1 pl-4">
+                  {validation.problems.slice(0, 8).map((problem) => (
+                    <li key={problem}>{problem}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
+            {insufficientBalance ? (
+              <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
+                Your wallet does not hold enough Arc Testnet USDC for this total.
+              </p>
+            ) : null}
+
+            {noGasBalance ? (
+              <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
+                Your wallet needs Arc Testnet USDC for gas before it can submit transactions.
+              </p>
+            ) : null}
+
+            {pendingCreateHash ? (
+              <div className="rc-alert rc-alert-warm mt-4" role="alert">
+                <p className="font-semibold">Transaction pending…</p>
+                <p className="mt-1">
+                  The create transaction was submitted, but the receipt is not confirmed yet. Do not
+                  submit again. Check your wallet or Arc Explorer for the receipt.
+                </p>
+                <div className="mt-3 flex flex-wrap items-center gap-3">
+                  <a
+                    href={`${appConfig.explorerUrl}/tx/${pendingCreateHash}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rc-link text-[10px]"
+                  >
+                    View transaction ↗
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => void checkPendingReceipt()}
+                    disabled={checkingPending}
+                    className="rc-button rc-button-sm border-warm-line bg-paper text-warm-ink"
+                  >
+                    {checkingPending ? 'Checking…' : 'Check receipt'}
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
+            <div className="rc-funding-strip">
+              <div className="rc-funding-total">
+                <span>Total escrow</span>
+                <strong>{totalDisplay} USDC</strong>
+              </div>
+              <p>
+                Exact allowance only. One submit checks the allowance, approves the exact total if
+                needed, then funds the pipeline. No platform fee.
+              </p>
+              <button
+                type="submit"
+                disabled={!canSubmit}
+                className="rc-button rc-button-primary w-full sm:w-auto"
+              >
+                {busy
+                  ? 'Preparing transaction…'
+                  : pendingCreateHash
+                    ? 'Transaction pending — check receipt'
+                    : `Create & fund pipeline${validation.totalBudget > 0n ? ` — ${totalDisplay} USDC` : ''}`}
+              </button>
+            </div>
+
+            <div className="mt-4 grid gap-2 border-t border-line pt-4 sm:grid-cols-3">
+              <div className="flex gap-2">
+                <span className="font-mono text-[9px] text-sage">01</span>
+                <div>
+                  <strong className="block text-[10px] text-ink">Allowance check</strong>
+                  <span className="block text-[9px] leading-4 text-muted">
+                    Exact amount; reset first if needed
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="font-mono text-[9px] text-sage">02</span>
+                <div>
+                  <strong className="block text-[10px] text-ink">Fund escrow</strong>
+                  <span className="block text-[9px] leading-4 text-muted">
+                    One createPipeline call
+                  </span>
+                </div>
+              </div>
+              <div className="flex gap-2">
+                <span className="font-mono text-[9px] text-sage">03</span>
+                <div>
+                  <strong className="block text-[10px] text-ink">First specialist active</strong>
+                  <span className="block text-[9px] leading-4 text-muted">
+                    Activated on-chain at funding
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {!guard.isConnected ? (
+              <p className="mt-4 text-[10px] text-muted">
+                Connect a wallet to create and fund a pipeline.
+              </p>
+            ) : guard.isWrongNetwork ? (
+              <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
+                Switch your wallet to Arc Testnet before submitting.
+              </p>
+            ) : null}
+          </div>
+        </form>
+      </div>
     </div>
   )
 }

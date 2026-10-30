@@ -7,12 +7,13 @@ type PlaceholderPanelProps = {
 
 export function PlaceholderPanel({ title, children }: PlaceholderPanelProps) {
   return (
-    <section className="rounded-2xl border border-dashed border-slate-300 bg-white p-6 shadow-sm">
-      <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-slate-600">
+    <section className="rc-card rc-card-soft p-6">
+      <span className="rc-pill rc-pill-warm">
+        <span className="rc-dot" aria-hidden="true" />
         Placeholder
       </span>
-      <h2 className="mt-4 text-xl font-semibold text-slate-900">{title}</h2>
-      <div className="mt-2 space-y-3 text-sm leading-6 text-slate-600">{children}</div>
+      <h2 className="mt-4 font-display text-2xl font-medium tracking-[-0.04em] text-ink">{title}</h2>
+      <div className="mt-2 space-y-3 text-[11px] leading-6 text-muted">{children}</div>
     </section>
   )
 }

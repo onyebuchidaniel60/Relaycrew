@@ -4,6 +4,7 @@ import { useNetworkGuard } from '../hooks/useNetworkGuard'
 import { arcTestnet } from '../lib/chain'
 import { appConfig } from '../lib/config'
 import { ConnectWalletButton } from './ConnectWalletButton'
+import { LogoMark } from './LogoMark'
 import { TxStatusToast } from './TxStatusToast'
 
 const navItems = [
@@ -20,16 +21,9 @@ function NetworkBadge() {
   return (
     <span
       title={`Chain ID ${appConfig.expectedChainId}`}
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-semibold ${
-        isTestnet
-          ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
-          : 'border-amber-200 bg-amber-50 text-amber-800'
-      }`}
+      className={`rc-pill ${isTestnet ? 'rc-pill-active' : 'rc-pill-warm'}`}
     >
-      <span
-        aria-hidden="true"
-        className={`h-1.5 w-1.5 rounded-full ${isTestnet ? 'bg-emerald-500' : 'bg-amber-500'}`}
-      />
+      <span className="rc-dot" aria-hidden="true" />
       {isTestnet ? 'Arc Testnet' : 'Network config error'}
     </span>
   )
@@ -40,105 +34,131 @@ export function AppShell() {
   const { error: switchError, isPending: isSwitching, switchChain } = useSwitchChain()
 
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50 text-slate-900">
-      <div className="border-b border-amber-300 bg-amber-100">
-        <p
-          className="mx-auto w-full max-w-5xl px-4 py-2 text-center text-sm font-semibold text-amber-950"
-          role="note"
-        >
-          Arc Testnet preview — test USDC only. No real funds.
-        </p>
+    <div className="flex min-h-screen flex-col">
+      <div className="rc-preview-bar" role="note">
+        <p className="rc-shell py-2">Arc Testnet preview — test USDC only · no real funds</p>
       </div>
 
       {configError ? (
-        <div className="border-b border-red-300 bg-red-50" role="alert">
-          <p className="mx-auto w-full max-w-5xl px-4 py-2 text-center text-sm font-semibold text-red-900">
+        <div className="border-b border-rust-line bg-rust-soft" role="alert">
+          <p className="rc-shell py-2 text-center text-[11px] font-semibold text-[#6f3021]">
             Configuration error: {configError} Wallet actions are disabled.
           </p>
         </div>
       ) : null}
 
       {isWrongNetwork ? (
-        <div className="border-b border-red-300 bg-red-50" role="alert">
-          <div className="mx-auto flex w-full max-w-5xl flex-col gap-2 px-4 py-2 text-sm font-semibold text-red-900 sm:flex-row sm:items-center sm:justify-between">
+        <div className="border-b border-rust-line bg-rust-soft" role="alert">
+          <div className="rc-shell flex flex-col gap-2 py-2 text-[11px] font-semibold text-[#6f3021] sm:flex-row sm:items-center sm:justify-between">
             <span>Wrong Network: Please switch to Arc Testnet</span>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 disabled={isSwitching}
                 onClick={() => switchChain({ chainId: arcTestnet.id })}
-                className="rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold text-red-900 hover:bg-red-100 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rc-button rc-button-sm border-rust-line bg-paper text-rust hover:bg-rust-soft disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {isSwitching ? 'Switching…' : 'Switch to Arc Testnet'}
               </button>
-              {switchError ? <span className="text-xs font-normal">{switchError.message}</span> : null}
+              {switchError ? (
+                <span className="text-[10px] font-normal">{switchError.message}</span>
+              ) : null}
             </div>
           </div>
         </div>
       ) : null}
 
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex flex-wrap items-center gap-3">
-            <Link to="/" className="flex items-center gap-2 text-slate-900">
-              <span
-                aria-hidden="true"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-sm font-bold text-white"
-              >
-                RC
+      <header className="border-b border-line/80 bg-canvas/80 backdrop-blur-sm">
+        <div className="rc-shell flex min-h-[76px] flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3">
+          <Link to="/" className="flex items-center gap-2.5 text-ink">
+            <LogoMark className="h-9 w-9 shrink-0" />
+            <span>
+              <span className="block font-display text-[23px] font-medium leading-none tracking-[-0.04em]">
+                RelayCrew
               </span>
-              <span className="text-lg font-bold tracking-tight">RelayCrew</span>
-            </Link>
-            <NetworkBadge />
-          </div>
+              <span className="mt-1 block text-[8px] font-bold uppercase tracking-[0.16em] text-muted">
+                Agent escrow protocol
+              </span>
+            </span>
+          </Link>
 
-          <div className="flex flex-wrap items-center gap-3">
-            <nav aria-label="Primary" className="flex flex-wrap items-center gap-1">
-              {navItems.map((item) => (
-                <NavLink
-                  key={item.to}
-                  to={item.to}
-                  end={item.end}
-                  className={({ isActive }) =>
-                    `rounded-md px-2.5 py-1.5 text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'bg-slate-900 text-white'
-                        : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
-                    }`
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ))}
-            </nav>
+          <nav
+            aria-label="Primary"
+            className="order-3 flex w-full flex-wrap items-center gap-x-5 gap-y-2 border-t border-line/70 pt-3 lg:order-none lg:w-auto lg:flex-1 lg:justify-center lg:border-0 lg:pt-0"
+          >
+            {navItems.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.end}
+                className={({ isActive }) =>
+                  `rc-nav-link ${isActive ? 'rc-nav-link-active' : ''}`.trim()
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </nav>
 
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex">
+              <NetworkBadge />
+            </span>
             <ConnectWalletButton />
           </div>
         </div>
       </header>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
+      <main className="rc-app flex-1 pb-14 pt-1 sm:pt-3">
         <Outlet />
       </main>
 
-      <footer className="border-t border-slate-200 bg-white">
-        <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>RelayCrew — Phase 4 testnet preview.</p>
-          <nav aria-label="Footer" className="flex flex-wrap items-center gap-4">
-            <Link
-              to="/docs"
-              className="font-medium text-slate-700 underline-offset-4 hover:underline"
-            >
+      <footer className="border-t border-line bg-canvas/60">
+        <div className="rc-shell flex flex-col gap-5 py-8 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <Link to="/" className="inline-flex items-center gap-2 text-ink">
+              <LogoMark className="h-7 w-7" />
+              <span className="font-display text-xl font-medium tracking-[-0.04em]">RelayCrew</span>
+            </Link>
+            <p className="mt-2 max-w-sm text-[10px] leading-5 text-muted">
+              One parent escrow · fixed specialist relay · Arc Testnet preview. Experimental,
+              unaudited software.
+            </p>
+          </div>
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold text-ink-soft">
+            <Link to="/docs" className="transition-colors hover:text-forest">
               Documentation
             </Link>
-            <Link
-              to="/risk"
-              className="font-medium text-slate-700 underline-offset-4 hover:underline"
-            >
-              Risk Notice
+            <Link to="/risk" className="transition-colors hover:text-forest">
+              Risk notice
             </Link>
-            <span className="text-slate-400">GitHub repo pending</span>
+            {appConfig.githubUrl ? (
+              <a
+                href={appConfig.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-forest"
+              >
+                GitHub
+              </a>
+            ) : null}
+            {appConfig.pipelineAddress ? (
+              <a
+                href={`${appConfig.explorerUrl}/address/${appConfig.pipelineAddress}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors hover:text-forest"
+              >
+                Contract
+              </a>
+            ) : null}
           </nav>
+        </div>
+        <div className="border-t border-line/70">
+          <div className="rc-shell flex flex-col gap-2 py-4 text-[8px] uppercase tracking-[0.08em] text-muted sm:flex-row sm:items-center sm:justify-between">
+            <p>Arc Testnet · chain {appConfig.expectedChainId}</p>
+            <p>No platform fee · client is sole evaluator</p>
+          </div>
         </div>
       </footer>
 

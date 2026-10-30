@@ -6,7 +6,7 @@
 
 ## Current status
 
-Phase 6 revised “Warm Editorial Escrow” mockups are available in [`mockups/`](mockups/README.md), based on the operator reference images in `docs/references/`. The previous dark direction was rejected and removed. The working app remains in its temporary Tailwind state; Phase 7 awaits explicit operator approval.
+Phase 7 is implemented: the operator-approved “Warm Editorial Escrow” visual system is applied to the working Arc Testnet app without changing contract behavior. The static mockups remain in [`mockups/`](mockups/README.md), based on the operator reference images in `docs/references/`; the previous dark direction was rejected and removed.
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
@@ -20,8 +20,8 @@ Phase 6 revised “Warm Editorial Escrow” mockups are available in [`mockups/`
 - Foundry tests: 29 passed, 0 failed in Arc Studio.
 - Headless console check: 0 console errors/warnings across routes and the connected mock-wallet create flow.
 - Live manual E2E: accepted by the operator; transaction hashes are not recorded in this repository.
-- Design mockups: `mockups/index.html`; operator references and approval status in `docs/DESIGN_DECISIONS.md`.
-- Final visual design: not approved; the revised mockups are pending explicit review.
+- Design mockups: `mockups/index.html`; operator references and the recorded approval are in `docs/DESIGN_DECISIONS.md`.
+- Final visual design: approved 2026-10-30; “Warm Editorial Escrow” applied in Phase 7. Phase 8 documentation/link-completeness work is still pending.
 
 Never replace these entries with guessed URLs or fabricated evidence.
 

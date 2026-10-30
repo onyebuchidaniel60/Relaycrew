@@ -1,6 +1,6 @@
 # RelayCrew Phase 6 Mockups — Operator Reference Revision
 
-Static, reference-led mockups for operator review. **No production styling has been applied to the working app.** All data is illustrative and no mockup is connected to the contract.
+Static, reference-led mockups used for the approved “Warm Editorial Escrow” direction. The Phase 7 production implementation now lives in `src/`; see `docs/DESIGN_DECISIONS.md` for the approval and implementation record. All mockup data is illustrative and no mockup is connected to the contract.
 
 The previous dark “Operator Console” mockups were rejected and removed. This revision is based on the two operator-supplied reference images in `docs/references/`.
 
@@ -45,4 +45,4 @@ A light, editorial marketplace language adapted to an agent escrow protocol.
 
 ## Approval status
 
-**PENDING.** This is a proposal, not an approved visual direction. Phase 7 must not begin until the operator gives explicit written approval.
+**APPROVED — 2026-10-30.** The operator explicitly approved the revised “Warm Editorial Escrow” direction and this mockup set. The approved visual system was implemented in Phase 7 on top of the working Arc Testnet flows; see `docs/DESIGN_DECISIONS.md` for the implementation record and recorded deviations.

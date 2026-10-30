@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useAccount } from 'wagmi'
 import { PageHeader } from '../components/PageHeader'
+import { StatusPill } from '../components/StatusPill'
 import { usePipelineSummary, useUserPipelineIds } from '../hooks/usePipelineContract'
 import { formatUsdcDisplay } from '../lib/amounts'
 import { appConfig } from '../lib/config'
@@ -15,17 +16,17 @@ function PipelineRow({ pipelineId }: { pipelineId: bigint }) {
   const query = usePipelineSummary(pipelineId)
 
   if (query.isLoading) {
-    return <div className="h-24 animate-pulse rounded-xl border border-slate-200 bg-white" />
+    return <div className="rc-skeleton h-28" />
   }
 
   if (query.isError || !query.data) {
     return (
-      <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+      <div className="rc-alert rc-alert-danger">
         <p>Pipeline #{pipelineId.toString()} could not be loaded.</p>
         <button
           type="button"
           onClick={() => void query.refetch()}
-          className="mt-2 rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold"
+          className="rc-button rc-button-sm mt-2 border-rust-line bg-paper text-rust hover:bg-rust-soft"
         >
           Retry
         </button>
@@ -43,26 +44,41 @@ function PipelineRow({ pipelineId }: { pipelineId: bigint }) {
   return (
     <Link
       to={`/pipelines/${pipelineId.toString()}`}
-      className="block rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition-colors hover:border-slate-400"
+      className="rc-card rc-card-hover block p-4 no-underline sm:p-5"
     >
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div className="min-w-0">
+          <p className="font-mono text-[9px] uppercase tracking-[0.08em] text-muted">
             Pipeline #{pipelineId.toString()}
           </p>
-          <p className="mt-1 text-lg font-semibold text-slate-900">{currentStage}</p>
-          <p className="mt-1 text-sm text-slate-600">
+          <p className="mt-1.5 font-display text-xl font-medium tracking-[-0.04em] text-ink">
+            {currentStage}
+          </p>
+          <p className="mt-1.5 text-[10px] text-muted">
             Client {shortAddress(pipeline.client)} · created {formatTimestamp(pipeline.createdAt)}
           </p>
+          <div className="mt-3 flex gap-1" aria-hidden="true">
+            {Array.from({ length: Number(pipeline.stageCount) }, (_, index) => {
+              const current = Number(pipeline.currentStageIndex)
+              const done = status !== 0 || index < current
+              const active = status === 0 && index === current
+              return (
+                <span
+                  key={index}
+                  className={`h-1 w-8 rounded-full ${
+                    done ? 'bg-forest' : active ? 'bg-forest/35' : 'bg-line'
+                  }`}
+                />
+              )
+            })}
+          </div>
         </div>
-        <div className="text-right">
-          <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${statusTone(status)}`}>
-            {pipelineStatusLabel(status)}
-          </span>
-          <p className="mt-2 text-sm font-semibold text-slate-900">
+        <div className="shrink-0 text-left sm:text-right">
+          <StatusPill tone={statusTone(status)}>{pipelineStatusLabel(status)}</StatusPill>
+          <p className="mt-2 font-mono text-sm font-medium text-ink">
             {formatUsdcDisplay(pipeline.totalBudget)} USDC
           </p>
-          <p className="text-xs text-slate-500">Total budget</p>
+          <p className="text-[9px] uppercase tracking-[0.08em] text-muted">Total budget</p>
         </div>
       </div>
     </Link>
@@ -75,51 +91,73 @@ export function PipelinesPage() {
   const pipelineIds = idsQuery.data ?? []
 
   return (
-    <div className="space-y-8">
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <PageHeader
-          eyebrow="Wallet view"
-          title="My Pipelines"
-          description="Pipelines where the connected wallet is the client or an assigned provider."
-        />
-        <Link
-          to="/create"
-          className="rounded-lg bg-slate-900 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
-        >
-          Create pipeline
-        </Link>
-      </div>
+    <div>
+      <PageHeader
+        eyebrow="Wallet view"
+        title="My pipelines"
+        description="Pipelines where the connected wallet is the client or an assigned provider. Every amount and status is read from Arc Testnet."
+        breadcrumb={
+          <>
+            <Link to="/">RelayCrew</Link> / Pipelines
+          </>
+        }
+        action={
+          <Link to="/create" className="rc-button rc-button-primary rc-button-sm">
+            Create pipeline
+          </Link>
+        }
+      />
 
       {!appConfig.isValid ? (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900" role="alert">
+        <div className="rc-alert rc-alert-danger mb-4" role="alert">
           Chain configuration is invalid. Pipeline reads are disabled.
         </div>
       ) : null}
 
       {!address ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-6 text-sm text-slate-600">
-          Connect a wallet to view your pipelines.
+        <div className="rc-card flex flex-col items-start gap-5 p-7 sm:flex-row sm:items-center sm:justify-between sm:p-8">
+          <div>
+            <p className="rc-eyebrow">Wallet view</p>
+            <h2 className="mt-2 font-display text-[28px] font-medium tracking-[-0.05em] text-ink">
+              Connect to open your ledger.
+            </h2>
+            <p className="mt-2 max-w-[520px] text-[11px] leading-6 text-muted">
+              RelayCrew reads the pipelines where your wallet is the client or an assigned provider.
+              Connect a wallet from the header to continue.
+            </p>
+          </div>
+          <div className="grid h-16 w-16 shrink-0 place-items-center rounded-full border border-line-strong font-display text-2xl text-forest">
+            ✳
+          </div>
         </div>
       ) : idsQuery.isLoading ? (
         <div className="space-y-3">
-          <div className="h-24 animate-pulse rounded-xl border border-slate-200 bg-white" />
-          <div className="h-24 animate-pulse rounded-xl border border-slate-200 bg-white" />
+          <div className="rc-skeleton h-28" />
+          <div className="rc-skeleton h-28" />
         </div>
       ) : idsQuery.isError ? (
-        <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
+        <div className="rc-alert rc-alert-danger">
           <p>Could not read your pipeline IDs.</p>
           <button
             type="button"
             onClick={() => void idsQuery.refetch()}
-            className="mt-2 rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold"
+            className="rc-button rc-button-sm mt-2 border-rust-line bg-paper text-rust hover:bg-rust-soft"
           >
             Retry
           </button>
         </div>
       ) : pipelineIds.length === 0 ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-8 text-center text-sm text-slate-600">
-          <p className="font-semibold text-slate-800">No pipelines found.</p>
-          <p className="mt-1">Create a pipeline or connect the wallet assigned to an existing one.</p>
+        <div className="rc-card p-8 text-center">
+          <p className="rc-eyebrow">Empty ledger</p>
+          <h2 className="mt-2 font-display text-[30px] font-medium tracking-[-0.05em] text-ink">
+            No pipelines found.
+          </h2>
+          <p className="mx-auto mt-2 max-w-[440px] text-[11px] leading-6 text-muted">
+            Create a pipeline with this wallet, or connect the wallet assigned to an existing one.
+          </p>
+          <Link to="/create" className="rc-button rc-button-primary mt-5">
+            Create a pipeline
+          </Link>
         </div>
       ) : (
         <div className="space-y-3">

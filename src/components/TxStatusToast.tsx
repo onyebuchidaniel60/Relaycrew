@@ -9,10 +9,10 @@ const PHASE_LABELS = {
 } as const
 
 const PHASE_STYLES = {
-  wallet: 'border-sky-300 bg-sky-50 text-sky-950',
-  pending: 'border-amber-300 bg-amber-50 text-amber-950',
-  success: 'border-emerald-300 bg-emerald-50 text-emerald-950',
-  error: 'border-red-300 bg-red-50 text-red-950',
+  wallet: 'border-line-strong bg-paper text-ink',
+  pending: 'border-warm-line bg-warm-soft text-warm-ink',
+  success: 'border-forest-line bg-forest-soft text-forest',
+  error: 'border-rust-line bg-rust-soft text-[#6f3021]',
 } as const
 
 export function TxStatusToast() {
@@ -23,20 +23,20 @@ export function TxStatusToast() {
     <div
       role="status"
       aria-live="polite"
-      className={`fixed bottom-4 right-4 z-50 w-[min(22rem,calc(100vw-2rem))] rounded-xl border p-4 shadow-lg ${PHASE_STYLES[status.phase]}`}
+      className={`fixed bottom-4 right-4 z-50 w-[min(24rem,calc(100vw-2rem))] rounded-xl border p-4 shadow-paper-hover ${PHASE_STYLES[status.phase]}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="text-xs font-bold uppercase tracking-wide">{PHASE_LABELS[status.phase]}</p>
-          <p className="mt-1 break-words text-sm">{status.message}</p>
+          <p className="text-[9px] font-bold uppercase tracking-[0.12em]">{PHASE_LABELS[status.phase]}</p>
+          <p className="mt-1 break-words text-[11px] leading-5">{status.message}</p>
           {status.hash ? (
             <a
               href={`${appConfig.explorerUrl}/tx/${status.hash}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-2 inline-block text-xs font-semibold underline underline-offset-2"
+              className="rc-link mt-2 inline-block text-[10px]"
             >
-              View transaction
+              View transaction ↗
             </a>
           ) : null}
         </div>
@@ -44,7 +44,7 @@ export function TxStatusToast() {
           type="button"
           onClick={clear}
           aria-label="Dismiss transaction status"
-          className="shrink-0 rounded-md border border-current/30 px-2 py-1 text-xs font-semibold hover:bg-white/50"
+          className="shrink-0 rounded border border-current/30 px-2 py-1 text-[9px] font-semibold transition-colors hover:bg-paper/60"
         >
           Dismiss
         </button>

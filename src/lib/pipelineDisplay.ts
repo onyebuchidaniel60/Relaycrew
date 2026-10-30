@@ -1,6 +1,8 @@
 const PIPELINE_STATUS_LABELS = ['Active', 'Completed', 'Rejected', 'Expired'] as const
 const STAGE_STATUS_LABELS = ['Queued', 'Active', 'Submitted', 'Paid', 'Rejected', 'Expired'] as const
 
+export type StatusTone = 'neutral' | 'active' | 'submitted' | 'complete' | 'danger' | 'warm'
+
 export function pipelineStatusLabel(status: number): string {
   return PIPELINE_STATUS_LABELS[status] ?? 'Unknown'
 }
@@ -52,36 +54,36 @@ export function formatCountdown(totalSeconds: number): string {
   return days > 0 ? `${days}d ${clock}` : clock
 }
 
-export function statusTone(status: number): string {
+export function statusTone(status: number): StatusTone {
   switch (status) {
     case 0:
-      return 'border-emerald-200 bg-emerald-50 text-emerald-800'
+      return 'active'
     case 1:
-      return 'border-slate-300 bg-slate-100 text-slate-700'
+      return 'complete'
     case 2:
-      return 'border-red-200 bg-red-50 text-red-800'
+      return 'danger'
     case 3:
-      return 'border-amber-200 bg-amber-50 text-amber-800'
+      return 'warm'
     default:
-      return 'border-slate-200 bg-slate-50 text-slate-600'
+      return 'neutral'
   }
 }
 
-export function stageTone(status: number): string {
+export function stageTone(status: number): StatusTone {
   switch (status) {
     case 0:
-      return 'border-slate-200 bg-slate-50 text-slate-600'
+      return 'neutral'
     case 1:
-      return 'border-emerald-200 bg-emerald-50 text-emerald-800'
+      return 'active'
     case 2:
-      return 'border-sky-200 bg-sky-50 text-sky-800'
+      return 'submitted'
     case 3:
-      return 'border-slate-300 bg-slate-100 text-slate-700'
+      return 'complete'
     case 4:
-      return 'border-red-200 bg-red-50 text-red-800'
+      return 'danger'
     case 5:
-      return 'border-amber-200 bg-amber-50 text-amber-800'
+      return 'warm'
     default:
-      return 'border-slate-200 bg-slate-50 text-slate-600'
+      return 'neutral'
   }
 }

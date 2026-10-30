@@ -1,6 +1,6 @@
 # Design Decisions and Approval Record
 
-**Current status:** Phase 6 revised mockups proposed from operator-supplied references. Final visual direction is **not approved**. The working app remains in its temporary Tailwind state.
+**Current status:** Phase 7 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30, and the approved visual system has been applied to the working Arc Testnet screens without changing contract behavior, business logic, or the security model.
 
 ## Required process
 
@@ -18,10 +18,10 @@
 - Previous direction: **REJECTED** — the dark “Operator Console” mockups were discarded and removed.
 - Candidate references presented: **Operator-supplied only** (no additional candidate selection required).
 - Proposed direction: **“Warm Editorial Escrow”** — light editorial marketplace language adapted to an agent escrow protocol.
-- Mockups/prototypes: **Created** in `mockups/`.
+- Mockups/prototypes: **Created and approved** in `mockups/`.
 - Feedback rounds: **1** (the operator rejected the previous direction and supplied references).
-- Explicit operator approval: **NOT GIVEN**.
-- Final visual implementation: **BLOCKED** until explicit approval.
+- Explicit operator approval: **GIVEN — 2026-10-30**.
+- Final visual implementation: **COMPLETE in Phase 7** on top of the working flows.
 
 ## Reference analysis
 
@@ -45,13 +45,13 @@ A brand-level collage for the same “Craftly” system.
 - **Texture:** faint grid lines, subtle shadows, photography-led panels.
 - **Vibe:** established creative studio / editorial marketplace with technical product screens embedded.
 
-## Proposed direction: Warm Editorial Escrow
+## Approved direction: Warm Editorial Escrow
 
 - **Canvas:** warm ivory `#F5F0E6`; paper cards `#FFFDF8`; fine grid texture at low opacity.
 - **Ink:** near-black `#1B1D18`; muted gray-green metadata.
 - **Primary:** forest green `#173D2C`; soft green surfaces for selected/active states.
 - **Warnings/terminal:** warm amber and rust instead of saturated red.
-- **Typography:** `Fraunces`-style high-contrast serif for display; `Manrope`-style sans for UI, labels, forms, and metadata; small uppercase labels.
+- **Typography:** `Fraunces` high-contrast serif for display; `Manrope` sans for UI, labels, forms, and metadata; `IBM Plex Mono` for amounts, addresses, and hashes.
 - **Radii:** cards around 10px; buttons 6px; chips/pills for status only.
 - **Composition:** top navigation, split editorial hero with warm visual panel, thin rules, white cards on ivory, stepped create form, right-side action panel for irreversible settlement decisions.
 - **Original product language:** the relay stage rail, escrow ledger, exact payout/next-hire panel, client evaluator role, refund/terminal states.
@@ -69,27 +69,39 @@ A brand-level collage for the same “Craftly” system.
 
 | Screen/state | Desktop mockup | Mobile mockup | Reviewed? | Feedback/status |
 |---|---|---|---|---|
-| Reference analysis & review map | `mockups/index.html` | Responsive | No | Pending operator review |
-| Home / landing hero | `mockups/home.html` | `mockups/mobile.html` (Home frame) | No | Pending operator review |
-| Create Pipeline + allowance/funding | `mockups/create.html` | `mockups/mobile.html` (Create frame) | No | Pending operator review |
-| Pipeline Active Detail | `mockups/pipeline-active.html` | `mockups/mobile.html` (Detail frame) | No | Pending operator review |
-| Mobile views | — | `mockups/mobile.html` | No | Pending operator review |
+| Reference analysis & review map | `mockups/index.html` | Responsive | Yes | Approved as the direction record |
+| Home / landing hero | `mockups/home.html` | `mockups/mobile.html` (Home frame) | Yes | Approved |
+| Create Pipeline + allowance/funding | `mockups/create.html` | `mockups/mobile.html` (Create frame) | Yes | Approved |
+| Pipeline Active Detail | `mockups/pipeline-active.html` | `mockups/mobile.html` (Detail frame) | Yes | Approved |
+| Mobile views | — | `mockups/mobile.html` | Yes | Approved |
 
-The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-complete.html` mockups were removed with the rejected direction. The current requested review set covers Home, Create, Active Detail, and Mobile.
+The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-complete.html` mockups were removed with the rejected direction. The current approved review set covers Home, Create, Active Detail, and Mobile.
 
-## Intentional constraints
+## Phase 7 implementation record
 
-- No final app CSS, component styling, typography, or animation has been implemented in Phase 6.
-- Mockups are static HTML/CSS with illustrative data; they are not connected to the deployed contract.
-- No business logic, contract calls, API surface, or product behavior was changed.
-- The reference images are used as direction inputs, not as production assets copied into the app.
+- **Design tokens:** `tailwind.config.js` and `src/index.css` define the ivory canvas, paper cards, ink, forest-green primary, sage/amber/rust semantic colors, Fraunces/Manrope/IBM Plex Mono typography, 10px card radii, 6px button radii, paper shadows, and fine-grid canvas.
+- **Global shell:** editorial header with relay mark, uppercase nav, Arc Testnet badge, wallet control, testnet preview strip, warm warning states, and a footer with working Documentation, Risk notice, GitHub (when configured), and contract-explorer links.
+- **Home:** split editorial hero with self-authored warm SVG imagery, illustrative relay stage cards (explicitly labeled “not live data”), protocol-constraint stats, relay explanation, inspection panel, and risk callout.
+- **Create:** left setup checklist, wallet/balance/allowance summary, stage editors with live byte counters and exact totals, public-data warning, funding strip, and the unchanged single wallet flow.
+- **Pipeline detail:** status header, four-cell money summary, stage rail with active/paid/submitted/rejected markers, right-side role action panel, countdown, payout/next-hire/refund lines, and terminal settlement ledger.
+- **Terminal states:** Completed, Rejected, and Expired render a settlement ledger with total budget, paid out, refunded, finished timestamp, and no action controls.
+- **Confirmation surface:** the browser-native `window.confirm` prompts were replaced with an accessible in-app `<dialog>` confirmation that repeats the exact recipient, payout, next hire, and refund before invoking the same existing contract call and guard.
+- **Assets:** `public/favicon.svg`; `public/images/relay-hero.svg`; `public/images/relay-panel.svg`. The imagery is original SVG artwork, not a copied production asset.
+- **Fonts:** Google Fonts stylesheet for Fraunces, Manrope, and IBM Plex Mono, with local serif/sans/mono fallbacks.
+- **Behavior freeze:** no contract ABI, address, write function, validation, role check, allowance rule, state transition, or security control was changed in Phase 7.
+
+## Intentional constraints and deviations
+
+- **Imagery:** original warm editorial SVG artwork is used instead of licensed photography. This preserves the approved palette and composition without introducing an unverified asset license.
+- **Amount formatting:** the existing exact base-unit formatter is retained. Whole-USDC amounts display without forced trailing zeros (for example, `18 USDC`); no floating-point arithmetic was introduced.
+- **Confirmation dialog:** the interaction is an in-app native dialog rather than a browser-native confirm. The existing guard, exact values, and irreversible nature are preserved; Escape, cancel, and backdrop dismissal close the dialog without sending a transaction.
+- **Mobile navigation:** all five routes remain visible as a compact second header row at 390px rather than being hidden, so navigation does not depend on an unapproved menu interaction.
+- **Placeholder docs:** `/docs` remains clearly marked “In progress” and contains no fabricated completed documentation; Phase 8 owns the full guide.
 
 ## Approval decision
 
-- Approved direction/mockup version: **Pending**.
-- Approval date: **Pending**.
-- Operator's explicit approval text/decision: **Pending**.
-- Deviations accepted: **Pending**.
-- Final UI implementation may begin only after this section is filled with explicit approval.
-
-**Phase 7 is blocked.** No final colors, typography, layouts, component styling, or animations may be implemented until the operator approves a direction and version in writing.
+- **Approved direction/mockup version:** “Warm Editorial Escrow” — revised Phase 6 set in `mockups/` (`home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`, `index.html`).
+- **Approval date:** 2026-10-30.
+- **Operator's explicit approval text/decision:** “The ‘Warm Editorial Escrow’ mockups were reviewed and explicitly APPROVED.” (operator instruction, 2026-10-30).
+- **Deviations accepted/recorded:** original SVG imagery instead of photography; Google Fonts delivery; existing trimmed amount display retained; in-app confirmation dialog replacing `window.confirm`; mobile nav remains visible.
+- **Phase 7 status:** implemented on top of working flows and ready for preview acceptance. No product, contract, or security behavior changed.

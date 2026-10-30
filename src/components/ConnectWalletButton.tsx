@@ -17,7 +17,7 @@ export function ConnectWalletButton() {
         type="button"
         disabled
         title={appConfig.configError ?? 'Chain configuration is invalid.'}
-        className="cursor-not-allowed rounded-lg border border-slate-300 bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-400"
+        className="rc-button rc-button-sm cursor-not-allowed opacity-50"
       >
         Connect Wallet
       </button>
@@ -30,9 +30,10 @@ export function ConnectWalletButton() {
         type="button"
         onClick={() => disconnect()}
         title="Disconnect wallet"
-        className="rounded-lg border border-emerald-300 bg-emerald-50 px-3 py-1.5 text-sm font-semibold text-emerald-800 hover:bg-emerald-100"
+        className="rc-button rc-button-soft rc-button-sm"
       >
-        {shortAddress(address)}
+        <span className="h-1.5 w-1.5 rounded-full bg-forest" aria-hidden="true" />
+        <span className="font-mono">{shortAddress(address)}</span>
       </button>
     )
   }
@@ -47,12 +48,12 @@ export function ConnectWalletButton() {
             connect({ connector: injectedConnector })
           }
         }}
-        className="rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
+        className="rc-button rc-button-primary rc-button-sm"
       >
         {isPending ? 'Connecting…' : injectedConnector ? 'Connect Wallet' : 'No wallet detected'}
       </button>
       {error ? (
-        <span className="max-w-[220px] text-right text-xs text-red-600" role="alert">
+        <span className="max-w-[220px] text-right text-[10px] leading-4 text-rust" role="alert">
           {error.message}
         </span>
       ) : null}
