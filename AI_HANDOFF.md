@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 6 reference-informed mockups proposed; explicit operator approval is pending. The working app remains in its temporary Tailwind state; Phase 7 has not started. Mainnet remains unauthorized.
+**Status:** Phase 6 revised “Warm Editorial Escrow” mockups created from the operator reference images; explicit approval is pending. The previous dark direction was rejected and removed. The working app remains in its temporary Tailwind state; Phase 7 is blocked. Mainnet remains unauthorized.
 
 ## Project
 
@@ -39,7 +39,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 6 complete (mockups presented, awaiting explicit operator approval): “Operator Console” reference direction and static mockups in `mockups/`; Phase 7 blocked.**
+**Phase 6 revised (awaiting explicit operator approval): “Warm Editorial Escrow” mockups derived from `docs/references/reference 1.webp` and `reference 2.jpg`; Phase 7 blocked.**
 
 ## URLs and deployments
 
@@ -93,15 +93,17 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Phase 5 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.23 kB, JS 607.13 kB (chunk-size warning only).
 - Phase 5 headless Chromium console check: all seven routes plus a mock-wallet connected `/create` form and “Add stage” interaction produced **0 console errors/warnings**.
 - Phase 5 Vercel Preview: `https://relaycrew-clflx1o67-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200; deployed bundle contains the cancellation, pending, retry, countdown, expire, and terminal-state strings.
-- Phase 6: three candidate references documented; static mockups created for Home, Create, My Pipelines, Active, Submitted, Completed/terminal variants, mobile, and the empty/loading/error/wrong-network inventory. No app code, contract calls, or production styling changed.
+- Phase 6 revision: operator-supplied references analyzed; previous dark mockups removed; new “Warm Editorial Escrow” static mockups created for reference analysis, Home, Create, Active Detail, and mobile. No app code, contract calls, or production styling changed.
 - Contract tests: **29 passed**.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
 ## Design reference/mockup state
 
 - Final aesthetic: **NOT APPROVED**.
-- Design references: **PROPOSED** — Linear, Vercel, Safe (pending operator selection or written direction).
-- Mockups: **CREATED** — `mockups/index.html`, `home.html`, `create.html`, `my-pipelines.html`, `pipeline-active.html`, `pipeline-submitted.html`, `pipeline-complete.html`, `mobile.html`, `styles.css`, `README.md`.
+- Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
+- Proposed direction: **“Warm Editorial Escrow”** — ivory/paper canvas, forest-green actions, editorial serif display, sans UI, thin rules, warm visual panels.
+- Mockups: **REVISED** — `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`, `README.md`.
+- Previous direction: **REJECTED AND REMOVED** — dark “Operator Console” mockups.
 - Operator approval: **NOT GIVEN**.
 - Required sequence: operator review and explicit written approval → Phase 7 only. Silence is not approval.
 
@@ -131,8 +133,8 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 7. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
 8. No mainnet deployment/transaction authorization.
 9. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
-10. Phase 6 design direction is awaiting explicit operator approval; Phase 7 is blocked. The working app remains in its temporary Tailwind state.
+10. The revised Phase 6 “Warm Editorial Escrow” direction is awaiting explicit operator approval; Phase 7 is blocked. The working app remains in its temporary Tailwind state.
 
 ## Single next task
 
-**Operator review and explicit written approval of the Phase 6 “Operator Console” mockups; then Phase 7 only per IMPLEMENTATION_PLAN.md.**
+**Operator review and explicit written approval of the revised Phase 6 “Warm Editorial Escrow” mockups; then Phase 7 only per IMPLEMENTATION_PLAN.md.**

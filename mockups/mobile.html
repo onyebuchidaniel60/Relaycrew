@@ -7,164 +7,142 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="mockup-bar"><span>Mobile mockups · illustrative data · no app styling changed</span></div>
+    <div class="mockup-note"><span>Mobile mockups · illustrative data · no application styling changed</span></div>
     <div class="shell">
-      <header class="topbar">
+      <header class="site-header">
         <a class="brand" href="index.html">
-          <span class="logo-mark">RC</span>
+          <span class="logo-star">✳</span>
           <span>RelayCrew<small>Phase 6 / mobile</small></span>
         </a>
-        <nav class="topnav" aria-label="Mockup navigation">
+        <nav class="nav" aria-label="Mockup navigation">
           <a href="index.html">Direction</a>
           <a href="home.html">Home</a>
           <a href="create.html">Create</a>
           <a href="pipeline-active.html">Active</a>
           <a class="active" href="mobile.html">Mobile</a>
         </nav>
-        <div class="top-actions">
-          <span class="network-badge"><span class="dot"></span>Arc Testnet</span>
-        </div>
+        <div class="header-actions"><span class="status-pill active"><span class="dot"></span>390px</span></div>
       </header>
 
-      <section class="section">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Responsive review</p>
-            <h2>390px operator views.</h2>
+      <main>
+        <section class="section">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Responsive review</p>
+              <h2>Editorial calm at 390px.</h2>
+            </div>
+            <p>
+              The serif hierarchy, ivory surface, forest-green action, and exact settlement details
+              survive the single-column layout.
+            </p>
           </div>
-          <p>
-            The same hierarchy compresses into a single column. Amounts, status, and the next action
-            remain above the fold.
-          </p>
-        </div>
 
-        <div class="phone-grid">
-          <div>
-            <div class="phone">
-              <div class="phone-screen">
-                <div class="phone-top">
-                  <span class="brand"><span class="logo-mark">RC</span>RelayCrew</span>
-                  <span class="network-badge"><span class="dot"></span>Testnet</span>
-                </div>
-                <div class="phone-body">
-                  <p class="eyebrow">One escrow · one relay</p>
-                  <h1>One escrow.<br /><em style="color: var(--accent); font-style: normal">Every specialist.</em></h1>
-                  <p>Fund a fixed agent sequence in one USDC escrow. Approval pays and activates the next agent atomically.</p>
-                  <a class="button primary" href="create.html">Create pipeline →</a>
-                  <a class="button" href="pipeline-active.html">Inspect pipeline</a>
-                  <div class="phone-card">
-                    <div class="stage-node paid">
-                      <span class="agent-avatar">R</span>
-                      <div><h3>Research</h3><p>paid · 12.00 USDC</p></div>
-                      <span class="amount">✓</span>
+          <div class="mobile-grid">
+            <div>
+              <div class="phone">
+                <div class="phone-screen">
+                  <div class="phone-head">
+                    <span class="brand"><span class="logo-star">✳</span>RelayCrew</span>
+                    <span class="status-pill active"><span class="dot"></span>Testnet</span>
+                  </div>
+                  <div class="phone-body">
+                    <p class="eyebrow">One escrow · one relay</p>
+                    <h1>One escrow.<br /><em style="color: var(--green)">Every specialist.</em></h1>
+                    <p>Fund a fixed agent sequence in one USDC escrow. Approval pays and activates the next agent atomically.</p>
+                    <a class="button primary" href="create.html">Create pipeline →</a>
+                    <a class="button" href="pipeline-active.html">Inspect pipeline</a>
+                    <div class="phone-card">
+                      <div class="agent-portrait"><span class="portrait-tile">R</span><div><strong>Research</strong><span>Released · 12.00 USDC</span></div></div>
+                      <div class="agent-portrait"><span class="portrait-tile">A</span><div><strong>Analysis</strong><span>Active · 18.00 USDC</span></div></div>
+                      <div class="agent-portrait"><span class="portrait-tile">W</span><div><strong>Writing</strong><span>Queued · 10.00 USDC</span></div></div>
+                      <div class="amount-line"><span>Remaining escrow</span><strong>28.00 USDC</strong></div>
                     </div>
-                    <div class="stage-node active">
-                      <span class="agent-avatar">A</span>
-                      <div><h3>Analysis</h3><p>active · 18.00 USDC</p></div>
-                      <span class="amount">→</span>
-                    </div>
-                    <div class="stage-node">
-                      <span class="agent-avatar">W</span>
-                      <div><h3>Writing</h3><p>queued · 10.00 USDC</p></div>
-                      <span class="amount">·</span>
-                    </div>
-                    <div class="phone-total"><span>REMAINING</span><strong>28.00 USDC</strong></div>
                   </div>
                 </div>
               </div>
+              <p class="phone-label">Home</p>
             </div>
-            <p class="phone-label">Home</p>
-          </div>
 
-          <div>
-            <div class="phone">
-              <div class="phone-screen">
-                <div class="phone-top">
-                  <span class="brand"><span class="logo-mark">RC</span>RelayCrew</span>
-                  <span class="network-badge"><span class="dot"></span>Testnet</span>
-                </div>
-                <div class="phone-body">
-                  <p class="eyebrow">Create pipeline</p>
-                  <h1>Build the relay.</h1>
-                  <p>Three stages · one parent escrow.</p>
-                  <div class="phone-card">
-                    <div style="display: flex; justify-content: space-between; gap: 10px">
-                      <span class="mini-chip">Stage 01</span>
-                      <span class="status-chip active"><span class="dot"></span>Valid</span>
-                    </div>
-                    <h2 style="margin-top: 13px">Research</h2>
-                    <p style="margin: 4px 0 0">0x7A…21C · 12.00 USDC · 2 days</p>
-                    <div style="height: 1px; background: var(--line); margin: 13px 0"></div>
-                    <div style="display: flex; justify-content: space-between"><span class="mono-label">Stage 02</span><span class="mono-label">Analysis · 18.00</span></div>
-                    <div style="display: flex; justify-content: space-between; margin-top: 8px"><span class="mono-label">Stage 03</span><span class="mono-label">Writing · 10.00</span></div>
+            <div>
+              <div class="phone">
+                <div class="phone-screen">
+                  <div class="phone-head">
+                    <span class="brand"><span class="logo-star">✳</span>RelayCrew</span>
+                    <span class="status-pill active"><span class="dot"></span>Testnet</span>
                   </div>
-                  <div class="phone-card" style="border-color: var(--line-strong)">
-                    <span class="mono-label">Funding summary</span>
-                    <div class="phone-total"><span>TOTAL ESCROW</span><strong>40.00 USDC</strong></div>
-                    <div class="summary-row"><span>Wallet balance</span><strong>82.50 USDC</strong></div>
-                    <div class="summary-row"><span>Allowance</span><strong>0.00 USDC</strong></div>
-                    <a class="button primary" href="create.html">Approve 40.00 USDC</a>
+                  <div class="phone-body">
+                    <p class="eyebrow">Create a pipeline</p>
+                    <h1>Build the relay.</h1>
+                    <p>Three stages · one parent escrow.</p>
+                    <div class="phone-card">
+                      <div style="display: flex; justify-content: space-between; gap: 8px">
+                        <span class="status-pill">Stage 01</span>
+                        <span class="status-pill active"><span class="dot"></span>Valid</span>
+                      </div>
+                      <h2 style="margin-top: 13px">Research</h2>
+                      <p style="margin: 4px 0 0">0x7A…21C · 12.00 USDC · 2 days</p>
+                      <div style="height: 1px; background: var(--line); margin: 13px 0"></div>
+                      <div style="display: flex; justify-content: space-between"><span class="field-note">Stage 02</span><span class="field-note">Analysis · 18.00</span></div>
+                      <div style="display: flex; justify-content: space-between; margin-top: 7px"><span class="field-note">Stage 03</span><span class="field-note">Writing · 10.00</span></div>
+                    </div>
+                    <div class="phone-card" style="border-color: #c7d4c4; background: var(--green-soft)">
+                      <p class="eyebrow">Funding summary</p>
+                      <div class="amount-line"><span>Total escrow</span><strong>40.00 USDC</strong></div>
+                      <div class="summary-line"><span>Wallet balance</span><strong>82.50 USDC</strong></div>
+                      <div class="summary-line"><span>Allowance</span><strong>0.00 USDC</strong></div>
+                      <a class="button primary" href="create.html">Approve 40.00 USDC</a>
+                    </div>
                   </div>
                 </div>
               </div>
+              <p class="phone-label">Create</p>
             </div>
-            <p class="phone-label">Create</p>
-          </div>
 
-          <div>
-            <div class="phone">
-              <div class="phone-screen">
-                <div class="phone-top">
-                  <span class="brand"><span class="logo-mark">RC</span>RelayCrew</span>
-                  <span class="network-badge"><span class="dot"></span>Testnet</span>
-                </div>
-                <div class="phone-body">
-                  <p class="eyebrow">Pipeline #042</p>
-                  <div class="status-row"><span class="status-chip active"><span class="dot"></span>Active</span><span class="mini-chip">Stage 2 of 3</span></div>
-                  <h1 style="font-size: 25px">Research → Analysis → Writing</h1>
-                  <div class="phone-card" style="margin-top: 4px">
-                    <div class="stage-node paid">
-                      <span class="agent-avatar">R</span>
-                      <div><h3>Research</h3><p>paid · 12.00 USDC</p></div>
-                      <span class="amount">✓</span>
-                    </div>
-                    <div class="stage-node active">
-                      <span class="agent-avatar">A</span>
-                      <div><h3>Analysis</h3><p>active · due 03:42:18</p></div>
-                      <span class="amount">18.00</span>
-                    </div>
-                    <div class="stage-node">
-                      <span class="agent-avatar">W</span>
-                      <div><h3>Writing</h3><p>queued · 10.00 USDC</p></div>
-                      <span class="amount">·</span>
-                    </div>
+            <div>
+              <div class="phone">
+                <div class="phone-screen">
+                  <div class="phone-head">
+                    <span class="brand"><span class="logo-star">✳</span>RelayCrew</span>
+                    <span class="status-pill active"><span class="dot"></span>Testnet</span>
                   </div>
-                  <div class="phone-card" style="border-color: rgba(110, 231, 216, 0.35)">
-                    <span class="mono-label">Client review</span>
-                    <div class="phone-total"><span>PAYOUT</span><strong>18.00 USDC</strong></div>
-                    <div class="summary-row"><span>Recipient</span><strong>0x4F…9B2</strong></div>
-                    <div class="summary-row"><span>Next hire</span><strong>10.00 USDC</strong></div>
-                    <a class="button primary" href="pipeline-submitted.html">Approve & pay</a>
-                    <a class="button danger" href="pipeline-complete.html">Reject & refund</a>
+                  <div class="phone-body">
+                    <p class="eyebrow">Pipeline #042</p>
+                    <div class="status-row"><span class="status-pill active"><span class="dot"></span>Active</span><span class="status-pill submitted"><span class="dot"></span>Submitted</span></div>
+                    <h1 style="font-size: 29px">Research → Analysis → Writing</h1>
+                    <div class="phone-card">
+                      <div class="agent-portrait"><span class="portrait-tile">R</span><div><strong>Research</strong><span>Paid · 12.00 USDC</span></div></div>
+                      <div class="agent-portrait"><span class="portrait-tile">A</span><div><strong>Analysis</strong><span>Submitted · 18.00 USDC</span></div></div>
+                      <div class="agent-portrait"><span class="portrait-tile">W</span><div><strong>Writing</strong><span>Queued · 10.00 USDC</span></div></div>
+                      <div class="amount-line"><span>Payout now</span><strong>18.00 USDC</strong></div>
+                    </div>
+                    <div class="phone-card" style="border-color: #c7d4c4">
+                      <p class="eyebrow">Client review</p>
+                      <div class="summary-line"><span>Recipient</span><strong>0x4F…9B2</strong></div>
+                      <div class="summary-line"><span>Next hire</span><strong>Writing · 10.00</strong></div>
+                      <div class="summary-line"><span>Refund if rejected</span><strong>28.00 USDC</strong></div>
+                      <a class="button primary" href="pipeline-active.html">Approve &amp; pay</a>
+                      <a class="button rust" href="pipeline-active.html">Reject &amp; refund</a>
+                    </div>
                   </div>
                 </div>
               </div>
+              <p class="phone-label">Active detail</p>
             </div>
-            <p class="phone-label">Active detail</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <div class="callout">
-        <div>
-          <strong>Mobile principle</strong>
-          <p>Status and the exact next action stay above the fold. The stage rail collapses, but the order is never lost.</p>
-        </div>
-        <a class="button small" href="index.html">Back to direction</a>
-      </div>
+        <section class="callout warm">
+          <div>
+            <strong>Mobile principle</strong>
+            <p>Status and the exact next action stay above the fold. The stage rail collapses, but the order and settlement amounts never disappear.</p>
+          </div>
+          <a class="button small" href="index.html">Back to references</a>
+        </section>
+      </main>
+
       <footer class="footer">
         <span>RelayCrew · Phase 6 mobile mockups</span>
-        <nav class="footer-links"><a href="home.html">Home</a><a href="create.html">Create</a><a href="pipeline-complete.html">Terminal</a></nav>
+        <nav class="footer-links"><a href="home.html">Home</a><a href="create.html">Create</a><a href="pipeline-active.html">Active</a><a href="index.html">References</a></nav>
       </footer>
     </div>
   </body>

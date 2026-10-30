@@ -7,158 +7,131 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="mockup-bar"><span>Mockup · illustrative data · no app styling changed</span></div>
-    <div class="app-shell">
-      <aside class="sidebar">
-        <a class="sidebar-brand" href="home.html">
-          <span class="logo-mark">RC</span>
-          <span>RelayCrew<small>Operator console</small></span>
+    <div class="mockup-note"><span>Mockup · illustrative data · no application styling changed</span></div>
+    <div class="shell">
+      <header class="site-header">
+        <a class="brand" href="index.html">
+          <span class="logo-star">✳</span>
+          <span>RelayCrew<small>Agent escrow protocol</small></span>
         </a>
-        <nav class="sidebar-nav" aria-label="Mockup app navigation">
-          <a href="home.html"><span class="nav-dot"></span>Overview</a>
-          <a href="create.html"><span class="nav-dot"></span>Create pipeline</a>
-          <a href="my-pipelines.html"><span class="nav-dot"></span>My pipelines</a>
-          <a class="active" href="pipeline-active.html"><span class="nav-dot"></span>Active detail</a>
-          <a href="index.html"><span class="nav-dot"></span>Design notes</a>
+        <nav class="nav" aria-label="Mockup navigation">
+          <a href="home.html">Product</a>
+          <a class="active" href="pipeline-active.html">Pipeline</a>
+          <a href="create.html">Create</a>
+          <a href="index.html">Design notes</a>
         </nav>
-        <p class="sidebar-label">Network</p>
-        <div class="wallet-chip">
-          <span><span class="dot" style="display: inline-block; margin-right: 6px"></span>Arc Testnet</span>
-          <strong>0x7A…21C</strong>
+        <div class="header-actions">
+          <span class="status-pill active"><span class="dot"></span>Arc Testnet</span>
         </div>
-        <div class="sidebar-footer">
-          <span class="mini-chip">Mockup · not connected</span>
-        </div>
-      </aside>
+      </header>
 
-      <main class="app-main">
-        <div class="app-main-inner">
-          <header class="page-head">
-            <div>
-              <p class="breadcrumb"><a href="home.html">RelayCrew</a> / <a href="my-pipelines.html">Pipelines</a> / #042</p>
-              <div class="status-row">
-                <span class="status-chip active"><span class="dot"></span>Active</span>
-                <span class="mini-chip">Client 0x7A…21C</span>
-                <span class="mini-chip">Created 30 Oct 2026</span>
-              </div>
-              <h1>Research → Analysis → Writing</h1>
-              <p>Stage 2 of 3 · Analysis agent · client-evaluated handoff</p>
+      <main class="app-page">
+        <header class="page-head">
+          <div>
+            <p class="breadcrumb"><a href="home.html">RelayCrew</a> / <a href="home.html">Pipelines</a> / #042</p>
+            <div class="status-row">
+              <span class="status-pill active"><span class="dot"></span>Active pipeline</span>
+              <span class="status-pill submitted"><span class="dot"></span>Stage submitted</span>
+              <span class="status-pill"><span class="dot"></span>Client 0x7A…21C</span>
             </div>
-            <div class="page-head-actions">
-              <a class="button small" href="pipeline-complete.html">View terminal state</a>
+            <h1>Research → Analysis → Writing</h1>
+            <p>Stage 2 of 3 · Analysis agent · client review open for 06:18:44</p>
+          </div>
+          <a class="button small" href="home.html">Back to product</a>
+        </header>
+
+        <section class="money-grid" aria-label="Pipeline money summary">
+          <div class="money-cell"><span>Total budget</span><strong>40.00 USDC</strong></div>
+          <div class="money-cell"><span>Paid out</span><strong>12.00 USDC</strong></div>
+          <div class="money-cell"><span>Remaining escrow</span><strong>28.00 USDC</strong></div>
+          <div class="money-cell"><span>Refund if rejected</span><strong>28.00 USDC</strong></div>
+        </section>
+
+        <div class="detail-grid">
+          <section class="timeline-card">
+            <div class="timeline-card-head">
+              <div>
+                <p class="eyebrow">Stage timeline</p>
+                <h2>The relay is the product</h2>
+              </div>
+              <span class="status-pill active"><span class="dot"></span>1 active stage</span>
             </div>
-          </header>
 
-          <div class="money-grid" style="margin-bottom: 18px">
-            <div class="money-cell"><span>Total budget</span><strong>40.00 USDC</strong></div>
-            <div class="money-cell"><span>Paid out</span><strong>12.00 USDC</strong></div>
-            <div class="money-cell"><span>Remaining escrow</span><strong>28.00 USDC</strong></div>
-            <div class="money-cell"><span>Refunded</span><strong>0.00 USDC</strong></div>
-          </div>
-
-          <div class="content-grid wide-left">
-            <section class="timeline-panel">
-              <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 21px">
-                <div>
-                  <p class="kicker">Stage timeline</p>
-                  <h2 style="margin: 5px 0 0; font-size: 16px">The relay is the product</h2>
+            <div class="timeline">
+              <article class="timeline-item paid">
+                <span class="timeline-avatar">R</span>
+                <div class="timeline-body">
+                  <h3>Research</h3>
+                  <p>Source map and research brief. Released after client approval.</p>
+                  <div class="timeline-meta"><span>Provider 0x7A…21C</span><span>Paid 30 Oct · 14:08</span><span>Receipt ↗</span></div>
                 </div>
-                <span class="status-chip active"><span class="dot"></span>1 active stage</span>
+                <div class="timeline-amount">12.00 USDC<span class="paid">Paid</span></div>
+              </article>
+
+              <article class="timeline-item active">
+                <span class="timeline-avatar">A</span>
+                <div class="timeline-body">
+                  <h3>Analysis</h3>
+                  <p>Comparative analysis with a recommendation and cited evidence.</p>
+                  <div class="timeline-meta"><span>Provider 0x4F…9B2</span><span>Submitted 18h ago</span><span>Deliverable ↗</span></div>
+                  <p style="margin-top: 8px; color: var(--green)"><span class="mono" style="font-size: 9px">https://example.com/relaycrew/analysis</span></p>
+                </div>
+                <div class="timeline-amount">18.00 USDC<span class="active">Submitted</span></div>
+              </article>
+
+              <article class="timeline-item">
+                <span class="timeline-avatar">W</span>
+                <div class="timeline-body">
+                  <h3>Writing</h3>
+                  <p>Final operator brief with an executive summary and next steps.</p>
+                  <div class="timeline-meta"><span>Provider 0x9C…E44</span><span>Starts after stage 2 approval</span></div>
+                </div>
+                <div class="timeline-amount">10.00 USDC<span>Queued</span></div>
+              </article>
+            </div>
+
+            <div class="warning-box" style="margin-top: 20px">
+              The client is the sole evaluator. Approval pays the current provider and activates
+              Writing in the same transaction. Rejection ends the pipeline and refunds the remaining
+              escrow.
+            </div>
+          </section>
+
+          <aside class="action-card">
+            <div class="action-head">
+              <div>
+                <p class="eyebrow">Client review</p>
+                <h2>Approve or reject</h2>
               </div>
-
-              <div class="timeline">
-                <article class="timeline-item paid">
-                  <span class="timeline-marker">01</span>
-                  <div class="timeline-body">
-                    <h3>Research</h3>
-                    <p>Source map and research brief. Released after client approval.</p>
-                    <div class="timeline-meta">
-                      <span>Provider 0x7A…21C</span>
-                      <span>Paid 30 Oct · 14:08</span>
-                      <a href="pipeline-complete.html#ledger" style="color: var(--accent)">Receipt pattern ↗</a>
-                    </div>
-                  </div>
-                  <div class="timeline-amount">12.00 USDC<br /><span style="color: var(--success)">PAID</span></div>
-                </article>
-
-                <article class="timeline-item active">
-                  <span class="timeline-marker">02</span>
-                  <div class="timeline-body">
-                    <h3>Analysis</h3>
-                    <p>Comparative analysis with a recommendation and cited evidence.</p>
-                    <div class="timeline-meta">
-                      <span>Provider 0x4F…9B2</span>
-                      <span>Due 30 Oct · 17:42</span>
-                      <span>24h evaluation after submit</span>
-                    </div>
-                  </div>
-                  <div class="timeline-amount">18.00 USDC<br /><span style="color: var(--accent)">ACTIVE</span></div>
-                </article>
-
-                <article class="timeline-item">
-                  <span class="timeline-marker">03</span>
-                  <div class="timeline-body">
-                    <h3>Writing</h3>
-                    <p>Final operator brief with an executive summary and next steps.</p>
-                    <div class="timeline-meta">
-                      <span>Provider 0x9C…E44</span>
-                      <span>Starts after stage 2 approval</span>
-                    </div>
-                  </div>
-                  <div class="timeline-amount">10.00 USDC<br /><span style="color: var(--subtle)">QUEUED</span></div>
-                </article>
-              </div>
-
-              <div class="alert warning" style="margin-top: 20px">
-                The current stage is still with the provider. No client action is available until a
-                deliverable URI is submitted.
-              </div>
-            </section>
-
-            <aside class="side-stack">
-              <section class="action-panel">
-                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
-                  <div>
-                    <p class="kicker">Current stage</p>
-                    <h2>Analysis</h2>
-                  </div>
-                  <span class="status-chip active"><span class="dot"></span>Active</span>
-                </div>
-                <p style="margin-top: 8px">Provider 0x4F…9B2 · budget 18.00 USDC</p>
-                <div class="countdown" style="margin: 15px 0">
-                  <span>Work deadline</span>
-                  <strong>03:42:18</strong>
-                </div>
-                <div class="action-divider"></div>
-                <div class="action-amount">
-                  <span>Approval payout</span>
-                  <strong>18.00 USDC</strong>
-                </div>
-                <div class="summary-row"><span>Recipient</span><strong>0x4F…9B2</strong></div>
-                <div class="summary-row"><span>Next hire</span><strong>Writing · 10.00 USDC</strong></div>
-                <div class="alert warning" style="margin-top: 14px">
-                  Approve and next hire are one transaction. The payout is irreversible.
-                </div>
-                <button class="button primary" type="button" style="margin-top: 15px">Approve & pay</button>
-                <button class="button danger" type="button" style="margin-top: 8px">Reject & refund</button>
-                <div class="receipt">
-                  <span>Illustrative only</span>
-                  <a href="pipeline-submitted.html">Submitted state →</a>
-                </div>
-              </section>
-
-              <section class="panel padded">
-                <p class="kicker">Escrow invariant</p>
-                <h3 style="margin-top: 8px">Exact, not approximate</h3>
-                <p style="margin-bottom: 0">
-                  Paid out plus refunded can never exceed the parent escrow. Terminal states lock
-                  all future actions.
-                </p>
-              </section>
-            </aside>
-          </div>
+              <span class="status-pill submitted"><span class="dot"></span>Open</span>
+            </div>
+            <p style="margin-top: 11px">Analysis agent · 0x4F…9B2 · deliverable submitted.</p>
+            <div class="countdown" style="margin-top: 14px">
+              <span>Evaluation deadline</span>
+              <strong>06:18:44</strong>
+            </div>
+            <div class="action-amount">
+              <span>Payout on approval</span>
+              <strong>18.00 USDC</strong>
+            </div>
+            <div class="summary-line"><span>Recipient</span><strong>0x4F…9B2</strong></div>
+            <div class="summary-line"><span>Next hire</span><strong>Writing · 10.00 USDC</strong></div>
+            <div class="summary-line"><span>Refund on reject</span><strong>28.00 USDC</strong></div>
+            <button class="button primary" type="button">Approve &amp; pay 18.00 USDC</button>
+            <button class="button rust" type="button">Reject &amp; refund 28.00 USDC</button>
+            <p class="action-note">
+              Both actions are irreversible. The confirmation repeats the exact recipient and
+              amount before the wallet prompt.
+            </p>
+            <div class="receipt-line"><span>Last receipt · 0x91…4A2</span><a href="index.html">Explorer ↗</a></div>
+          </aside>
         </div>
       </main>
+
+      <footer class="footer">
+        <span>RelayCrew · Active pipeline mockup · illustrative data</span>
+        <nav class="footer-links"><a href="home.html">Home</a><a href="create.html">Create</a><a href="mobile.html">Mobile</a><a href="index.html">References</a></nav>
+      </footer>
     </div>
   </body>
 </html>
