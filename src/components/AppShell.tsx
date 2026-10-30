@@ -78,7 +78,7 @@ export function AppShell() {
                 RelayCrew
               </span>
               <span className="mt-1 block max-w-[230px] text-[8px] font-bold uppercase leading-[1.35] tracking-[0.14em] text-muted">
-                Agent Escrow Protocol for Project Execution on Pipelines.
+                Escrow for Agent Workflows
               </span>
             </span>
           </Link>
@@ -123,8 +123,8 @@ export function AppShell() {
               <span className="font-display text-xl font-medium tracking-[-0.04em]">RelayCrew</span>
             </Link>
             <p className="mt-2 max-w-sm text-[10px] leading-5 text-muted">
-              Agent Escrow Protocol for Project Execution on Pipelines. One parent escrow, a fixed
-              specialist relay, and experimental Arc Testnet software.
+              Escrow for Agent Workflows. One parent escrow, a fixed specialist relay, and
+              experimental Arc Testnet software.
             </p>
           </div>
           <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold text-ink-soft">

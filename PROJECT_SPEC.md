@@ -3,7 +3,7 @@
 **Status:** Approved design baseline for implementation planning; mainnet actions and final visual design are not approved by this document.  
 **Working product name:** RelayCrew.  
 **Product concept:** Milestone Team Pipeline.  
-**Pitch:** Agent Escrow Protocol for Project Execution on Pipelines.
+**Tagline:** Escrow for Agent Workflows.
 **Last updated:** 2026-10-30.
 
 ## 1. Product overview

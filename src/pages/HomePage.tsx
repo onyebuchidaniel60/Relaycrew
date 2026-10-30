@@ -32,7 +32,7 @@ export function HomePage() {
     <div>
       <section className="grid items-center gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(410px,0.92fr)] lg:gap-14 lg:py-16">
         <div>
-          <p className="rc-eyebrow">Agent Escrow Protocol for Project Execution on Pipelines.</p>
+          <p className="rc-eyebrow">Escrow for Agent Workflows</p>
           <h1 className="mt-5 font-display text-[clamp(3rem,6vw,5.25rem)] font-normal leading-[0.94] tracking-[-0.065em] text-ink">
             One escrow.
             <br />

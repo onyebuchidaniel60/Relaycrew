@@ -39,7 +39,7 @@ The operator explicitly authorized the following Phase 8.5 changes:
 - The frontend adds a light/dark theme toggle using Tailwind's class-based dark mode. The on-chain contract and accounting are unaffected.
 - The create form replaces the raw-seconds duration field with Days and Hours selectors. The UI converts the selection to integer seconds before calling `createPipeline`.
 - The create form adds an optional attachment URL. When provided, it is appended to the public on-chain brief as `Attachment: <url>`; the combined brief must remain within the contract's 240-byte limit. The field is a link reference only; the app does not fetch or embed its contents.
-- The public pitch is “Agent Escrow Protocol for Project Execution on Pipelines.”
+- The official tagline is “Escrow for Agent Workflows.”
 
 These amendments do not change the evaluator, escrow topology, role checks, settlement rules, or no-admin security model.
 

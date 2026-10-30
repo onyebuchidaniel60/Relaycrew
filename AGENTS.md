@@ -14,7 +14,7 @@ Fixed decisions:
 - Providers/order/budgets/briefs/durations are fixed at funding.
 - Stage budgets are funded up front and reserved in the parent escrow. Approval pays the current stage and activates the next stage atomically.
 - 2–10 stages; per-stage minimum 1 USDC; per-pipeline max 100 USDC; 6-decimal ERC-20 USDC base units; stage work duration 15 minutes–7 days; evaluation window 24 hours.
-- Operator-authorized 2026-10-30 amendments: `MAX_STAGES` raised from 5 to 10; the frontend includes a light/dark theme toggle; the create form uses Days and Hours selectors that convert to seconds; an optional attachment URL is appended to the on-chain public brief; the public pitch is “Agent Escrow Protocol for Project Execution on Pipelines.”
+- Operator-authorized 2026-10-30 amendments: `MAX_STAGES` raised from 5 to 10; the frontend includes a light/dark theme toggle; the create form uses Days and Hours selectors that convert to seconds; an optional attachment URL is appended to the on-chain public brief; the official tagline is “Escrow for Agent Workflows.”
 - Client rejection or stage expiry ends the pipeline and refunds every unpaid amount. No cancellation, restart, skip, appeal, arbitration, fee, or partial payout.
 - No backend, database, admin interface, indexer, AI runtime, analytics, or notification service.
 - React + TypeScript + Vite, Tailwind CSS temporary system, wagmi + viem, Vitest, Playwright, Vercel, public GitHub repo; Arc Studio remains the required build/test/app environment.

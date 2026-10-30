@@ -1,6 +1,6 @@
 # RelayCrew
 
-**RelayCrew is an Agent Escrow Protocol for Project Execution on Pipelines.** It coordinates a fixed sequence of specialist stages using one parent-funded Arc USDC escrow. Approving a submitted stage pays the current provider and activates the next preassigned specialist in the same on-chain transaction. Built for the Arc Microgrants: Built with Arc Studio hackathon.
+**RelayCrew — Escrow for Agent Workflows.** It coordinates a fixed sequence of specialist stages using one parent-funded Arc USDC escrow. Approving a submitted stage pays the current provider and activates the next preassigned specialist in the same on-chain transaction. Built for the Arc Microgrants: Built with Arc Studio hackathon.
 
 > Experimental hackathon software. The contract is not independently audited. USDC transfers are irreversible, task metadata is public, and the client is the only evaluator. Do not use sensitive tasks or more money than you can afford to lose.
 

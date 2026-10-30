@@ -2,12 +2,12 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 8.5 complete and deployed to the Arc Testnet Preview. The operator-authorized changes are implemented: the testnet contract now allows up to 10 stages, the create form uses Days/Hours selectors and an optional attachment URL, the app has a Dark Warm Editorial theme, and the public pitch is “Agent Escrow Protocol for Project Execution on Pipelines.” Phase 9 (Mainnet release) has not started and requires explicit operator authorization. Mainnet remains unauthorized.
+**Status:** Phase 8.5 complete and deployed to the Arc Testnet Preview. The operator-authorized changes are implemented: the testnet contract now allows up to 10 stages, the create form uses Days/Hours selectors and an optional attachment URL, the app has a Dark Warm Editorial theme, and the official tagline is “Escrow for Agent Workflows.” Phase 9 (Mainnet release) has not started and requires explicit operator authorization. Mainnet remains unauthorized.
 
 ## Project
 
 - **Working name:** RelayCrew.
-- **Pitch:** Agent Escrow Protocol for Project Execution on Pipelines.
+- **Tagline:** Escrow for Agent Workflows.
 - **Concept:** a client funds one parent USDC escrow for a fixed linear sequence of specialist wallet addresses. Approval pays the current provider and atomically activates the next stage. Final approval completes the pipeline; rejection or eligible expiry returns unpaid funds.
 - **Hackathon:** Arc Microgrants: Built with Arc Studio.
 - **Deadline discrepancy — verify immediately:** the prior handoff recorded 2026-11-02 04:59 UTC. An Eventbrite listing mirrored from the organizer shows a noon-to-12:59 PM Pacific window on Nov 1 but labels it PDT despite US Pacific daylight time ending at 2:00 AM that date; the displayed local-time conversion may be ambiguous by one hour. The official DoraHacks page returned HTTP 405 in automated verification. Plan for **2026-11-01 20:59 WAT (Africa/Lagos)** as the conservative cutoff until the actual submission form confirms the timestamp. Re-check judging weights and required artifacts manually.
@@ -71,7 +71,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - **Dark mode:** Tailwind `darkMode: 'class'`; CSS-variable token layer for warm charcoal/ivory surfaces; header Light/Dark toggle with locally stored preference and no FOUC script; `dark:` variants in the shell, Home, Create, logo, transaction toast, and error states. Light theme remains the default and the approved “Warm Editorial Escrow” design is preserved.
 - **Duration UX:** raw-seconds input replaced with Days (0–7) and Hours (0–23) selectors. The form displays the converted seconds and blocks durations outside 15 minutes–7 days. Because the selectors are hour-granular, the minimum selectable duration is 1 hour.
 - **Attachment URL:** optional per-stage `https://` or `ipfs://` input. When filled, the stored brief becomes `brief\n\nAttachment: <url>`, preserving the contract's 1–240 byte limit. The form validates the scheme and combined byte count. The app does not fetch or embed the URL.
-- **Copy/pitch:** Home, Header, Footer, `/docs`, page metadata, README and architecture docs now use “Agent Escrow Protocol for Project Execution on Pipelines.”
+- **Copy/tagline:** Home, Header, Footer, `/docs`, `/risk`, page metadata, README and architecture docs now use “Escrow for Agent Workflows.”
 - **Documentation:** updated AGENTS, ARCHITECTURE, PROJECT_SPEC, IMPLEMENTATION_PLAN, MASTER_BLUEPRINT, README, CONTRACT_INTERFACE, DECISIONS, DEPLOYMENT, DESIGN_DECISIONS, REQUIREMENT_MATRIX, SECURITY and USER_GUIDE for the new limit and UX. Mainnet remains explicitly unauthorized.
 
 ## Tests/evidence

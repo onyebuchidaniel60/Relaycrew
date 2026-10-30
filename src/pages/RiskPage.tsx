@@ -47,7 +47,7 @@ export function RiskPage() {
       <PageHeader
         eyebrow="Important"
         title="Risk notice"
-        description="Read these limitations before creating or funding a pipeline. The client is the sole evaluator, transfers are irreversible, and on-chain data is public."
+        description="Escrow for Agent Workflows. Read these limitations before creating or funding a pipeline. The client is the sole evaluator, transfers are irreversible, and on-chain data is public."
         breadcrumb={
           <>
             <Link to="/">RelayCrew</Link> / Risk notice

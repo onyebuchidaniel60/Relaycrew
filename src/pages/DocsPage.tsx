@@ -67,7 +67,7 @@ export function DocsPage() {
       <PageHeader
         eyebrow="User guide"
         title="How RelayCrew works"
-        description="Agent Escrow Protocol for Project Execution on Pipelines. A wallet-driven escrow for a fixed relay of specialist agents. The client funds the full pipeline, evaluates each stage, and the contract handles the ordered payout and handoff."
+        description="Escrow for Agent Workflows. A wallet-driven escrow for a fixed relay of specialist agents. The client funds the full pipeline, evaluates each stage, and the contract handles the ordered payout and handoff."
         breadcrumb={
           <>
             <Link to="/">RelayCrew</Link> / Documentation
