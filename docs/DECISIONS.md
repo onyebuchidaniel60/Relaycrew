@@ -24,6 +24,7 @@ This decision log captures design choices already made. The coding agent must no
 | D-18 | `/docs` route and real GitHub footer link in final UI | Meets project documentation completeness; never fabricate URLs or expose private repo without approval. |
 | D-19 | No platform fee | Avoids fee accounting/treasury and keeps payouts straightforward. |
 | D-20 | No contract owner/admin rescue/upgradeability | Reduces privilege surface; means errors may not be recoverable, explicitly disclosed. |
+| D-21 | AGENTS.md §3 wording fix: "If a frontend exists (it does)" replaced with neutral phrasing that covers both an existing and a not-yet-existing frontend | Resolves the documented conflict between AGENTS.md §3 and the verified absence of a frontend. Wording-only; no architecture, scope, or permission change. Operator-authorized as part of the post-preflight reconciliation. |
 
 ## Actions requiring future operator decision
 

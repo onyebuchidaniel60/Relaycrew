@@ -32,7 +32,7 @@ If these documents conflict, stop and report the exact conflict. Do not pick one
 
 ## 3. Skeletal frontend deployment is Phase 1
 
-If a frontend exists (it does), create and deploy a navigable skeletal shell in the first implementation phase. The shell must include `/`, `/create`, `/pipelines`, `/pipelines/:id`, `/docs`, `/risk`, navigation/footer and not-found behavior. Use simple temporary styling and clearly labeled structural placeholders. Do not pretend unimplemented wallet or payment actions work.
+Create a navigable skeletal shell in the first implementation phase, whether or not a frontend already exists. If Arc Studio has already generated a frontend, inspect and preserve its generated scaffolding before modifying it. The shell must include `/`, `/create`, `/pipelines`, `/pipelines/:id`, `/docs`, `/risk`, navigation/footer and not-found behavior. Use simple temporary styling and clearly labeled structural placeholders. Do not pretend unimplemented wallet or payment actions work.
 
 - Configure a stable Vercel Preview URL early; report its exact URL immediately after deployment, with the deployed commit SHA.
 - Keep this Preview updated after each verified phase/checkpoint and verify the actual deployed URL, not only local localhost.

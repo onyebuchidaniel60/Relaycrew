@@ -105,7 +105,8 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 5. Compatibility of Arc Studio's generated frontend with the selected React/TypeScript/Vite architecture remains unverified until a Studio project/export exists; if materially incompatible, stop and ask operator.
 6. Contract implementation, tests, and exported-source parity remain unverified.
 7. No mainnet deployment/transaction authorization.
+8. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
 
 ## Single next task
 
-**Await operator decisions on (i) AGENTS.md §3 wording, (ii) Arc Studio path — export-and-inspect vs authorized local Vite scaffold, (iii) Vercel project access. Then execute Phase 1 only per IMPLEMENTATION_PLAN.md.**
+**Phase 1 only, after operator answers the two remaining preconditions: (ii) Arc Studio path — export-and-inspect of an actual Arc Studio project vs operator-authorized local Vite scaffold — and (iii) Vercel project access confirmation. Do not start Phase 1 until both answers are recorded.**
