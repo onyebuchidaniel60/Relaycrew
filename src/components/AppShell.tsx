@@ -4,6 +4,7 @@ import { useNetworkGuard } from '../hooks/useNetworkGuard'
 import { arcTestnet } from '../lib/chain'
 import { appConfig } from '../lib/config'
 import { ConnectWalletButton } from './ConnectWalletButton'
+import { TxStatusToast } from './TxStatusToast'
 
 const navItems = [
   { to: '/', label: 'Home', end: true },
@@ -45,7 +46,7 @@ export function AppShell() {
           className="mx-auto w-full max-w-5xl px-4 py-2 text-center text-sm font-semibold text-amber-950"
           role="note"
         >
-          Preview shell — on-chain actions not connected yet
+          Arc Testnet preview — test USDC only. No real funds.
         </p>
       </div>
 
@@ -122,7 +123,7 @@ export function AppShell() {
 
       <footer className="border-t border-slate-200 bg-white">
         <div className="mx-auto flex w-full max-w-5xl flex-col gap-3 px-4 py-6 text-sm text-slate-600 sm:flex-row sm:items-center sm:justify-between">
-          <p>RelayCrew — Phase 2 foundation preview.</p>
+          <p>RelayCrew — Phase 4 testnet preview.</p>
           <nav aria-label="Footer" className="flex flex-wrap items-center gap-4">
             <Link
               to="/docs"
@@ -140,6 +141,8 @@ export function AppShell() {
           </nav>
         </div>
       </footer>
+
+      <TxStatusToast />
     </div>
   )
 }

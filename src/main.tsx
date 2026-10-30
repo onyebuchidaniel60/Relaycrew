@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { WagmiProvider } from 'wagmi'
 import App from './App'
+import { TxStatusProvider } from './context/TxStatusContext'
 import { wagmiConfig } from './lib/wagmi'
 import './index.css'
 
@@ -13,9 +14,11 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <TxStatusProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </TxStatusProvider>
       </QueryClientProvider>
     </WagmiProvider>
   </StrictMode>,

@@ -10,7 +10,7 @@ export function NotFoundPage() {
       <PageHeader
         eyebrow="404"
         title="Page not found"
-        description="This route is not part of the Phase 1 preview shell."
+        description="This route is not part of the Phase 4 preview."
       />
 
       <PlaceholderPanel title="Not Found">
