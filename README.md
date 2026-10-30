@@ -10,7 +10,7 @@ Phase 8.5 is complete: the testnet contract now supports up to 10 stages, the cr
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
-- Vercel Preview: **https://relaycrew-rd9qqkqsi-uhhh2.vercel.app** (Arc Testnet only; Vercel Deployment Protection enabled). Deployed source commit: `cdadaab0348c83a063d24e06305a1a0fca46e300`; deployment ID `dpl_GtFSBXHAtEkFUJhyfrngfvCxJuwA`.
+- Vercel Preview: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet only; Vercel Deployment Protection enabled). Deployed source commit: `4bb066302f17ca6b1c025bafd80beffa37eed57b`; deployment ID `dpl_3XDUsqQn1A1SzEcFajVGxoZTsudg`.
 - Vercel Production: not deployed.
 - Contract: `contracts/PipelineCoordinator.sol`; ABI/address in `src/lib/contracts.ts`.
 - Live Testnet contract: **`0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`** on Arc Testnet (chain ID `5042002`), deployed with `MAX_STAGES = 10`. [Explorer](https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070).

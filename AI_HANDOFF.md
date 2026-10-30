@@ -41,16 +41,17 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 8.5 complete — architecture-limit, form-UX, pitch, and dark-mode updates.** The contract is redeployed to Arc Testnet, the frontend and docs are updated, and the new Preview is verified. Phase 9 has not started.
+**Phase 8.5 complete — architecture-limit, form-UX, tagline, and dark-mode updates.** The contract is redeployed to Arc Testnet, the frontend and docs are updated, and the new Preview is verified. Phase 9 has not started.
 
 ## URLs and deployments
 
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. CLI reports this workspace as “React TypeScript Vite Tailwind Starter”; it contains the current `contracts/PipelineCoordinator.sol` and the new deployment record. A separate app `c389a695-4df7-4d8f-9e25-6003a8d54f06` (“Relay Crew Communication Platform”) contains an older `RelayCrew.sol` and is not the current contract.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
-- Vercel Preview URL: **https://relaycrew-rd9qqkqsi-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
-- Preview deployed commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`** — deployment created from a clean tree at this commit; deployed CSS/JS asset hashes match the local production build of the same commit. Vercel CLI did not attach Git metadata to this deployment.
-- Repository Phase 8.5 implementation commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`** (`feat: implement phase 8.5 architecture updates and dark mode`). This handoff update is a docs-only commit on top.
-- Vercel deployment ID: **`dpl_GtFSBXHAtEkFUJhyfrngfvCxJuwA`**.
+- Vercel Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **`4bb066302f17ca6b1c025bafd80beffa37eed57b`** — deployment created from the tagline working tree; deployed CSS/JS asset hashes match the local production build of the commit. Vercel CLI did not attach Git metadata to this deployment.
+- Repository Phase 8.5 implementation commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`** (`feat: implement phase 8.5 architecture updates and dark mode`).
+- Tagline update commit: **`4bb066302f17ca6b1c025bafd80beffa37eed57b`** (`chore: update product tagline`).
+- Vercel deployment ID: **`dpl_3XDUsqQn1A1SzEcFajVGxoZTsudg`**.
 - Production URL: **NOT DEPLOYED — no production deployment retained**.
 - Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic; `MAX_STAGES = 10`.
 - ABI wiring: **`src/lib/contracts.ts`** uses the Arc Testnet address below and the tested ABI.
@@ -78,12 +79,12 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 - `npm run typecheck` — **PASS**.
 - `npm run lint` — **PASS** (oxlint, no warnings reported).
-- `npm run build` — **PASS** — Vite 6.4.5, 1803 modules; CSS `39.50 kB` (8.78 kB gzip); JS `655.72 kB` (197.17 kB gzip); chunk-size warning only.
+- `npm run build` — **PASS** — Vite 6.4.5, 1803 modules; CSS `39.50 kB` (8.78 kB gzip); JS `655.63 kB` (197.16 kB gzip); chunk-size warning only.
 - Arc Studio contract tests — **31 passed, 0 failed, 0 skipped**; deployment performed after the test run.
 - On-chain verification via Arc Testnet RPC — `MAX_STAGES()` returned `10`; `usdc()` returned `0x3600000000000000000000000000000000000000`.
-- Local headless Chromium checks — tested light/dark toggle and persistence, 10-stage add limit, Days/Hours conversion (0 days + 1 hour displayed as 3600 seconds), attachment byte counter increasing from 10 to 56 bytes, invalid `ftp://` attachment validation, `/docs` pitch and 2–10 limit, dark theme persistence across navigation, and 390px layout. **0 console errors; 0 horizontal overflow.**
+- Local headless Chromium checks — verified the new title and tagline in the Header, Home hero, Footer, `/docs`, and `/risk`; rechecked light/dark toggle and persistence, 10-stage add limit, Days/Hours conversion, attachment byte counter, invalid `ftp://` attachment validation, and 390px layout. **0 console errors; 0 horizontal overflow.**
 - Deployed Preview verification — all main routes (`/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`), `/favicon.svg`, and `/images/og-relaycrew.png` returned HTTP 200 through `vercel curl`.
-- Deployed assets match local production build — `index-CBmLJDHf.js` and `index-DY5BfSuP.css`. Deployed HTML contains the new title, metadata, pitch, theme-color variants and theme bootstrap script; deployed JS contains the new contract address, dark-mode key, attachment field, 2–10 limit and MAX_STAGES references.
+- Deployed assets match local production build — `index-ejCG_4Ie.js` and `index-DY5BfSuP.css`. Deployed HTML contains the new title, metadata, tagline, theme-color variants and theme bootstrap script; deployed JS contains the new contract address, tagline, dark-mode key, attachment field, 2–10 limit and MAX_STAGES references.
 - Prior functional evidence retained: Phase 4/5 allowance, create/list/detail/submit/approve/reject/expire flows and edge states were implemented and previously accepted by the operator. No live create/submit/approve transaction was executed against the new 10-stage contract in this phase.
 
 ## Design approval and implementation record
@@ -123,10 +124,10 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 2. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. This is a deliberate UI limitation of the Days/Hours request, recorded as a deviation.
 3. The attachment URL is appended to the brief and must fit the combined 240-byte contract limit; a long brief plus a long URL is rejected by the form.
 4. A real injected-wallet transaction flow was not exercised in Phase 8.5 automation; a mock/headless browser verified UI states only. No transaction was sent by the browser.
-5. The frontend bundle is 655.72 kB (197.17 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+5. The frontend bundle is 655.63 kB (197.16 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
 6. Circle DCW key provisioning previously failed, so testnet deployments used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; recorded as an operational fallback.
 7. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
-8. Vercel CLI did not attach Git metadata to the deployment. The deployed source commit is identified by the clean tree at `cdadaab…` plus matching local/deployed CSS and JS asset hashes. Re-verify if the deployment is replaced.
+8. Vercel CLI did not attach Git metadata to the deployment. The deployed source commit is identified by the tagline commit `4bb0663…` plus matching local/deployed CSS and JS asset hashes. Re-verify if the deployment is replaced.
 9. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
 10. No mainnet deployment/transaction authorization.
 11. The previous 5-stage contract remains deployed and immutable at `0x85bbf…f05`, but the app and docs point to the new 10-stage contract. Do not send new pipeline activity to the old address.
