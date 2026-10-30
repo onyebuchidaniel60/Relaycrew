@@ -97,6 +97,7 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Metadata:** `index.html` uses the approved title, description, Open Graph/Twitter tags, theme color, favicon, and a real 1200×630 Open Graph card at `public/images/og-relaycrew.png`.
 - **Footer:** Documentation resolves to `/docs`; Risk notice resolves to `/risk`; GitHub resolves to the actual public repository configured through `VITE_GITHUB_REPOSITORY_URL`; Contract opens the verified Arc Testnet address in the official explorer.
 - **State/link audit:** header, footer, documentation anchors, internal routes, external destinations, loading/empty/error/terminal states, wrong-network state, form labels, focus rings, and 390/768/1440 responsive layouts were checked in headless Chromium. No dead anchors, unnamed buttons, console errors, or horizontal overflow were found.
+- **Deployment:** Phase 8 Preview at `https://relaycrew-egn5b8knn-uhhh2.vercel.app`, deployed source commit `1aa070906db8ad1617c929c8718d9ae19d028a36` (`dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52`). All routes and the OG image returned HTTP 200 through the protected deployment; deployed CSS/JS hashes match the local build.
 - **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet remains undeployed and unauthorized.
 
 ## Intentional constraints and deviations

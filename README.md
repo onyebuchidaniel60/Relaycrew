@@ -10,7 +10,7 @@ Phase 8 is complete: real in-app documentation and risk content, final metadata/
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
-- Vercel Preview: **Arc Testnet only**; the current exact Preview URL and deployed commit are recorded in [`AI_HANDOFF.md`](AI_HANDOFF.md). Vercel Deployment Protection is enabled.
+- Vercel Preview: **https://relaycrew-egn5b8knn-uhhh2.vercel.app** (Arc Testnet only; Vercel Deployment Protection enabled). Deployed source commit: `1aa070906db8ad1617c929c8718d9ae19d028a36`; deployment ID `dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52`.
 - Vercel Production: not deployed.
 - Contract: `contracts/PipelineCoordinator.sol`; ABI/address in `src/lib/contracts.ts`.
 - Live Testnet contract: **`0x85bbf546b09d990959de0672c273b56400f84f05`** on Arc Testnet (chain ID `5042002`). [Explorer](https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05).
@@ -18,7 +18,8 @@ Phase 8 is complete: real in-app documentation and risk content, final metadata/
 - Mainnet contract address: not deployed; no mainnet authorization.
 - Mainnet transaction hashes: not yet executed/verified.
 - Foundry tests: 29 passed, 0 failed in Arc Studio.
-- Headless checks: 0 console errors across the audited components, routes, terminal states, and connected mock-wallet flows.
+- Headless checks: 0 console errors across 18 route/viewport checks, loading/empty/error/terminal and wrong-network states, and connected mock-wallet flows; no horizontal overflow at 390/768/1440.
+- External links verified: public GitHub repository and verified Arc Testnet Explorer contract URL both return HTTP 200.
 - Live manual E2E: accepted by the operator; transaction hashes are not recorded in this repository.
 - In-app docs: `/docs`; risk notice: `/risk`.
 - Design mockups: `mockups/index.html`; operator references and the recorded approval are in `docs/DESIGN_DECISIONS.md`.
