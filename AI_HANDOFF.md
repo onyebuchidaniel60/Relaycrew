@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Blueprint completed; preflight inspection completed 2026-10-30; implementation has not started. This file is the current truthful state, not evidence of a deployed product.
+**Status:** Phase 1 skeletal shell implemented and deployed to a Vercel Preview; contract and wallet integration not started. This file records the current verified state.
 
 ## Project
 
@@ -39,15 +39,15 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 0 complete; preflight inspection completed 2026-10-30; verdict NO APP PRESENT — INSPECTION ONLY; awaiting operator decisions before Phase 1.**
+**Phase 1 complete (pending operator acceptance): React + TypeScript + Vite shell deployed to Vercel Preview on 2026-10-30; Phase 2 not started.**
 
 ## URLs and deployments
 
-- Arc Studio project URL: **NOT YET CREATED OR VERIFIED**.
-- GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`; HEAD `8c12d5c7b230143e3f13bae2902cbea843fdcc75`; 16 Markdown files; no app code).
-- Vercel Preview URL: **NOT YET DEPLOYED**.
-- Preview deployed commit: **NOT YET DEPLOYED**.
-- Production URL: **NOT DEPLOYED**.
+- Arc Studio project: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (“Relay Crew Communication Platform”); verified via CLI; public workspace URL not recorded.
+- GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`).
+- Vercel Preview URL: **https://relaycrew-l487x8s2k-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **523ba9edc73420cde206f3705b7bc7e8b4ef3c00**.
+- Production URL: **NOT DEPLOYED — no production deployment retained**.
 - Mainnet contract address: **NOT DEPLOYED**.
 - Testnet contract address: **NOT DEPLOYED**.
 - Mainnet transaction hashes: **NONE — no transactions executed**.
@@ -68,9 +68,17 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Blueprint/documentation consistency reviewed at planning stage.
 - Preflight inspection 2026-10-30: Git working tree clean; 1 commit (`8c12d5c7b230143e3f13bae2902cbea843fdcc75`); public GitHub repository verified at `https://github.com/onyebuchidaniel60/Relaycrew` (default branch `main`; 16 Markdown files).
 - Preflight environment: no package manifest, no contract source/ABI/tests, no build output, no Arc Studio project, no Vercel project.
-- Application tests: **not run; no application code exists**.
+- Phase 1 scaffold: Arc Studio app `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961` pulled; generic wallet/Foundry boilerplate removed; no contract or wallet code remains in the committed shell.
+- Phase 1 dependencies: `npm install react-router-dom` completed; 143 packages installed; 0 vulnerabilities.
+- `npm run typecheck`: **PASS**.
+- `npm run lint`: **PASS**.
+- `npm run build` with testnet env: **PASS**; Vite 6.4.5; 49 modules transformed; `dist/index.html` 0.61 kB, CSS 11.40 kB, JS 193.40 kB.
+- Local route smoke test with headless Chromium: `/`, `/create`, `/pipelines`, `/pipelines/1`, `/docs`, `/risk`, and `/bad-route` all rendered their expected placeholders; banner, Arc Testnet badge, disabled Connect Wallet, and “GitHub repo pending” verified.
+- Vercel Preview: `https://relaycrew-l487x8s2k-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed JS contains the expected shell strings.
+- Vercel Preview env: `VITE_NETWORK_MODE`, `VITE_CHAIN_ID`, `VITE_RPC_URL`, `VITE_EXPLORER_URL`, `VITE_USDC_ADDRESS`, and `VITE_GITHUB_REPOSITORY_URL` set for Preview.
+- Vercel’s first deployment was auto-assigned Production; it was removed. `vercel ls` now shows only the Preview deployment.
 - Contract tests: **not run; no contract code exists**.
-- Preview smoke tests: **not run; no preview exists**.
+- Preview smoke tests: **passed as above**.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
 ## Design reference/mockup state
@@ -98,15 +106,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Known issues/blockers
 
-1. (a) Arc Studio project does not exist or is not linked; Phase 1 tasks 1–2 cannot execute until the operator provides an Arc Studio project URL/export or authorizes a documented deviation.
-2. (b) Vercel project/access not yet provided.
-3. (c) Documentation conflict: `AGENTS.md` §3 states "If a frontend exists (it does)", which is factually incorrect — no frontend exists. Per `AGENTS.md` §1, this conflict is reported, not silently resolved. Operator decision required: authorize a one-line correction to AGENTS.md, or record that the operative Phase 1 requirement stands and the parenthetical is treated as stale.
-4. (d) Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
-5. Compatibility of Arc Studio's generated frontend with the selected React/TypeScript/Vite architecture remains unverified until a Studio project/export exists; if materially incompatible, stop and ask operator.
-6. Contract implementation, tests, and exported-source parity remain unverified.
-7. No mainnet deployment/transaction authorization.
-8. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
+1. Contract implementation, tests, and exported-source parity remain unverified; Phase 1 contains no contract code.
+2. Wallet connection and transaction calls are intentionally absent; the Connect Wallet button is disabled.
+3. `VITE_PIPELINE_CONTRACT_ADDRESS` is not set in Vercel Preview because no testnet contract exists; contract writes remain disabled.
+4. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
+5. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
+6. No mainnet deployment/transaction authorization.
+7. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
 
 ## Single next task
 
-**Phase 1 only, after operator answers the two remaining preconditions: (ii) Arc Studio path — export-and-inspect of an actual Arc Studio project vs operator-authorized local Vite scaffold — and (iii) Vercel project access confirmation. Do not start Phase 1 until both answers are recorded.**
+**Operator acceptance of the Phase 1 Preview at https://relaycrew-l487x8s2k-uhhh2.vercel.app; then Phase 2 only per IMPLEMENTATION_PLAN.md.**
