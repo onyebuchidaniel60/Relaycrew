@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 4 functional frontend integrated with the Arc Testnet contract: create/fund, pipeline list, detail timeline, provider submit, client approve/reject, and permissionless expire flows are implemented. Final visual design has not started. Mainnet remains unauthorized.
+**Status:** Phase 5 edge-case completion gate implemented: balance/gas checks, cancellation messaging, RPC retries, terminal-state cleanup, deadline countdown, and duplicate-create protection. Awaiting operator sign-off on the manual E2E walkthrough. Final visual design has not started. Mainnet remains unauthorized.
 
 ## Project
 
@@ -39,14 +39,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 4 complete (pending operator acceptance): functional create/list/detail/actions connected to the Arc Testnet contract `0x85bbf546b09d990959de0672c273b56400f84f05`; Vercel Preview updated on 2026-10-30; Phase 5 not started.**
+**Phase 5 complete (awaiting operator sign-off on the manual E2E walkthrough): edge-case handling and console verification completed for the Arc Testnet contract `0x85bbf546b09d990959de0672c273b56400f84f05`; Phase 6 not started.**
 
 ## URLs and deployments
 
 - Arc Studio project: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (“Relay Crew Communication Platform”); verified via CLI; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`).
-- Vercel Preview URL: **https://relaycrew-cjg44hlki-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
-- Preview deployed commit: **83624067bc5a6e6d6d04aebf7804343c0e5ac0c8**.
+- Vercel Preview URL: **https://relaycrew-clflx1o67-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **aba57f9357e5c42a6fa8f2f277eca2eb504216ba**.
 - Production URL: **NOT DEPLOYED — no production deployment retained**.
 - Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic implemented and tested.
 - ABI wiring: **`src/lib/contracts.ts`** generated from the final Arc Studio ABI; Arc Testnet address configured.
@@ -89,6 +89,10 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Phase 4 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.11 kB, JS 602.52 kB (chunk-size warning only).
 - Phase 4 local smoke test: headless Chromium verified `/`, `/create`, `/pipelines`, `/pipelines/1`, `/risk`, and `/bad-route`; create form, public-data warning, and testnet banner rendered. A mock injected wallet connected locally and the create form rendered with the connected client address; no transaction was sent.
 - Phase 4 Vercel Preview: `https://relaycrew-cjg44hlki-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains the create form, list/action copy, custom-error text, contract address, and testnet-only banner.
+- Phase 5 edge cases: ERC-20 balance and native-gas preflight; “Transaction cancelled by user” mapping; retry controls for IDs, summaries, stages, balances, and allowances; terminal-state banners with paid/refunded totals and no action controls; deadline countdown; duplicate-create protection with pending receipt and “Check receipt” flow.
+- Phase 5 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.23 kB, JS 607.13 kB (chunk-size warning only).
+- Phase 5 headless Chromium console check: all seven routes plus a mock-wallet connected `/create` form and “Add stage” interaction produced **0 console errors/warnings**.
+- Phase 5 Vercel Preview: `https://relaycrew-clflx1o67-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200; deployed bundle contains the cancellation, pending, retry, countdown, expire, and terminal-state strings.
 - Contract tests: **29 passed**.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
@@ -117,10 +121,10 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Known issues/blockers
 
-1. A full create → submit → approve → reject/expire lifecycle was not executed on live Arc Testnet; Foundry tests cover the contract paths, but operator-funded client/provider signing wallets were not available for a live UI journey.
-2. A real injected-wallet transaction flow was not exercised; a local mock wallet verified the connected create form only. No transaction was sent.
-3. Final visual design has not started; the functional UI uses temporary Tailwind styling and must not be treated as the approved design.
-4. The frontend bundle is 602.52 kB (184.22 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+1. Operator sign-off on the manual live testnet E2E walkthrough is pending; the automated live create → submit → approve → reject/expire journey has not been executed.
+2. A real injected-wallet transaction flow was not exercised in automation; a local mock wallet verified the connected create form only. No transaction was sent.
+3. The frontend bundle is 607.13 kB (185.15 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+4. Final visual design has not started; the functional UI uses temporary Tailwind styling and must not be treated as the approved design.
 5. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; this is recorded as an operational fallback.
 6. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
 7. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
@@ -129,4 +133,4 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Single next task
 
-**Operator acceptance of the Phase 4 Preview at https://relaycrew-cjg44hlki-uhhh2.vercel.app; then Phase 5 only per IMPLEMENTATION_PLAN.md.**
+**Await operator sign-off on the Phase 5 manual E2E walkthrough at https://relaycrew-clflx1o67-uhhh2.vercel.app; if accepted, then Phase 6 only per IMPLEMENTATION_PLAN.md.**

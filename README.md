@@ -6,11 +6,11 @@
 
 ## Current status
 
-Phase 4 functional frontend flows are connected to the Arc Testnet contract: create/fund with exact allowance, pipeline list, stage timeline, provider submission, client approve/reject, and permissionless expiry. The UI uses temporary Tailwind styling; final visual design has not started.
+Phase 5 functionality completion is implemented on top of the Arc Testnet integration: balance/gas preflight, clean cancellation messaging, RPC retry states, terminal-state cleanup, deadline countdown, and duplicate-create protection. Operator sign-off on the manual live E2E walkthrough is pending.
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
-- Vercel Preview: https://relaycrew-cjg44hlki-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
+- Vercel Preview: https://relaycrew-clflx1o67-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
 - Vercel Production: not deployed.
 - Contract: `contracts/PipelineCoordinator.sol`; ABI/address in `src/lib/contracts.ts`.
 - Testnet contract address: `0x85bbf546b09d990959de0672c273b56400f84f05`.
@@ -18,7 +18,8 @@ Phase 4 functional frontend flows are connected to the Arc Testnet contract: cre
 - Mainnet contract address: not deployed; no mainnet authorization.
 - Mainnet transaction hashes: not yet executed/verified.
 - Foundry tests: 29 passed, 0 failed in Arc Studio.
-- Live testnet pipeline lifecycle: not yet executed; contract tests and read checks passed.
+- Headless console check: 0 console errors/warnings across routes and the connected mock-wallet create flow.
+- Live testnet pipeline lifecycle: not yet executed; awaiting operator manual E2E sign-off.
 - Final visual design: not approved.
 
 Never replace these entries with guessed URLs or fabricated evidence.
