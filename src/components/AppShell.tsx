@@ -137,9 +137,11 @@ export function AppShell() {
                 href={appConfig.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                title="RelayCrew public source repository"
+                aria-label="RelayCrew public source repository (opens in a new tab)"
                 className="transition-colors hover:text-forest"
               >
-                GitHub
+                GitHub <span aria-hidden="true">↗</span>
               </a>
             ) : null}
             {appConfig.pipelineAddress ? (
@@ -147,9 +149,11 @@ export function AppShell() {
                 href={`${appConfig.explorerUrl}/address/${appConfig.pipelineAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                title="View the RelayCrew contract on Arc Testnet Explorer"
+                aria-label="View the RelayCrew contract on Arc Testnet Explorer (opens in a new tab)"
                 className="transition-colors hover:text-forest"
               >
-                Contract
+                Contract <span aria-hidden="true">↗</span>
               </a>
             ) : null}
           </nav>

@@ -1,6 +1,6 @@
 # RelayCrew User Guide
 
-**Status:** user guide baseline; screenshots and exact deployed links are added after implementation and operator review.
+**Status:** Implemented and in use on Arc Testnet. The live app includes the complete in-app guide at `/docs`; this file mirrors the same behavior for the repository. Mainnet is not deployed or authorized. The contract has not been independently audited.
 
 ## What RelayCrew does
 

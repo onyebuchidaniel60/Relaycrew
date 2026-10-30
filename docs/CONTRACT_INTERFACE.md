@@ -2,7 +2,7 @@
 
 **Contract name:** `PipelineCoordinator` (implemented).
 
-**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 29 Foundry tests). Deployed to Arc Testnet at `0x85bbf546b09d990959de0672c273b56400f84f05` on 2026-10-30. The tested ABI is embedded in `src/lib/contracts.ts`. Mainnet is not deployed. This is unaudited experimental software.
+**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 29 Foundry tests). Deployed to Arc Testnet at [`0x85bbf546b09d990959de0672c273b56400f84f05`](https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05) on 2026-10-30. The tested ABI is embedded in `src/lib/contracts.ts`. Mainnet is not deployed. This is unaudited experimental software.
 
 ## Core types
 

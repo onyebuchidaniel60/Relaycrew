@@ -2,7 +2,7 @@
 
 ## Status
 
-RelayCrew is a hackathon prototype design. The planned contract has not been implemented or independently audited yet. These controls reduce known risks but are not a guarantee of safety.
+RelayCrew is implemented and deployed to Arc Testnet. The contract has not been independently audited. These controls reduce known risks but are not a guarantee of safety. Mainnet is not deployed or authorized.
 
 ## Money and authority
 

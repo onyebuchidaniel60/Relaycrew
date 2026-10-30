@@ -1,6 +1,6 @@
 # Design Decisions and Approval Record
 
-**Current status:** Phase 7 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30, and the approved visual system has been applied to the working Arc Testnet screens without changing contract behavior, business logic, or the security model.
+**Current status:** Phase 8 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks are in place on the Arc Testnet Preview. No contract behavior, business logic, or security model changed.
 
 ## Required process
 
@@ -90,13 +90,22 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Fonts:** Google Fonts stylesheet for Fraunces, Manrope, and IBM Plex Mono, with local serif/sans/mono fallbacks.
 - **Behavior freeze:** no contract ABI, address, write function, validation, role check, allowance rule, state transition, or security control was changed in Phase 7.
 
+## Phase 8 completeness record
+
+- **Documentation:** `/docs` now contains the user guide: overview, roles, limits and exact amounts, create/fund, provider submission, approve/reject/expiry, statuses, public-data warning, Arc Testnet vs Mainnet, troubleshooting, and contract/source details.
+- **Risk notice:** `/risk` now covers the experimental/unaudited contract, irreversible USDC transfers, sole client evaluation, evaluator non-response and expiry/refund, public/permanent data, and the absence of admin rescue or upgrade.
+- **Metadata:** `index.html` uses the approved title, description, Open Graph/Twitter tags, theme color, favicon, and a real 1200×630 Open Graph card at `public/images/og-relaycrew.png`.
+- **Footer:** Documentation resolves to `/docs`; Risk notice resolves to `/risk`; GitHub resolves to the actual public repository configured through `VITE_GITHUB_REPOSITORY_URL`; Contract opens the verified Arc Testnet address in the official explorer.
+- **State/link audit:** header, footer, documentation anchors, internal routes, external destinations, loading/empty/error/terminal states, wrong-network state, form labels, focus rings, and 390/768/1440 responsive layouts were checked in headless Chromium. No dead anchors, unnamed buttons, console errors, or horizontal overflow were found.
+- **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet remains undeployed and unauthorized.
+
 ## Intentional constraints and deviations
 
 - **Imagery:** original warm editorial SVG artwork is used instead of licensed photography. This preserves the approved palette and composition without introducing an unverified asset license.
 - **Amount formatting:** the existing exact base-unit formatter is retained. Whole-USDC amounts display without forced trailing zeros (for example, `18 USDC`); no floating-point arithmetic was introduced.
 - **Confirmation dialog:** the interaction is an in-app native dialog rather than a browser-native confirm. The existing guard, exact values, and irreversible nature are preserved; Escape, cancel, and backdrop dismissal close the dialog without sending a transaction.
 - **Mobile navigation:** all five routes remain visible as a compact second header row at 390px rather than being hidden, so navigation does not depend on an unapproved menu interaction.
-- **Placeholder docs:** `/docs` remains clearly marked “In progress” and contains no fabricated completed documentation; Phase 8 owns the full guide.
+- **Placeholder docs:** the Phase 7 placeholder has been replaced in Phase 8. `/docs` now contains the complete user guide; `/risk` contains the security-derived risk notice. No placeholder claims remain in the live routes.
 
 ## Approval decision
 
@@ -104,4 +113,5 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Approval date:** 2026-10-30.
 - **Operator's explicit approval text/decision:** “The ‘Warm Editorial Escrow’ mockups were reviewed and explicitly APPROVED.” (operator instruction, 2026-10-30).
 - **Deviations accepted/recorded:** original SVG imagery instead of photography; Google Fonts delivery; existing trimmed amount display retained; in-app confirmation dialog replacing `window.confirm`; mobile nav remains visible.
-- **Phase 7 status:** implemented on top of working flows and ready for preview acceptance. No product, contract, or security behavior changed.
+- **Phase 7 status:** implemented on top of working flows. No product, contract, or security behavior changed.
+- **Phase 8 status:** documentation, risk, metadata, footer destinations, and release-checklist completeness verified. Mainnet remains unauthorized.

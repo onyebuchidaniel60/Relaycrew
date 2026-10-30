@@ -6,22 +6,23 @@
 
 ## Current status
 
-Phase 7 is implemented: the operator-approved “Warm Editorial Escrow” visual system is applied to the working Arc Testnet app without changing contract behavior. The static mockups remain in [`mockups/`](mockups/README.md), based on the operator reference images in `docs/references/`; the previous dark direction was rejected and removed.
+Phase 8 is complete: real in-app documentation and risk content, final metadata/Open Graph assets, verified footer destinations, link/state audit, and the final repository documentation pass are in place. The approved “Warm Editorial Escrow” visual system remains unchanged. Phase 9 (Mainnet release) has not started and requires explicit operator authorization.
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
-- Vercel Preview: https://relaycrew-kl661uga9-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled). Deployed source commit: `9f23d9cfe9a2927003ed9a3c63ac6894f0447ffd`.
+- Vercel Preview: **Arc Testnet only**; the current exact Preview URL and deployed commit are recorded in [`AI_HANDOFF.md`](AI_HANDOFF.md). Vercel Deployment Protection is enabled.
 - Vercel Production: not deployed.
 - Contract: `contracts/PipelineCoordinator.sol`; ABI/address in `src/lib/contracts.ts`.
-- Testnet contract address: `0x85bbf546b09d990959de0672c273b56400f84f05`.
+- Live Testnet contract: **`0x85bbf546b09d990959de0672c273b56400f84f05`** on Arc Testnet (chain ID `5042002`). [Explorer](https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05).
 - Testnet deployment tx: `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`.
 - Mainnet contract address: not deployed; no mainnet authorization.
 - Mainnet transaction hashes: not yet executed/verified.
 - Foundry tests: 29 passed, 0 failed in Arc Studio.
-- Headless console check: 0 console errors/warnings across routes and the connected mock-wallet create flow.
+- Headless checks: 0 console errors across the audited components, routes, terminal states, and connected mock-wallet flows.
 - Live manual E2E: accepted by the operator; transaction hashes are not recorded in this repository.
+- In-app docs: `/docs`; risk notice: `/risk`.
 - Design mockups: `mockups/index.html`; operator references and the recorded approval are in `docs/DESIGN_DECISIONS.md`.
-- Final visual design: approved 2026-10-30; “Warm Editorial Escrow” applied in Phase 7. Phase 8 documentation/link-completeness work is still pending.
+- Final visual design: approved 2026-10-30; “Warm Editorial Escrow” applied in Phase 7. Phase 8 documentation/link-completeness work is complete.
 
 Never replace these entries with guessed URLs or fabricated evidence.
 
@@ -92,7 +93,9 @@ See [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md) and [`docs/SECURITY.md`](docs/SEC
 
 ## Documentation and links
 
-The final app must include a working `/docs` route and a home-page footer Documentation link to it. A GitHub footer link must point to the actual public repository once verified. Do not guess or fabricate the repository URL. If the repository is private or disclosure becomes inappropriate, stop and obtain operator approval for an alternative instead of exposing it silently.
+The app includes complete `/docs` and `/risk` routes inside the approved editorial shell. The footer Documentation link resolves to `/docs`, the Risk notice link resolves to `/risk`, the GitHub link resolves to the verified public repository configured through `VITE_GITHUB_REPOSITORY_URL`, and the Contract link opens the verified Arc Testnet address in the official explorer. The Phase 8 link/state audit checked the header, footer, documentation anchors, and external destinations.
+
+Never replace these destinations with guessed URLs. If the repository is private, moved, or disclosure becomes inappropriate, stop and obtain operator approval for an alternative instead of exposing it silently.
 
 ## Hackathon evidence
 

@@ -2,6 +2,15 @@
 
 **Do not use this guide to deploy or transact on mainnet without explicit operator authorization.**
 
+## Current testnet deployment
+
+- Preview network: **Arc Testnet**, chain ID `5042002`; test USDC only.
+- Preview URL and deployed commit: recorded in `README.md` and `AI_HANDOFF.md` after each verified deployment.
+- Coordinator contract: `0x85bbf546b09d990959de0672c273b56400f84f05`.
+- Testnet deployment transaction: `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`.
+- Arc Testnet Explorer: https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05.
+- Mainnet: **not deployed and not authorized**.
+
 ## Network configuration
 
 | Setting | Arc Testnet (Preview) | Arc Mainnet (Production) |

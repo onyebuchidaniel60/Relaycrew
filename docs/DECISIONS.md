@@ -20,7 +20,7 @@ This decision log captures design choices already made. The coding agent must no
 | D-14 | React + TypeScript + Vite; wagmi + viem; Vercel; public GitHub | Simple EVM client architecture and stable preview deployment. Inspect Arc Studio generated project first; if materially incompatible, stop and ask. |
 | D-15 | Arc Studio for contract, tests and app; manual mainnet deploy from export | Hackathon requirement; Arc Studio docs state its deploy flow targets testnet. |
 | D-16 | Preview is always Arc Testnet; Production only Arc Mainnet with approval | Prevents early preview from moving real money. |
-| D-17 | No final visual design is selected yet | Final design after E2E acceptance, design references, mockups and explicit operator approval. |
+| D-17 | Final visual direction is approved as “Warm Editorial Escrow” (2026-10-30); implement only visual styling on working flows | Final design followed E2E acceptance, operator references, mockups and explicit approval. Phase 7 applied it without changing behavior. |
 | D-18 | `/docs` route and real GitHub footer link in final UI | Meets project documentation completeness; never fabricate URLs or expose private repo without approval. |
 | D-19 | No platform fee | Avoids fee accounting/treasury and keeps payouts straightforward. |
 | D-20 | No contract owner/admin rescue/upgradeability | Reduces privilege surface; means errors may not be recoverable, explicitly disclosed. |
@@ -29,4 +29,4 @@ This decision log captures design choices already made. The coding agent must no
 
 ## Actions requiring future operator decision
 
-These are action approvals, not unresolved architecture: (1) any mainnet deploy or real-USDC transaction; (2) selected UI reference/mockup direction; (3) explicit mockup approval; (4) production release/submission; (5) any future exception to public repository requirement. No action approval is presumed by these docs.
+These are action approvals, not unresolved architecture: (1) any mainnet deploy or real-USDC transaction; (2) production release/submission; (3) any future exception to the public repository requirement. The approved visual direction is recorded in `DESIGN_DECISIONS.md`; no action approval is presumed by these docs.
