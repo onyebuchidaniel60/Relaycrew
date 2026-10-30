@@ -6,12 +6,13 @@
 
 ## Current status
 
-The Phase 1 React + TypeScript + Vite shell is implemented and deployed to a Vercel Preview. Contract integration, wallet actions, and functional pipeline tests are not yet implemented.
+The Phase 2 React + TypeScript + Vite foundation is deployed to a Vercel Preview. Wallet connect/disconnect and an Arc Testnet network guard are implemented; the `PipelineCoordinator` contract is a scaffold only with no business logic, and no contract is deployed.
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
-- Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); scaffold pulled and frontend shell established.
-- Vercel Preview: https://relaycrew-l487x8s2k-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
+- Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract scaffold generated at `contracts/PipelineCoordinator.sol`.
+- Vercel Preview: https://relaycrew-reh3adohp-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
 - Vercel Production: not deployed.
+- Contract scaffold: `contracts/PipelineCoordinator.sol`; ABI in `src/lib/contracts.ts`; contract address intentionally empty.
 - Testnet/Mainnet contract address: not yet deployed.
 - Mainnet transaction hashes: not yet executed/verified.
 - Final visual design: not approved.
@@ -54,7 +55,7 @@ The workflow methodology supplied by the operator is included in this package as
 
 ## Developer setup
 
-Available commands for the Phase 1 app (verified locally with Node.js v24.22.1 and npm 11.19.1):
+Available commands for the Phase 2 app (verified locally with Node.js v24.22.1 and npm 11.19.1):
 
 ```bash
 npm install
@@ -66,6 +67,8 @@ npm run typecheck
 ```
 
 `npm run build` runs the TypeScript check and builds the Vite app into `dist/`.
+
+Contract scaffold: `contracts/PipelineCoordinator.sol` is generated and compiled in Arc Studio (Solc 0.8.28). The ABI is embedded in `src/lib/contracts.ts`; no contract address is configured. Arc Studio remains the contract build source; no local Foundry workflow is configured yet.
 
 Preview deployment: `vercel deploy --environment preview` using the authenticated CLI. Do not run `vercel deploy --prod` for this phase.
 
