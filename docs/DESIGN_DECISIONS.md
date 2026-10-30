@@ -1,6 +1,6 @@
 # Design Decisions and Approval Record
 
-**Current status:** Phase 8 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks are in place on the Arc Testnet Preview. No contract behavior, business logic, or security model changed.
+**Current status:** Phase 8.5 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30 and separately authorized a Dark Warm Editorial theme. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks are in place on the Arc Testnet Preview. The Phase 8.5 contract limit and form changes did not alter escrow accounting, permissions, or settlement logic.
 
 ## Required process
 
@@ -97,7 +97,7 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Metadata:** `index.html` uses the approved title, description, Open Graph/Twitter tags, theme color, favicon, and a real 1200×630 Open Graph card at `public/images/og-relaycrew.png`.
 - **Footer:** Documentation resolves to `/docs`; Risk notice resolves to `/risk`; GitHub resolves to the actual public repository configured through `VITE_GITHUB_REPOSITORY_URL`; Contract opens the verified Arc Testnet address in the official explorer.
 - **State/link audit:** header, footer, documentation anchors, internal routes, external destinations, loading/empty/error/terminal states, wrong-network state, form labels, focus rings, and 390/768/1440 responsive layouts were checked in headless Chromium. No dead anchors, unnamed buttons, console errors, or horizontal overflow were found.
-- **Deployment:** Phase 8 Preview at `https://relaycrew-egn5b8knn-uhhh2.vercel.app`, deployed source commit `1aa070906db8ad1617c929c8718d9ae19d028a36` (`dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52`). All routes and the OG image returned HTTP 200 through the protected deployment; deployed CSS/JS hashes match the local build.
+- **Deployment:** Phase 8.5 Preview at `https://relaycrew-rd9qqkqsi-uhhh2.vercel.app`, deployed source commit `cdadaab0348c83a063d24e06305a1a0fca46e300` (`dpl_GtFSBXHAtEkFUJhyfrngfvCxJuwA`). All main routes and the OG image returned HTTP 200 through the protected deployment; deployed CSS/JS hashes match the local build.
 - **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet remains undeployed and unauthorized.
 
 ## Phase 8.5 dark mode extension

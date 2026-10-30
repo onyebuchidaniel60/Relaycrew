@@ -2,12 +2,13 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 8 complete and deployed. The approved “Warm Editorial Escrow” app now includes complete `/docs` and `/risk` content, final metadata/Open Graph assets, verified footer destinations, release-facing documentation, and a clean link/state audit. No contract, transaction, state-machine, or security behavior changed. Phase 9 (Mainnet release) has not started and requires explicit operator authorization. Mainnet remains unauthorized.
+**Status:** Phase 8.5 complete and deployed to the Arc Testnet Preview. The operator-authorized changes are implemented: the testnet contract now allows up to 10 stages, the create form uses Days/Hours selectors and an optional attachment URL, the app has a Dark Warm Editorial theme, and the public pitch is “Agent Escrow Protocol for Project Execution on Pipelines.” Phase 9 (Mainnet release) has not started and requires explicit operator authorization. Mainnet remains unauthorized.
 
 ## Project
 
 - **Working name:** RelayCrew.
-- **Concept:** Milestone Team Pipeline — a client funds one parent USDC escrow for a fixed sequence of specialist wallet addresses. Approval pays the current provider and atomically activates the next stage. Final approval pays the final provider and completes; rejection/expiry returns unpaid funds.
+- **Pitch:** Agent Escrow Protocol for Project Execution on Pipelines.
+- **Concept:** a client funds one parent USDC escrow for a fixed linear sequence of specialist wallet addresses. Approval pays the current provider and atomically activates the next stage. Final approval completes the pipeline; rejection or eligible expiry returns unpaid funds.
 - **Hackathon:** Arc Microgrants: Built with Arc Studio.
 - **Deadline discrepancy — verify immediately:** the prior handoff recorded 2026-11-02 04:59 UTC. An Eventbrite listing mirrored from the organizer shows a noon-to-12:59 PM Pacific window on Nov 1 but labels it PDT despite US Pacific daylight time ending at 2:00 AM that date; the displayed local-time conversion may be ambiguous by one hour. The official DoraHacks page returned HTTP 405 in automated verification. Plan for **2026-11-01 20:59 WAT (Africa/Lagos)** as the conservative cutoff until the actual submission form confirms the timestamp. Re-check judging weights and required artifacts manually.
 
@@ -23,7 +24,7 @@ Read before any implementation:
 
 Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md`.
 
-## Fixed decisions
+## Fixed decisions and Phase 8.5 authorization
 
 - Orchestrator: on-chain `PipelineCoordinator`, no off-chain event listener.
 - Topology: one parent escrow and per-stage records; no nested child contracts.
@@ -31,113 +32,105 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Stage list/provider addresses/budgets/order/briefs/durations immutable at funding.
 - All budgets funded upfront; each approval pays current stage and activates next in the same transaction.
 - Rejection/expiry refunds all unspent funds to client; prior payouts are final.
-- 2–5 stages, minimum 1 USDC per stage, total maximum 100 USDC; 6-decimal USDC ERC-20 units; stage work deadline 15 minutes–7 days; 24-hour evaluation window.
+- 2–10 stages, minimum 1 USDC per stage, total maximum 100 USDC; 6-decimal USDC ERC-20 units; stage work deadline 15 minutes–7 days; 24-hour evaluation window.
+- Operator explicitly authorized the Phase 8.5 deviations on 2026-10-30: `MAX_STAGES` raised from 5 to 10, Light/Dark theme toggle, Days/Hours duration selector, optional attachment URL appended to the public brief, and the pitch change. This is recorded in `docs/DECISIONS.md` (D-23) and `ARCHITECTURE.md`.
 - No marketplace, runtime AI, backend, database, indexer, queue, admin panel, fee, arbitration, reputation, or dynamic routing.
 - Arc Studio is required for contracts, tests and app. Its documented deploy path targets Arc Testnet; mainnet deployment requires a manual export/deploy step after approval.
 - Preview must use Arc Testnet only; Production must use Arc Mainnet only after operator authorization.
-- Final visual direction: **approved 2026-10-30** — “Warm Editorial Escrow”; Phase 7 implementation complete, Phase 8 content/completeness complete.
+- Final visual direction: **approved 2026-10-30** — “Warm Editorial Escrow”; Phase 7 implementation complete, Phase 8 content/completeness complete, Phase 8.5 dark theme extension complete.
 
 ## Current phase
 
-**Phase 8 complete — frontend and documentation completeness.** Real `/docs` and `/risk` content, metadata/Open Graph, footer link integrity, README/docs updates, responsive/accessibility checks, and the final release checklist are complete and deployed. Phase 9 has not started.
+**Phase 8.5 complete — architecture-limit, form-UX, pitch, and dark-mode updates.** The contract is redeployed to Arc Testnet, the frontend and docs are updated, and the new Preview is verified. Phase 9 has not started.
 
 ## URLs and deployments
 
-- Arc Studio project: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (“Relay Crew Communication Platform”); verified via CLI; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`.
-- GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`; HTTP 200).
-- Vercel Preview URL: **https://relaycrew-egn5b8knn-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
-- Preview deployed commit: **1aa070906db8ad1617c929c8718d9ae19d028a36** — deployment created from a clean tree at this commit; deployed CSS/JS asset hashes match the local production build of the same commit. Vercel CLI did not attach Git metadata to this deployment.
-- Repository Phase 8 commit: **1aa070906db8ad1617c929c8718d9ae19d028a36** (implementation commit; this handoff update is a docs-only commit on top).
-- Vercel deployment ID: **dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52**.
+- Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. CLI reports this workspace as “React TypeScript Vite Tailwind Starter”; it contains the current `contracts/PipelineCoordinator.sol` and the new deployment record. A separate app `c389a695-4df7-4d8f-9e25-6003a8d54f06` (“Relay Crew Communication Platform”) contains an older `RelayCrew.sol` and is not the current contract.
+- GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
+- Vercel Preview URL: **https://relaycrew-rd9qqkqsi-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`** — deployment created from a clean tree at this commit; deployed CSS/JS asset hashes match the local production build of the same commit. Vercel CLI did not attach Git metadata to this deployment.
+- Repository Phase 8.5 implementation commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`** (`feat: implement phase 8.5 architecture updates and dark mode`). This handoff update is a docs-only commit on top.
+- Vercel deployment ID: **`dpl_GtFSBXHAtEkFUJhyfrngfvCxJuwA`**.
 - Production URL: **NOT DEPLOYED — no production deployment retained**.
-- Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic implemented and tested.
-- ABI wiring: **`src/lib/contracts.ts`** generated from the final Arc Studio ABI; Arc Testnet address configured.
+- Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic; `MAX_STAGES = 10`.
+- ABI wiring: **`src/lib/contracts.ts`** uses the Arc Testnet address below and the tested ABI.
+- Testnet contract address: **`0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`**.
+- Testnet deployment tx: **`0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`**.
+- Testnet explorer: **https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070**.
+- Previous 5-stage testnet contract (superseded): `0x85bbf546b09d990959de0672c273b56400f84f05`; tx `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`.
 - Mainnet contract address: **NOT DEPLOYED**.
-- Testnet contract address: **0x85bbf546b09d990959de0672c273b56400f84f05**.
-- Testnet deployment tx: **0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122**.
-- Testnet explorer: **https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05**.
 - Mainnet transaction hashes: **NONE — no transactions executed**.
 - Video walkthrough: **NOT RECORDED**.
 - Builder profile URL for submission: use actual operator-supplied or verified URL; do not invent.
 
-## Design approval and implementation record
+## Phase 8.5 completed work
 
-- Final aesthetic: **APPROVED** — “Warm Editorial Escrow,” 2026-10-30.
-- Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
-- Approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`.
-- Approval text recorded: “The ‘Warm Editorial Escrow’ mockups were reviewed and explicitly APPROVED.” (operator instruction, 2026-10-30).
-- Phase 7 implementation: tokens, shell, Home, Create, Pipelines, Detail, terminal ledgers, confirmation dialog, favicon and editorial SVGs. Tokens live in `tailwind.config.js` and `src/index.css`; components include `LogoMark`, `StatusPill`, and `ConfirmDialog`.
-- Phase 8 additions: complete `/docs` user guide, complete `/risk` notice, 1200×630 Open Graph card, SEO/OG/Twitter metadata, verified footer destinations, README/docs accuracy pass, and removal of the unused placeholder component.
-- Imagery: original warm editorial SVGs at `public/images/relay-hero.svg` and `public/images/relay-panel.svg`; favicon at `public/favicon.svg`; OG card `public/images/og-relaycrew.png`. No licensed photography was copied.
-- Recorded deviations: SVG imagery instead of photography; Google Fonts delivery for Fraunces/Manrope/IBM Plex Mono; existing exact trimmed amount display retained; browser-native `window.confirm` replaced by an accessible in-app confirmation dialog with identical guards and values; mobile nav remains visible as a compact second header row.
-- Behavior freeze: no contract call, ABI, address, validation, role check, allowance rule, state transition, or security control changed in Phases 7–8.
-- Full record: `docs/DESIGN_DECISIONS.md`.
-
-## Phase 8 completed work
-
-- **`/docs`:** real user guide with overview, roles, limits/exact amounts, create/fund, provider submission, approve/reject/expiry, statuses, public-data warning, Arc Testnet vs Mainnet, troubleshooting, contract/source details, and working section anchors.
-- **`/risk`:** security-derived notices covering experimental/unaudited software, irreversible USDC, sole client evaluation, evaluator non-response causing expiry/refund, public/permanent data, and no admin rescue/upgrade.
-- **Metadata:** title `RelayCrew | Agent Pipeline Escrow`, description, author/application metadata, theme color, favicon/mask icon, Open Graph/Twitter tags, and a real 1200×630 OG image.
-- **Footer:** Documentation → `/docs`; Risk notice → `/risk`; GitHub → verified public repository from `VITE_GITHUB_REPOSITORY_URL`; Contract → verified Arc Testnet Explorer address. External links have descriptive labels and new-tab indicators.
-- **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and DESIGN_DECISIONS updated for the implemented Testnet state. Root README now includes the live Testnet contract address and final deployment details.
-- **Cleanup:** removed the unused `PlaceholderPanel` component; no unexplained “In progress” or “GitHub repo pending” text remains.
-- **Behavior freeze:** no contract logic, account permissions, transaction calls, validation, allowance handling, or state transitions were changed.
+- **Contract:** `MAX_STAGES` changed from 5 to 10. The maximum total budget remains 100 USDC, per-stage minimum remains 1 USDC, and no other contract logic changed.
+- **Contract tests:** added `testMaxStagesIsTen`, `testCreateTenStages`, extended the stage-count success test to 10 stages, and changed the invalid-count case to 11 stages. Arc Studio `forge test`: **31 passed, 0 failed, 0 skipped**.
+- **Deployment:** updated `PipelineCoordinator` deployed to Arc Testnet with the official USDC ERC-20 interface (`0x3600000000000000000000000000000000000000`). On-chain reads confirm `MAX_STAGES() = 10` and `usdc()` returns the official interface.
+- **Dark mode:** Tailwind `darkMode: 'class'`; CSS-variable token layer for warm charcoal/ivory surfaces; header Light/Dark toggle with locally stored preference and no FOUC script; `dark:` variants in the shell, Home, Create, logo, transaction toast, and error states. Light theme remains the default and the approved “Warm Editorial Escrow” design is preserved.
+- **Duration UX:** raw-seconds input replaced with Days (0–7) and Hours (0–23) selectors. The form displays the converted seconds and blocks durations outside 15 minutes–7 days. Because the selectors are hour-granular, the minimum selectable duration is 1 hour.
+- **Attachment URL:** optional per-stage `https://` or `ipfs://` input. When filled, the stored brief becomes `brief\n\nAttachment: <url>`, preserving the contract's 1–240 byte limit. The form validates the scheme and combined byte count. The app does not fetch or embed the URL.
+- **Copy/pitch:** Home, Header, Footer, `/docs`, page metadata, README and architecture docs now use “Agent Escrow Protocol for Project Execution on Pipelines.”
+- **Documentation:** updated AGENTS, ARCHITECTURE, PROJECT_SPEC, IMPLEMENTATION_PLAN, MASTER_BLUEPRINT, README, CONTRACT_INTERFACE, DECISIONS, DEPLOYMENT, DESIGN_DECISIONS, REQUIREMENT_MATRIX, SECURITY and USER_GUIDE for the new limit and UX. Mainnet remains explicitly unauthorized.
 
 ## Tests/evidence
 
-- Phase 8 typecheck: `npm run typecheck` **PASS**.
-- Phase 8 lint: `npm run lint` **PASS** (oxlint, no warnings reported).
-- Phase 8 production build: `npm run build` **PASS** — Vite 6.4.5, 1801 modules; CSS 34.81 kB (7.95 kB gzip); JS 650.98 kB (195.83 kB gzip); chunk-size warning only.
-- Headless Chromium audit: 18 route/viewport checks across `/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`, and the not-found route at 1440/768/390; **0 horizontal overflow**, **0 bad anchors**, **0 missing documentation anchors**, **0 unnamed buttons**, **0 console errors**.
-- State audit: loading skeleton visible; error state with Retry shown; empty wallet ledger shown; active client-review and provider-submit states shown; Completed/Rejected/Expired settlement ledgers shown with no action controls; wrong-network banner shown; approve dialog contains the full recipient address and closes on Escape.
-- Accessibility checks: all 10 create-form inputs/textarea have associated labels; focus ring resolves to forest border `rgb(23, 61, 44)` and 3px green shadow; external links have accessible new-tab labels.
-- External link checks: public GitHub repository returns HTTP 200 and is public with default branch `main`; verified Arc Testnet Explorer contract URL returns HTTP 200.
-- Deployed Preview verification: Vercel state **READY**; all seven main routes plus `/images/og-relaycrew.png` and `/favicon.svg` returned HTTP 200 through `vercel curl`.
-- Deployed metadata/assets: title and Open Graph tags present; OG image is a 1200×630 PNG and matches the local asset; deployed `index-D-uU7pOA.css` and `index-BMA_MorA.js` match the local production build of commit `1aa0709…`; deployed JS contains the new docs/risk content, GitHub URL, and verified contract address.
-- Prior functional evidence retained: contract tests **29 passed, 0 failed**; Phase 4/5 allowance, create/list/detail/submit/approve/reject/expire flows and edge states were implemented and previously accepted by the operator.
-- Mainnet tests: **not run; no authorization given and no transaction executed**.
+- `npm run typecheck` — **PASS**.
+- `npm run lint` — **PASS** (oxlint, no warnings reported).
+- `npm run build` — **PASS** — Vite 6.4.5, 1803 modules; CSS `39.50 kB` (8.78 kB gzip); JS `655.72 kB` (197.17 kB gzip); chunk-size warning only.
+- Arc Studio contract tests — **31 passed, 0 failed, 0 skipped**; deployment performed after the test run.
+- On-chain verification via Arc Testnet RPC — `MAX_STAGES()` returned `10`; `usdc()` returned `0x3600000000000000000000000000000000000000`.
+- Local headless Chromium checks — tested light/dark toggle and persistence, 10-stage add limit, Days/Hours conversion (0 days + 1 hour displayed as 3600 seconds), attachment byte counter increasing from 10 to 56 bytes, invalid `ftp://` attachment validation, `/docs` pitch and 2–10 limit, dark theme persistence across navigation, and 390px layout. **0 console errors; 0 horizontal overflow.**
+- Deployed Preview verification — all main routes (`/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`), `/favicon.svg`, and `/images/og-relaycrew.png` returned HTTP 200 through `vercel curl`.
+- Deployed assets match local production build — `index-CBmLJDHf.js` and `index-DY5BfSuP.css`. Deployed HTML contains the new title, metadata, pitch, theme-color variants and theme bootstrap script; deployed JS contains the new contract address, dark-mode key, attachment field, 2–10 limit and MAX_STAGES references.
+- Prior functional evidence retained: Phase 4/5 allowance, create/list/detail/submit/approve/reject/expire flows and edge states were implemented and previously accepted by the operator. No live create/submit/approve transaction was executed against the new 10-stage contract in this phase.
 
-## Design reference/mockup state
+## Design approval and implementation record
 
-- Final aesthetic: **APPROVED** (2026-10-30).
-- References: operator-supplied images in `docs/references/`.
-- Mockups: **APPROVED** — `mockups/` retained as the design record.
-- Previous direction: **REJECTED AND REMOVED** — dark “Operator Console” mockups.
-- Phase 8 did not change the approved design direction or styling architecture; it completed content, metadata, links, and release-facing completeness.
-- Full record: `docs/DESIGN_DECISIONS.md`.
+- Final aesthetic: **APPROVED** — “Warm Editorial Escrow,” 2026-10-30; Dark Warm Editorial extension **AUTHORIZED** 2026-10-30.
+- Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
+- Approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`.
+- Phase 7 implementation: tokens, shell, Home, Create, Pipelines, Detail, terminal ledgers, confirmation dialog, favicon and editorial SVGs.
+- Phase 8 additions: complete `/docs` and `/risk`, metadata/Open Graph, verified footer destinations, README/docs accuracy pass.
+- Phase 8.5 additions: dark theme token layer and toggle, Days/Hours duration UI, optional attachment URL, 2–10 limit copy, and pitch update. The light theme and approved layout remain unchanged.
+- Imagery: original warm editorial SVGs at `public/images/relay-hero.svg` and `public/images/relay-panel.svg`; favicon at `public/favicon.svg`; OG card `public/images/og-relaycrew.png`. No licensed photography was copied.
+- Recorded deviations: SVG imagery instead of photography; Google Fonts delivery for Fraunces/Manrope/IBM Plex Mono; exact trimmed amount display retained; accessible in-app confirmation dialog; mobile nav remains visible as a compact second header row; duration selectors are hour-granular; dark theme is a CSS-variable adaptation rather than a separate design set.
+- Behavior freeze in Phase 8.5: no contract call, ABI field, address, validation rule, role check, allowance rule, state transition, or security control changed beyond `MAX_STAGES`. The new attachment field is stored inside the existing brief, not a new contract argument.
+- Full record: `docs/DESIGN_DECISIONS.md` and `docs/DECISIONS.md`.
 
 ## Documentation/footer state
 
 - `/docs` and `/risk` are complete, real routes with no placeholder claims.
 - Footer Documentation resolves to `/docs`; Risk notice resolves to `/risk`.
-- GitHub footer destination is the verified public repository configured in `VITE_GITHUB_REPOSITORY_URL` and `.env.example`; it appears in the deployed bundle.
-- Contract footer destination is the verified testnet address on the official Arc Testnet Explorer.
+- GitHub footer destination is the verified public repository configured in `VITE_GITHUB_REPOSITORY_URL` and `.env.example`.
+- Contract footer destination uses the new verified testnet address in the official Arc Testnet Explorer.
 - External destinations were checked with HTTP 200; internal routes and documentation anchors were checked in headless Chromium.
 - Root `README.md` includes the live Testnet contract address, current Preview URL/deployed commit, project summary, limits, setup commands, and safety notes.
-- No dead links, inert controls, `href="#"`, unexplained placeholders, or fabricated URLs remain in the audited UI.
 
 ## Safety and deployment constraints
 
 - No mainnet deployment or real-USDC transaction without explicit operator authorization.
 - Preview is Arc Testnet only; no deployer key or signing key is in the client bundle.
-- No secrets were added to the repository or deployed bundle in Phase 8.
+- No secrets were added to the repository or deployed bundle in Phase 8.5.
 - Contract remains unaudited experimental software with the risk notice visible.
 - Vercel Deployment Protection remains enabled; use `vercel curl` or an authorized browser session to inspect the Preview.
 - Phase 9 must not begin without explicit operator authorization for mainnet deployment and a specific low-value transaction.
 
 ## Known issues/blockers
 
-1. Phase 5 was accepted by the operator; the operator’s manual live transaction hashes are not recorded in this repository, and the automated live create → submit → approve → reject/expire journey was not executed here.
-2. A real injected-wallet transaction flow was not exercised in Phase 8 automation; a mock wallet/RPC verified UI states only. No transaction was sent.
-3. The frontend bundle is 650.98 kB (195.83 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
-4. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; recorded as an operational fallback.
-5. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
-6. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
-7. No mainnet deployment/transaction authorization.
-8. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded to reinforce that inspection-only tasks must not modify files.
-9. The Vercel CLI deployment does not carry attached Git metadata. The deployed source commit is identified by the clean tree at `1aa0709…` plus matching local/deployed CSS and JS asset hashes. Re-verify if the deployment is replaced.
-10. The in-app confirmation dialog replaced browser-native `window.confirm`; this is recorded as a visual/interaction deviation. The same guard, exact values, and irreversible-action warning are preserved, and no contract call was changed.
+1. The new 10-stage contract has contract-test coverage and on-chain constant verification, but no live create → submit → approve → reject/expire journey has been executed against it in this phase. The operator should smoke-test it on Testnet before any mainnet discussion.
+2. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. This is a deliberate UI limitation of the Days/Hours request, recorded as a deviation.
+3. The attachment URL is appended to the brief and must fit the combined 240-byte contract limit; a long brief plus a long URL is rejected by the form.
+4. A real injected-wallet transaction flow was not exercised in Phase 8.5 automation; a mock/headless browser verified UI states only. No transaction was sent by the browser.
+5. The frontend bundle is 655.72 kB (197.17 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+6. Circle DCW key provisioning previously failed, so testnet deployments used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; recorded as an operational fallback.
+7. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
+8. Vercel CLI did not attach Git metadata to the deployment. The deployed source commit is identified by the clean tree at `cdadaab…` plus matching local/deployed CSS and JS asset hashes. Re-verify if the deployment is replaced.
+9. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
+10. No mainnet deployment/transaction authorization.
+11. The previous 5-stage contract remains deployed and immutable at `0x85bbf…f05`, but the app and docs point to the new 10-stage contract. Do not send new pipeline activity to the old address.
 
 ## Single next task
 
-**Phase 9 (Mainnet Release) only after explicit operator authorization.** Reverify official Arc network/token/deadline values, review security and release evidence, export the tested contract source, and deploy/transact on Arc Mainnet only with separate, specific operator approval for the deployment and a low-value transaction. No mainnet action is authorized now.
+**Operator review of the Phase 8.5 Testnet Preview, then an explicit Phase 9 authorization decision.** Smoke-test the new contract with a small Testnet pipeline (including a 10-stage creation if desired), verify the new address and transaction links, and confirm the dark-mode/duration/attachment UX. Do not deploy to Mainnet or execute real-USDC transactions without separate, specific operator authorization.

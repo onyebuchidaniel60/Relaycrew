@@ -5,8 +5,8 @@
 ## Current testnet deployment
 
 - Preview network: **Arc Testnet**, chain ID `5042002`; test USDC only.
-- Preview URL: **https://relaycrew-egn5b8knn-uhhh2.vercel.app** (Deployment Protection enabled).
-- Preview deployed source commit: **`1aa070906db8ad1617c929c8718d9ae19d028a36`**; deployment ID `dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52`.
+- Preview URL: **https://relaycrew-rd9qqkqsi-uhhh2.vercel.app** (Deployment Protection enabled).
+- Preview deployed source commit: **`cdadaab0348c83a063d24e06305a1a0fca46e300`**; deployment ID `dpl_GtFSBXHAtEkFUJhyfrngfvCxJuwA`.
 - Coordinator contract: `0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070` (`MAX_STAGES = 10`).
 - Testnet deployment transaction: `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`.
 - Arc Testnet Explorer: https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070.
