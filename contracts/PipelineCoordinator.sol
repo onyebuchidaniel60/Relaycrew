@@ -15,7 +15,7 @@ contract PipelineCoordinator is ReentrancyGuard {
     uint256 public constant MIN_STAGE_BUDGET = 1 * USDC_UNIT;
     uint256 public constant MAX_PIPELINE_BUDGET = 100 * USDC_UNIT;
     uint256 public constant MIN_STAGES = 2;
-    uint256 public constant MAX_STAGES = 5;
+    uint256 public constant MAX_STAGES = 10;
     uint256 public constant MIN_STAGE_DURATION = 900;
     uint256 public constant MAX_STAGE_DURATION = 604_800;
     uint256 public constant EVALUATION_WINDOW = 86_400;

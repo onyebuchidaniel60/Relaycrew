@@ -12,7 +12,7 @@ const PHASE_STYLES = {
   wallet: 'border-line-strong bg-paper text-ink',
   pending: 'border-warm-line bg-warm-soft text-warm-ink',
   success: 'border-forest-line bg-forest-soft text-forest',
-  error: 'border-rust-line bg-rust-soft text-[#6f3021]',
+  error: 'border-rust-line bg-rust-soft text-[#6f3021] dark:text-[#f0b5a2]',
 } as const
 
 export function TxStatusToast() {

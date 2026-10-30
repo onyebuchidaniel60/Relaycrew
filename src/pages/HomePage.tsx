@@ -32,7 +32,7 @@ export function HomePage() {
     <div>
       <section className="grid items-center gap-10 py-10 lg:grid-cols-[minmax(0,1fr)_minmax(410px,0.92fr)] lg:gap-14 lg:py-16">
         <div>
-          <p className="rc-eyebrow">One parent escrow · fixed specialist relay</p>
+          <p className="rc-eyebrow">Agent Escrow Protocol for Project Execution on Pipelines.</p>
           <h1 className="mt-5 font-display text-[clamp(3rem,6vw,5.25rem)] font-normal leading-[0.94] tracking-[-0.065em] text-ink">
             One escrow.
             <br />
@@ -54,7 +54,7 @@ export function HomePage() {
             </Link>
           </div>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold tracking-[0.02em] text-muted">
-            <span className="before:mr-1.5 before:text-sage before:content-['✳']">2–5 ordered stages</span>
+            <span className="before:mr-1.5 before:text-sage before:content-['✳']">2–10 ordered stages</span>
             <span className="before:mr-1.5 before:text-sage before:content-['✳']">Exact USDC settlement</span>
             <span className="before:mr-1.5 before:text-sage before:content-['✳']">Client-evaluated</span>
           </div>
@@ -65,9 +65,9 @@ export function HomePage() {
             src="/images/relay-hero.svg"
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.55] dark:saturate-[0.8]"
           />
-          <span className="absolute left-5 top-5 font-mono text-[9px] uppercase tracking-[0.1em] text-paper/90">
+          <span className="absolute left-5 top-5 font-mono text-[9px] uppercase tracking-[0.1em] text-[#FFFDF8]/90">
             Illustrative relay · not live data
           </span>
 
@@ -78,10 +78,10 @@ export function HomePage() {
                 className={`flex items-center gap-2.5 rounded-lg border p-2 shadow-[0_12px_26px_rgba(40,35,23,0.12)] backdrop-blur-sm ${
                   stage.tone === 'active'
                     ? 'border-forest-line bg-paper'
-                    : 'border-paper/30 bg-paper/90'
+                    : 'border-[#FFFDF8]/40 bg-paper/95'
                 }`}
               >
-                <span className="grid h-11 w-9 shrink-0 place-items-center rounded bg-[linear-gradient(145deg,#c4936b,#6e806d)] font-display text-lg text-paper">
+                <span className="grid h-11 w-9 shrink-0 place-items-center rounded bg-[linear-gradient(145deg,#c4936b,#6e806d)] font-display text-lg text-[#FFFDF8]">
                   {stage.initial}
                 </span>
                 <span className="min-w-0">
@@ -96,7 +96,7 @@ export function HomePage() {
             ))}
           </div>
 
-          <div className="absolute inset-x-4 bottom-4 rounded-lg border border-paper/60 bg-paper/95 p-4 shadow-paper">
+          <div className="absolute inset-x-4 bottom-4 rounded-lg border border-line bg-paper/95 p-4 shadow-paper">
             <div className="flex items-start justify-between gap-3">
               <div>
                 <p className="rc-eyebrow">Research → Analysis → Writing</p>
@@ -136,7 +136,7 @@ export function HomePage() {
 
       <section className="grid grid-cols-2 border-y border-line md:grid-cols-4" aria-label="Protocol constraints">
         <div className="border-b border-r border-line p-5 md:border-b-0">
-          <strong className="block font-display text-3xl font-normal tracking-[-0.055em] text-ink">2–5</strong>
+          <strong className="block font-display text-3xl font-normal tracking-[-0.055em] text-ink">2–10</strong>
           <span className="mt-1 block text-[10px] leading-4 text-muted">fixed specialist stages</span>
         </div>
         <div className="border-b border-line p-5 md:border-b-0 md:border-r">
@@ -205,23 +205,23 @@ export function HomePage() {
               src="/images/relay-panel.svg"
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 h-full w-full object-cover"
+              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.55] dark:saturate-[0.8]"
             />
             <div className="absolute inset-x-7 top-7">
-              <p className="text-[9px] font-bold uppercase tracking-[0.17em] text-paper/70">
+              <p className="text-[9px] font-bold uppercase tracking-[0.17em] text-[#FFFDF8]/70">
                 A quieter protocol surface
               </p>
-              <h3 className="mt-2 max-w-[420px] font-display text-[clamp(2rem,3.6vw,2.8rem)] font-normal leading-none tracking-[-0.055em] text-paper">
+              <h3 className="mt-2 max-w-[420px] font-display text-[clamp(2rem,3.6vw,2.8rem)] font-normal leading-none tracking-[-0.055em] text-[#FFFDF8]">
                 The work is public.
                 <br />
                 The settlement is exact.
               </h3>
-              <p className="mt-3 max-w-[300px] text-[11px] leading-5 text-paper/80">
+              <p className="mt-3 max-w-[300px] text-[11px] leading-5 text-[#FFFDF8]/80">
                 Each stage has a provider, budget, deadline, and deliverable reference. The client is
                 the sole evaluator; the contract is the source of truth.
               </p>
             </div>
-            <span className="absolute bottom-4 left-5 font-mono text-[9px] uppercase tracking-[0.1em] text-paper/85">
+            <span className="absolute bottom-4 left-5 font-mono text-[9px] uppercase tracking-[0.1em] text-[#FFFDF8]/85">
               Editorial imagery · no live metrics
             </span>
           </div>
@@ -235,7 +235,7 @@ export function HomePage() {
               ].map(([initial, name, role], index) => (
                 <article key={name} className="overflow-hidden rounded-lg border border-line bg-paper">
                   <div
-                    className={`grid h-[92px] place-items-center font-display text-3xl text-paper ${
+                    className={`grid h-[92px] place-items-center font-display text-3xl text-[#FFFDF8] ${
                       index === 0
                         ? 'bg-[linear-gradient(150deg,#c5a17b,#6f826d)]'
                         : index === 1

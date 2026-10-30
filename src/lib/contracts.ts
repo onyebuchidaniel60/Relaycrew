@@ -890,7 +890,7 @@ export const pipelineCoordinatorAbi = [
 ] as const
 
 export const deployedPipelineCoordinatorAddress: Address =
-  '0x85bbf546b09d990959de0672c273b56400f84f05'
+  '0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070'
 
 const configuredAddress = import.meta.env.VITE_PIPELINE_CONTRACT_ADDRESS?.trim() ?? ''
 

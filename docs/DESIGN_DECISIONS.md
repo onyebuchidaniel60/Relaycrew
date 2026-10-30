@@ -100,6 +100,13 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Deployment:** Phase 8 Preview at `https://relaycrew-egn5b8knn-uhhh2.vercel.app`, deployed source commit `1aa070906db8ad1617c929c8718d9ae19d028a36` (`dpl_9HDcJ2bxCkdFX6XdPDYXPwik2e52`). All routes and the OG image returned HTTP 200 through the protected deployment; deployed CSS/JS hashes match the local build.
 - **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet remains undeployed and unauthorized.
 
+## Phase 8.5 dark mode extension
+
+- **Authorization:** operator instruction, 2026-10-30, explicitly authorized a Dark Mode toggle and a “Dark Warm Editorial” theme.
+- **Implementation:** class-based Tailwind dark mode, a header Light/Dark toggle, locally stored preference, and a CSS-variable token layer that maps the approved ivory/forest/warm palette to warm charcoal and ivory surfaces. The light theme remains the default and the previously approved “Warm Editorial Escrow” design is unchanged.
+- **Scope:** visual styling only; no contract call, ABI, address, validation, accounting, role, or state-transition behavior changed.
+- **Other authorized Phase 8.5 UX changes:** Days/Hours duration selectors converted to seconds, optional attachment URL appended to the public brief, `MAX_STAGES` raised to 10, and the public pitch change. These are recorded in `DECISIONS.md` (D-23) and `ARCHITECTURE.md`.
+
 ## Intentional constraints and deviations
 
 - **Imagery:** original warm editorial SVG artwork is used instead of licensed photography. This preserves the approved palette and composition without introducing an unverified asset license.

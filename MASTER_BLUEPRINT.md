@@ -60,7 +60,7 @@ No marketplace, provider discovery, reputation, dynamic agent selection, paralle
 ## MUST HAVE
 
 - A client can connect an EVM wallet, use the configured Arc network, approve an exact ERC-20 USDC allowance, and create/fund a pipeline in one follow-on contract transaction.
-- A pipeline contains 2–5 stages in an immutable, fixed order.
+- A pipeline contains 2–10 stages in an immutable, fixed order.
 - Every stage has a distinct, nonzero provider wallet, a title, a short public brief, a fixed USDC budget, and a relative work duration.
 - Client is the evaluator for every stage.
 - Exactly one stage is active at a time. Future stages are queued and already budget-reserved inside the parent escrow.
@@ -92,7 +92,7 @@ Anything that increases contract surface area without improving the demonstrable
 
 ## Hard caps and product policy
 
-- Minimum 2 stages; maximum 5 stages.
+- Minimum 2 stages; maximum 10 stages.
 - Each stage budget must be at least **1 USDC**.
 - Maximum total pipeline budget: **100 USDC** for the demo implementation.
 - All amounts use the Arc USDC ERC-20 interface with 6 decimals; never use floating-point arithmetic for token amounts.
@@ -142,7 +142,7 @@ The frontend's role-specific visibility is convenience only. The contract enforc
 **Entry:** `/create`, available to a connected wallet on configured chain.  
 **Preconditions:** wallet has enough USDC and native gas balance; stage list is valid; wallet is not assigned as a provider for its own pipeline.
 
-1. Client enters 2–5 stages in fixed order: provider address, title, brief, budget in USDC, and duration. Provider addresses must be unique within the pipeline.
+1. Client enters 2–10 stages in fixed order: provider address, title, brief, budget in USDC, and duration. Provider addresses must be unique within the pipeline.
 2. UI validates addresses, stage count, title/brief lengths, duration bounds, per-stage minimum and total cap. It computes the total with integer base units, then displays per-stage and total amounts.
 3. Before any approval, show an irreversible/public-data warning: stage titles, briefs, provider addresses, amounts, and later deliverable references are public and permanent. Client confirms.
 4. UI reads token balance and current allowance for the coordinator. It requests **exact allowance only**. If nonzero allowance must be reset for wallet/token compatibility, send `approve(0)` first, then exact approval. No unlimited approval.
@@ -242,7 +242,7 @@ Each FR is testable and maps to unit/integration/E2E coverage.
 
 ## FR-03 — Pipeline creation and funding
 
-- Input contract: 2–5 unique provider addresses; each not zero and not the client; stage title 1–64 bytes; public brief 1–240 bytes; each stage budget at least 1 USDC; total 2–100 USDC; stage duration 900–604800 seconds; sum computed using integer base units.
+- Input contract: 2–10 unique provider addresses; each not zero and not the client; stage title 1–64 bytes; public brief 1–240 bytes; each stage budget at least 1 USDC; total 2–100 USDC; stage duration 900–604800 seconds; sum computed using integer base units.
 - Contract atomically creates the pipeline only if exact `transferFrom` succeeds. First stage Active, remainder Queued; budgets and order immutable.
 - Acceptance: total deposited equals the sum of stage budgets; user-index entries exist for client and all providers; duplicate provider addresses or invalid values revert without moving funds or creating an ID.
 
@@ -375,7 +375,7 @@ There is **no off-chain application database**. The smart contract is the author
 | `paidOut` | `uint256` | Yes | Starts 0; increases only by paid stage amounts |
 | `refundedAmount` | `uint256` | Yes | Starts 0; set once on Rejected/Expired terminal refund |
 | `currentStageIndex` | `uint8` | Yes | Starts 0; increases only after successful approval |
-| `stageCount` | `uint8` | Yes | 2–5 |
+| `stageCount` | `uint8` | Yes | 2–10 |
 | `status` | enum | Yes | `Active`, `Completed`, `Rejected`, `Expired` |
 | `createdAt` | `uint64` | Yes | Block timestamp |
 | `finishedAt` | `uint64` | Optional | Set for Completed, Rejected, Expired |
@@ -398,7 +398,7 @@ There is **no off-chain application database**. The smart contract is the author
 
 ## Relationships
 
-- One Pipeline has 2–5 ordered Stage records.
+- One Pipeline has 2–10 ordered Stage records.
 - One client has zero or more pipelines.
 - A provider wallet may participate in many pipelines, but only once within a particular pipeline.
 - A user index maps an address to the pipeline IDs where it is client or provider. An auxiliary `hasUserPipeline[id][address]` boolean or equivalent prevents duplicate index entries.
@@ -536,7 +536,7 @@ There is no REST API. The public interface consists of read-only contract views 
 - **Purpose:** pull full budget and create a fixed pipeline.
 - **Auth:** connected client wallet; transaction signed by client.
 - **Request fields per stage:** provider address, budget in USDC base units, title, brief, duration seconds.
-- **Validation:** 2–5 stages; provider nonzero, distinct and not client; title/brief limits; stage budget ≥1 USDC; total ≤100 USDC; duration within 900–604800 seconds; exact USDC allowance/balance sufficient; correct deployed USDC token.
+- **Validation:** 2–10 stages; provider nonzero, distinct and not client; title/brief limits; stage budget ≥1 USDC; total ≤100 USDC; duration within 900–604800 seconds; exact USDC allowance/balance sufficient; correct deployed USDC token.
 - **Side effects:** token `transferFrom`, pipeline ID allocated, stage 0 Active, future stages Queued, user indexes written, `PipelineCreated` and `StageHired` events emitted.
 - **Success:** receipt with pipeline ID event; frontend then rereads summary.
 - **Errors:** custom errors such as `InvalidStageCount`, `InvalidProvider`, `DuplicateProvider`, `InvalidTitle`, `InvalidBrief`, `InvalidBudget`, `TotalBudgetTooHigh`, `InvalidDuration`, `TransferFailed`/SafeERC20 revert, insufficient allowance.
@@ -678,7 +678,7 @@ There is no external database. EVM transaction semantics provide atomicity. Ever
 - Only transfer USDC on the configured ERC-20 interface.
 - All amounts use 6-decimal base units and are bounded.
 - Validate array length before iterating, URI length before storing, and stage index/status before storage mutation.
-- Avoid unbounded loops other than the maximum five stages during creation/refund/indexing.
+- Avoid unbounded loops other than the maximum ten stages during creation/refund/indexing.
 - Keep public strings bounded to control gas and avoid accidental oversized inputs.
 - Do not implement off-chain arbitration or claim a security guarantee that is not present.
 
@@ -700,7 +700,7 @@ The **UX structure and behavior are specified now**. The final visual style is *
 | Route | Access / purpose | Main actions and data | Required UI states |
 |---|---|---|---|
 | `/` | Public landing page; explains the linear pipeline and has no fake live activity | Create CTA, browse docs, connect wallet, simple “how it works” | Initial loading only for config; missing-contract warning; network badge; error banner if RPC unavailable |
-| `/create` | Connected wallet; create/fund fixed stage list | Add/remove stage fields within 2–5; provider address, title, brief, budget, duration; sum breakdown; public-data warning; exact approval then create | Disconnected, wrong network, validating, insufficient balance/allowance, wallet prompt, pending, success, failure, retry-safe state |
+| `/create` | Connected wallet; create/fund fixed stage list | Add/remove stage fields within 2–10; optional attachment URL appended to the public brief; Days/Hours duration selector converted to seconds; provider address, title, brief, budget, duration; sum breakdown; public-data warning; exact approval then create | Disconnected, wrong network, validating, insufficient balance/allowance, wallet prompt, pending, success, failure, retry-safe state |
 | `/pipelines` | Wallet-centric “My pipelines” (client or assigned provider) | List summaries, status, current specialist, budget paid/remaining, deadlines; open details | Disconnected prompt, loading, empty, populated, RPC error, stale/refresh |
 | `/pipelines/:id` | Public detail; role-specific controls | Stage timeline; budget; client/provider labels; deadlines; deliverable link; contract/events/tx hashes; submit/approve/reject/expire as allowed | Loading, not-found, RPC error, Active, Submitted, Paid, Queued, Rejected, Expired, Completed, pending transaction, wallet rejected, reverted, stale state |
 | `/docs` | Public | Plain-language “what is RelayCrew,” stages, lifecycle, how to connect wallet, how payout/refund works, public-data warning, testnet/mainnet distinction, Arc Studio and repo links | Not dependent on contract reads; show current contract address only when configured and verified |
@@ -715,7 +715,7 @@ The **UX structure and behavior are specified now**. The final visual style is *
 - `TransactionStatus`: wallet pending, submitted hash, confirmations, success/failure; allows explorer open only with real hash.
 - `UsdcAmount`: fixed 6-decimal formatting, no float math, always labels USDC.
 - `AddressDisplay`: shortened address, copy button and explorer address link; no fabricated ENS resolution.
-- `StageEditor`: provider, title, brief, budget, duration, remove/add controls with 2–5 constraints.
+- `StageEditor`: provider, title, brief, optional attachment URL, budget, Days/Hours duration selector, remove/add controls with 2–10 constraints.
 - `BudgetSummary`: per-stage total and cap/min checks.
 - `PublicDataWarning`: required before create/funding and before submitting deliverable URI.
 - `StageTimeline`: stage state, provider, budget, deadline, submit/release state.
@@ -912,7 +912,7 @@ No user management, moderation, support dashboard, user reports, fraud dashboard
 
 ## Contract unit tests (Arc Studio required; exported-source local tests recommended)
 
-- Valid create for 2, 3, and 5 stages.
+- Valid create for 2, 3, 5, and 10 stages.
 - Reject 0/1/6 stages; zero/client provider; duplicate provider; invalid title/brief lengths; budget under 1 USDC; total >100 USDC; invalid duration; insufficient allowance/balance.
 - Exact sum and deposit transfer; all provider/client user indexes correct and unique.
 - Stage initial state and deadline; later queued stages have no active deadline until hired.

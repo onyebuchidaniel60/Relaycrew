@@ -31,6 +31,7 @@ contract PipelineCoordinatorTest is Test {
 
     uint256 internal constant UNIT = 1_000_000;
     uint256 internal constant TOTAL_TWO = 30 * UNIT;
+    uint256 internal constant TOTAL_TEN = 100 * UNIT;
     uint32 internal constant DURATION = 86_400;
     uint32 internal constant DURATION2 = 172_800;
     string internal constant HTTPS_URI = "https://example.com/deliverable";
@@ -150,7 +151,11 @@ contract PipelineCoordinatorTest is Test {
         assertEq(coordinator.getUserPipelineIds(outsider).length, 0);
     }
 
-    function testCreateThreeAndFiveStages() public {
+    function testMaxStagesIsTen() public view {
+        assertEq(coordinator.MAX_STAGES(), 10);
+    }
+
+    function testCreateThreeFiveAndTenStages() public {
         uint256 id3 = _createStages(3);
         assertEq(id3, 1);
         assertEq(coordinator.pipelineCount(), 1);
@@ -162,6 +167,44 @@ contract PipelineCoordinatorTest is Test {
         assertEq(coordinator.pipelineCount(), 2);
         assertEq(usdc.balanceOf(address(coordinator)), 80 * UNIT);
         assertEq(uint256(coordinator.getPipelineSummary(id5).stageCount), 5);
+
+        uint256 id10 = _createStages(10);
+        assertEq(id10, 3);
+        assertEq(coordinator.pipelineCount(), 3);
+        assertEq(usdc.balanceOf(address(coordinator)), 180 * UNIT);
+        assertEq(uint256(coordinator.getPipelineSummary(id10).stageCount), 10);
+    }
+
+    function testCreateTenStages() public {
+        uint256 id = _createStages(10);
+
+        PipelineCoordinator.PipelineSummary memory pipeline = coordinator.getPipelineSummary(id);
+        assertEq(pipeline.client, client);
+        assertEq(pipeline.totalBudget, TOTAL_TEN);
+        assertEq(pipeline.paidOut, 0);
+        assertEq(pipeline.refundedAmount, 0);
+        assertEq(uint256(pipeline.currentStageIndex), 0);
+        assertEq(uint256(pipeline.stageCount), 10);
+        assertEq(uint256(pipeline.status), uint256(PipelineCoordinator.PipelineStatus.Active));
+
+        assertEq(usdc.balanceOf(address(coordinator)), TOTAL_TEN);
+
+        for (uint256 i = 0; i < 10; i++) {
+            PipelineCoordinator.StageView memory stage = coordinator.getStage(id, i);
+            assertEq(stage.budget, 10 * UNIT);
+            assertEq(uint256(stage.durationSeconds), uint256(DURATION));
+            if (i == 0) {
+                assertEq(uint256(stage.status), uint256(PipelineCoordinator.StageStatus.Active));
+                assertEq(uint256(stage.startedAt), block.timestamp);
+                assertEq(uint256(stage.dueAt), block.timestamp + DURATION);
+            } else {
+                assertEq(uint256(stage.status), uint256(PipelineCoordinator.StageStatus.Queued));
+                assertEq(uint256(stage.startedAt), 0);
+                assertEq(uint256(stage.dueAt), 0);
+            }
+        }
+
+        assertEq(coordinator.getUserPipelineIds(client).length, 1);
     }
 
     function testRevertInvalidStageCounts() public {
@@ -175,10 +218,10 @@ contract PipelineCoordinatorTest is Test {
         vm.expectRevert(PipelineCoordinator.InvalidStageCount.selector);
         coordinator.createPipeline(one);
 
-        PipelineCoordinator.StageInput[] memory six = _stages(6);
+        PipelineCoordinator.StageInput[] memory eleven = _stages(11);
         vm.prank(client);
         vm.expectRevert(PipelineCoordinator.InvalidStageCount.selector);
-        coordinator.createPipeline(six);
+        coordinator.createPipeline(eleven);
     }
 
     function testRevertInvalidProviders() public {

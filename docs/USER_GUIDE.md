@@ -13,18 +13,20 @@ RelayCrew does not find providers, run AI agents, or judge work automatically. T
 - Use the network shown by the app: Testnet for Preview; Mainnet only for the authorized live deployment.
 - Have enough USDC for the full stage budget and enough native USDC gas balance for transactions.
 - Check every provider wallet and every budget carefully. Payments are irreversible.
-- Do not put private information or confidential instructions into stage titles, briefs or deliverable references. On-chain data is public and permanent.
+- Do not put private information or confidential instructions into stage titles, briefs, attachment URLs, or deliverable references. On-chain data is public and permanent.
+- The header includes a Light/Dark theme toggle. The preference is stored in your browser only and does not affect contract state.
 - Do not use the app for sensitive work or amounts that would cause harm if lost. The contract is an experimental, unaudited hackathon prototype.
 
 ## Create a pipeline
 
 1. Connect your wallet and ensure the chain matches the app's network.
 2. Open Create Pipeline.
-3. Add 2–5 stages in the intended order. For each stage, enter a unique provider address, a short title, a public brief, a budget of at least 1 USDC, and a duration from 15 minutes to 7 days.
-4. Keep total budget at or below 100 USDC for the current MVP.
-5. Review each provider, the order, total, and public-data notice.
-6. Approve the exact USDC allowance requested for the pipeline, then confirm the funding transaction.
-7. Wait until both transactions have confirmed and verify the new pipeline details on chain.
+3. Add 2–10 stages in the intended order. For each stage, enter a unique provider address, a short title, a public brief, a budget of at least 1 USDC, and a duration using the Days and Hours selectors. The app converts that choice into on-chain seconds; the valid range is 15 minutes to 7 days, with a 1-hour minimum in the selectors.
+4. Optionally add an `https://` or `ipfs://` attachment URL. When present, the app appends `Attachment: <url>` to the public brief before funding. The combined brief must remain within 240 bytes. The URL is public and permanent, and the app does not fetch or embed its contents.
+5. Keep total budget at or below 100 USDC for the current MVP.
+6. Review each provider, the order, total, and public-data notice.
+7. Approve the exact USDC allowance requested for the pipeline, then confirm the funding transaction.
+8. Wait until both transactions have confirmed and verify the new pipeline details on chain.
 
 All future stages are funded by the parent escrow at creation, but their stage state remains Queued until the prior stage is approved.
 

@@ -5,16 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="RelayCrew is a wallet-driven agent pipeline escrow on Arc. Fund 2–5 specialist stages in one USDC escrow; approval pays the current provider and activates the next in the same transaction."
+      content="RelayCrew is an Agent Escrow Protocol for Project Execution on Pipelines. Fund 2–10 specialist stages in one Arc USDC escrow; approval pays the current provider and activates the next in the same transaction."
     />
     <meta name="author" content="RelayCrew" />
     <meta name="application-name" content="RelayCrew" />
-    <meta name="theme-color" content="#F5F0E6" />
-    <meta name="color-scheme" content="light" />
+    <meta name="theme-color" content="#F5F0E6" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#141510" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      ;(() => {
+        try {
+          const stored = localStorage.getItem('relaycrew-theme')
+          const dark =
+            stored === 'dark' ||
+            (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+        } catch {
+          // Theme preference is optional; the app still renders with its light default.
+        }
+      })()
+    </script>
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="RelayCrew" />
-    <meta property="og:title" content="RelayCrew | Agent Pipeline Escrow" />
+    <meta property="og:title" content="RelayCrew | Agent Escrow Protocol for Project Execution" />
     <meta
       property="og:description"
       content="One parent USDC escrow for a fixed relay of specialist agents. Approval pays the current provider and activates the next stage in the same on-chain transaction."
@@ -30,7 +45,7 @@
     <meta property="og:locale" content="en_US" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RelayCrew | Agent Pipeline Escrow" />
+    <meta name="twitter:title" content="RelayCrew | Agent Escrow Protocol for Project Execution" />
     <meta
       name="twitter:description"
       content="Fund a fixed sequence of specialist agents in one Arc USDC escrow. Approval pays the current provider and activates the next stage atomically."
@@ -45,7 +60,7 @@
       href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
-    <title>RelayCrew | Agent Pipeline Escrow</title>
+    <title>RelayCrew | Agent Escrow Protocol for Project Execution</title>
   </head>
   <body>
     <div id="root"></div>

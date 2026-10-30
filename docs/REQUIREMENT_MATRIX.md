@@ -38,8 +38,8 @@ This matrix supplements FR-01–FR-10 with actor, preconditions, inputs, process
 
 - **Purpose:** commit a fixed multi-stage sequence and escrow its full budget.
 - **Actor:** client.
-- **Preconditions:** correct chain, wallet connected, balance/gas sufficient; 2–5 valid stages.
-- **Inputs:** provider addresses, titles, public briefs, budgets, durations.
+- **Preconditions:** correct chain, wallet connected, balance/gas sufficient; 2–10 valid stages.
+- **Inputs:** provider addresses, titles, public briefs, optional attachment URLs, budgets, Days/Hours durations converted to seconds.
 - **Processing:** normalize/check addresses; validate stage count and byte bounds; calculate exact sum using integer base units; display irreversible/public-data summary; approve exact amount; after approval receipt, call contract create; verify receipt/state.
 - **Outputs:** new pipeline ID; first active stage; subsequent queued stages; USDC moved into parent escrow.
 - **Permissions:** `createPipeline` caller becomes immutable client; contract validates all values.

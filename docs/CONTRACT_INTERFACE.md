@@ -2,7 +2,7 @@
 
 **Contract name:** `PipelineCoordinator` (implemented).
 
-**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 29 Foundry tests). Deployed to Arc Testnet at [`0x85bbf546b09d990959de0672c273b56400f84f05`](https://explorer.testnet.arc.io/address/0x85bbf546b09d990959de0672c273b56400f84f05) on 2026-10-30. The tested ABI is embedded in `src/lib/contracts.ts`. Mainnet is not deployed. This is unaudited experimental software.
+**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 31 Foundry tests; `MAX_STAGES = 10`). Deployed to Arc Testnet at [`0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`](https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070) on 2026-10-30. Deployment tx: `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`. The tested ABI is embedded in `src/lib/contracts.ts`. The previous 5-stage testnet deployment at `0x85bbf546b09d990959de0672c273b56400f84f05` is superseded. Mainnet is not deployed. This is unaudited experimental software.
 
 ## Core types
 
@@ -22,7 +22,7 @@
 - `brief`: 1–240 bytes, public and permanent.
 - `durationSeconds`: integer 900–604800.
 
-Pipeline constraints: 2–5 stages, total no more than 100,000,000 USDC base units (100 USDC), providers unique and not client. Contract computes total itself.
+Pipeline constraints: 2–10 stages, total no more than 100,000,000 USDC base units (100 USDC), providers unique and not client. Contract computes total itself.
 
 ## Write methods
 

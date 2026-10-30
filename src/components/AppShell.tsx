@@ -5,6 +5,7 @@ import { arcTestnet } from '../lib/chain'
 import { appConfig } from '../lib/config'
 import { ConnectWalletButton } from './ConnectWalletButton'
 import { LogoMark } from './LogoMark'
+import { ThemeToggle } from './ThemeToggle'
 import { TxStatusToast } from './TxStatusToast'
 
 const navItems = [
@@ -41,7 +42,7 @@ export function AppShell() {
 
       {configError ? (
         <div className="border-b border-rust-line bg-rust-soft" role="alert">
-          <p className="rc-shell py-2 text-center text-[11px] font-semibold text-[#6f3021]">
+          <p className="rc-shell py-2 text-center text-[11px] font-semibold text-[#6f3021] dark:text-[#f0b5a2]">
             Configuration error: {configError} Wallet actions are disabled.
           </p>
         </div>
@@ -49,7 +50,7 @@ export function AppShell() {
 
       {isWrongNetwork ? (
         <div className="border-b border-rust-line bg-rust-soft" role="alert">
-          <div className="rc-shell flex flex-col gap-2 py-2 text-[11px] font-semibold text-[#6f3021] sm:flex-row sm:items-center sm:justify-between">
+          <div className="rc-shell flex flex-col gap-2 py-2 text-[11px] font-semibold text-[#6f3021] dark:text-[#f0b5a2] sm:flex-row sm:items-center sm:justify-between">
             <span>Wrong Network: Please switch to Arc Testnet</span>
             <div className="flex flex-wrap items-center gap-2">
               <button
@@ -68,7 +69,7 @@ export function AppShell() {
         </div>
       ) : null}
 
-      <header className="border-b border-line/80 bg-canvas/80 backdrop-blur-sm">
+      <header className="border-b border-line/80 bg-canvas/80 backdrop-blur-sm dark:border-line dark:bg-canvas/90">
         <div className="rc-shell flex min-h-[76px] flex-wrap items-center justify-between gap-x-6 gap-y-3 py-3">
           <Link to="/" className="flex items-center gap-2.5 text-ink">
             <LogoMark className="h-9 w-9 shrink-0" />
@@ -76,8 +77,8 @@ export function AppShell() {
               <span className="block font-display text-[23px] font-medium leading-none tracking-[-0.04em]">
                 RelayCrew
               </span>
-              <span className="mt-1 block text-[8px] font-bold uppercase tracking-[0.16em] text-muted">
-                Agent escrow protocol
+              <span className="mt-1 block max-w-[230px] text-[8px] font-bold uppercase leading-[1.35] tracking-[0.14em] text-muted">
+                Agent Escrow Protocol for Project Execution on Pipelines.
               </span>
             </span>
           </Link>
@@ -104,6 +105,7 @@ export function AppShell() {
             <span className="hidden sm:inline-flex">
               <NetworkBadge />
             </span>
+            <ThemeToggle />
             <ConnectWalletButton />
           </div>
         </div>
@@ -113,7 +115,7 @@ export function AppShell() {
         <Outlet />
       </main>
 
-      <footer className="border-t border-line bg-canvas/60">
+      <footer className="border-t border-line bg-canvas/60 dark:border-line dark:bg-canvas-deep/80">
         <div className="rc-shell flex flex-col gap-5 py-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <Link to="/" className="inline-flex items-center gap-2 text-ink">
@@ -121,8 +123,8 @@ export function AppShell() {
               <span className="font-display text-xl font-medium tracking-[-0.04em]">RelayCrew</span>
             </Link>
             <p className="mt-2 max-w-sm text-[10px] leading-5 text-muted">
-              One parent escrow · fixed specialist relay · Arc Testnet preview. Experimental,
-              unaudited software.
+              Agent Escrow Protocol for Project Execution on Pipelines. One parent escrow, a fixed
+              specialist relay, and experimental Arc Testnet software.
             </p>
           </div>
           <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold text-ink-soft">

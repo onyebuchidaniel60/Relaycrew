@@ -3,7 +3,8 @@
 **Status:** Approved design baseline for implementation planning; mainnet actions and final visual design are not approved by this document.  
 **Working product name:** RelayCrew.  
 **Product concept:** Milestone Team Pipeline.  
-**Last updated:** 2026-10-28.
+**Pitch:** Agent Escrow Protocol for Project Execution on Pipelines.
+**Last updated:** 2026-10-30.
 
 ## 1. Product overview
 
@@ -33,7 +34,7 @@ Researcher → Analyst → Writer, with a client funding all three budgets in ad
 
 ### Included
 
-- 2–5 fixed sequential stages.
+- 2–10 fixed sequential stages.
 - Distinct, preassigned provider wallet per stage.
 - Client acts as evaluator for every stage.
 - Full budget funded upfront in Arc USDC ERC-20 interface.
@@ -49,7 +50,7 @@ Marketplace/discovery, ratings/reputation, dynamic hiring, parallel or DAG topol
 
 ## 3. MVP limits
 
-- At least 2 and at most 5 stages.
+- At least 2 and at most 10 stages.
 - Each stage budget ≥ 1 USDC.
 - Total budget ≤ 100 USDC per pipeline for this experimental implementation.
 - Amounts use six-decimal USDC ERC-20 base units; do not use floating-point arithmetic.
@@ -83,7 +84,7 @@ Contract authorization is authoritative. UI visibility alone is never a security
 
 ### 5.2 Create/fund
 
-1. Client enters 2–5 ordered stages with provider, title, public brief, budget, duration.
+1. Client enters 2–10 ordered stages with provider, title, public brief, optional attachment URL, budget, and duration using Days and Hours selectors.
 2. Frontend validates provider uniqueness/address format, title/brief length, budget limits, duration bounds, and sum using integer base units.
 3. Show public/permanent data warning, total budget, each provider address, and each stage allocation.
 4. Request exact USDC allowance for the total. Never request unlimited allowance. If needed, reset prior allowance to zero first.
@@ -133,7 +134,7 @@ Contract authorization is authoritative. UI visibility alone is never a security
 
 ### FR-03 Create/fund
 
-- 2–5 unique nonzero providers, each different from client.
+- 2–10 unique nonzero providers, each different from client.
 - Title 1–64 bytes, brief 1–240 bytes.
 - Each stage ≥ 1 USDC, total ≤ 100 USDC.
 - Duration 900–604800 seconds.
@@ -230,7 +231,7 @@ Purpose: explain product and main CTA. Public access. Contains “How it works,�
 
 ### Create `/create`
 
-Connected wallet and correct chain required for writes. Ordered stage builder (2–5), provider, title, brief, budget, duration, sum breakdown, public-data warning, exact allowance action and funding action. Loading/wallet-prompt/pending/success/failure/wrong-network/insufficient-funds/validation states required. Buttons reflect form/role state and always have behavior. After funding, route to details.
+Connected wallet and correct chain required for writes. Ordered stage builder (2–10), provider, title, public brief, optional attachment URL, budget, Days/Hours duration selector converted to seconds, sum breakdown, public-data warning, exact allowance action and funding action. Loading/wallet-prompt/pending/success/failure/wrong-network/insufficient-funds/validation states required. Buttons reflect form/role state and always have behavior. After funding, route to details.
 
 ### My Pipelines `/pipelines`
 

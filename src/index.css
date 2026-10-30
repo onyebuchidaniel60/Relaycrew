@@ -4,28 +4,117 @@
 
 :root {
   color-scheme: light;
-  --canvas: #f5f0e6;
-  --canvas-deep: #eee7da;
-  --paper: #fffdf8;
-  --paper-soft: #faf6ed;
-  --ink: #1b1d18;
-  --ink-soft: #3f463e;
-  --muted: #656c62;
-  --muted-light: #697065;
-  --line: #ded5c5;
-  --line-strong: #c8bca8;
-  --green: #173d2c;
-  --green-deep: #102c20;
-  --green-soft: #e6ede4;
-  --green-line: #b8c9b8;
-  --sage: #778977;
-  --amber: #9a642f;
-  --amber-soft: #f3e6d1;
-  --amber-ink: #6d4a2d;
-  --amber-line: #d4b890;
-  --rust: #91422f;
-  --rust-soft: #f2dfd7;
-  --rust-line: #d3b3a7;
+
+  /* Raw channels used by Tailwind's opacity modifiers. */
+  --rc-canvas: 245 240 230;
+  --rc-canvas-deep: 238 231 218;
+  --rc-paper: 255 253 248;
+  --rc-paper-soft: 250 246 237;
+  --rc-ink: 27 29 24;
+  --rc-ink-soft: 63 70 62;
+  --rc-muted: 101 108 98;
+  --rc-muted-light: 105 112 101;
+  --rc-line: 222 213 197;
+  --rc-line-strong: 200 188 168;
+  --rc-forest: 23 61 44;
+  --rc-forest-deep: 16 44 32;
+  --rc-forest-soft: 230 237 228;
+  --rc-forest-line: 184 201 184;
+  --rc-sage: 119 137 119;
+  --rc-warm: 154 100 47;
+  --rc-warm-soft: 243 230 209;
+  --rc-warm-ink: 109 74 45;
+  --rc-warm-line: 212 184 144;
+  --rc-rust: 145 66 47;
+  --rc-rust-soft: 242 223 215;
+  --rc-rust-line: 211 179 167;
+
+  /* Semantic aliases consumed by the component layer. */
+  --canvas: rgb(var(--rc-canvas));
+  --canvas-deep: rgb(var(--rc-canvas-deep));
+  --paper: rgb(var(--rc-paper));
+  --paper-soft: rgb(var(--rc-paper-soft));
+  --ink: rgb(var(--rc-ink));
+  --ink-soft: rgb(var(--rc-ink-soft));
+  --muted: rgb(var(--rc-muted));
+  --muted-light: rgb(var(--rc-muted-light));
+  --line: rgb(var(--rc-line));
+  --line-strong: rgb(var(--rc-line-strong));
+  --green: rgb(var(--rc-forest));
+  --green-deep: rgb(var(--rc-forest-deep));
+  --green-soft: rgb(var(--rc-forest-soft));
+  --green-line: rgb(var(--rc-forest-line));
+  --sage: rgb(var(--rc-sage));
+  --amber: rgb(var(--rc-warm));
+  --amber-soft: rgb(var(--rc-warm-soft));
+  --amber-ink: rgb(var(--rc-warm-ink));
+  --amber-line: rgb(var(--rc-warm-line));
+  --rust: rgb(var(--rc-rust));
+  --rust-soft: rgb(var(--rc-rust-soft));
+  --rust-line: rgb(var(--rc-rust-line));
+
+  --on-accent: #fff9f2;
+  --danger-ink: #6f3021;
+  --success-ink: #2e5b3f;
+  --success-soft: #e4eee1;
+  --success-line: #b6c9b3;
+  --green-soft-hover: #dde8da;
+  --rust-strong: #763323;
+  --warm-strong: #7f5125;
+  --input-bg: #fffefa;
+  --preview-bg: #eee2cc;
+  --preview-line: #d7c9b6;
+  --preview-ink: #6c4d2d;
+  --button-hover: rgba(23, 61, 44, 0.045);
+  --focus-ring: rgba(23, 61, 44, 0.09);
+  --grid-line: rgba(27, 29, 24, 0.028);
+  --card-shadow: 0 18px 40px rgba(49, 45, 34, 0.055);
+  --card-shadow-hover: 0 24px 56px rgba(49, 45, 34, 0.1);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --rc-canvas: 20 21 16;
+  --rc-canvas-deep: 15 16 12;
+  --rc-paper: 29 31 25;
+  --rc-paper-soft: 24 26 21;
+  --rc-ink: 242 235 221;
+  --rc-ink-soft: 216 209 195;
+  --rc-muted: 169 166 149;
+  --rc-muted-light: 185 181 164;
+  --rc-line: 55 56 47;
+  --rc-line-strong: 76 77 64;
+  --rc-forest: 203 216 192;
+  --rc-forest-deep: 183 199 169;
+  --rc-forest-soft: 38 51 41;
+  --rc-forest-line: 75 96 79;
+  --rc-sage: 157 175 145;
+  --rc-warm: 201 152 95;
+  --rc-warm-soft: 52 40 27;
+  --rc-warm-ink: 232 192 142;
+  --rc-warm-line: 92 72 48;
+  --rc-rust: 217 138 112;
+  --rc-rust-soft: 56 35 29;
+  --rc-rust-line: 106 64 52;
+
+  --on-accent: #16170f;
+  --danger-ink: #f0b5a2;
+  --success-ink: #a7c9ac;
+  --success-soft: #24352a;
+  --success-line: #4b6650;
+  --green-soft-hover: #314437;
+  --rust-strong: #e5a08b;
+  --warm-strong: #e3b57f;
+  --input-bg: #181a15;
+  --preview-bg: #2d2419;
+  --preview-line: #51402c;
+  --preview-ink: #e3c39a;
+  --button-hover: rgba(203, 216, 192, 0.07);
+  --focus-ring: rgba(203, 216, 192, 0.15);
+  --grid-line: rgba(242, 235, 221, 0.035);
+  --card-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+  --card-shadow-hover: 0 24px 56px rgba(0, 0, 0, 0.34);
 }
 
 html {
@@ -38,8 +127,8 @@ body {
   margin: 0;
   background-color: var(--canvas);
   background-image:
-    linear-gradient(rgba(27, 29, 24, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(27, 29, 24, 0.028) 1px, transparent 1px);
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 42px 42px, 42px 42px;
   color: var(--ink);
   font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -90,7 +179,7 @@ body {
     border: 1px solid var(--line);
     border-radius: 10px;
     background: var(--paper);
-    box-shadow: 0 18px 40px rgba(49, 45, 34, 0.055);
+    box-shadow: var(--card-shadow);
   }
 
   .rc-card-soft {
@@ -106,7 +195,7 @@ body {
 
   .rc-card-hover:hover {
     border-color: var(--line-strong);
-    box-shadow: 0 24px 56px rgba(49, 45, 34, 0.1);
+    box-shadow: var(--card-shadow-hover);
   }
 
   .rc-button {
@@ -135,7 +224,7 @@ body {
 
   .rc-button:hover:not(:disabled) {
     border-color: var(--green);
-    background: rgba(23, 61, 44, 0.045);
+    background: var(--button-hover);
   }
 
   .rc-button:disabled {
@@ -146,13 +235,13 @@ body {
   .rc-button-primary {
     border-color: var(--green);
     background: var(--green);
-    color: var(--paper);
+    color: var(--on-accent);
   }
 
   .rc-button-primary:hover:not(:disabled) {
     border-color: var(--green-deep);
     background: var(--green-deep);
-    box-shadow: 0 10px 24px rgba(23, 61, 44, 0.18);
+    box-shadow: 0 10px 24px var(--focus-ring);
   }
 
   .rc-button-soft {
@@ -162,30 +251,32 @@ body {
   }
 
   .rc-button-soft:hover:not(:disabled) {
-    border-color: var(--green-line, #b8c9b8);
-    background: #dde8da;
+    border-color: var(--green-line);
+    background: var(--green-soft-hover);
   }
 
   .rc-button-rust {
     border-color: var(--rust);
     background: var(--rust);
-    color: #fff9f2;
+    color: var(--on-accent);
   }
 
   .rc-button-rust:hover:not(:disabled) {
-    border-color: #763323;
-    background: #763323;
+    border-color: var(--rust-strong);
+    background: var(--rust-strong);
+    color: var(--on-accent);
   }
 
   .rc-button-warm {
     border-color: var(--amber);
     background: var(--amber);
-    color: #fffaf0;
+    color: var(--on-accent);
   }
 
   .rc-button-warm:hover:not(:disabled) {
-    border-color: #7f5125;
-    background: #7f5125;
+    border-color: var(--warm-strong);
+    background: var(--warm-strong);
+    color: var(--on-accent);
   }
 
   .rc-button-sm {
@@ -260,15 +351,15 @@ body {
 
   .rc-pill-active,
   .rc-pill-submitted {
-    border-color: var(--green-line, #b8c9b8);
+    border-color: var(--green-line);
     background: var(--green-soft);
     color: var(--green);
   }
 
   .rc-pill-complete {
-    border-color: #b6c9b3;
-    background: #e4eee1;
-    color: #2e5b3f;
+    border-color: var(--success-line);
+    background: var(--success-soft);
+    color: var(--success-ink);
   }
 
   .rc-pill-danger {
@@ -355,7 +446,7 @@ body {
     width: 100%;
     border: 1px solid var(--line);
     border-radius: 5px;
-    background: #fffefa;
+    background: var(--input-bg);
     color: var(--ink);
     font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
     font-size: 12px;
@@ -381,7 +472,7 @@ body {
   .rc-textarea:focus {
     border-color: var(--green);
     background: var(--paper);
-    box-shadow: 0 0 0 3px rgba(23, 61, 44, 0.09);
+    box-shadow: 0 0 0 3px var(--focus-ring);
     outline: none;
   }
 
@@ -421,7 +512,7 @@ body {
   .rc-alert-danger {
     border-color: var(--rust-line);
     background: var(--rust-soft);
-    color: #6f3021;
+    color: var(--danger-ink);
   }
 
   .rc-alert-warm {
@@ -431,9 +522,9 @@ body {
   }
 
   .rc-alert-info {
-    border-color: var(--green-line, #b8c9b8);
+    border-color: var(--green-line);
     background: var(--green-soft);
-    color: #31553e;
+    color: var(--success-ink);
   }
 
   .rc-note {
@@ -470,9 +561,9 @@ body {
   }
 
   .rc-preview-bar {
-    border-bottom: 1px solid #d7c9b6;
-    background: #eee2cc;
-    color: #6c4d2d;
+    border-bottom: 1px solid var(--preview-line);
+    background: var(--preview-bg);
+    color: var(--preview-ink);
     font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
     font-size: 9px;
     letter-spacing: 0.08em;
@@ -484,7 +575,12 @@ body {
     border: 1px solid var(--line);
     border-radius: 10px;
     background:
-      linear-gradient(90deg, rgba(222, 213, 197, 0.18), rgba(222, 213, 197, 0.5), rgba(222, 213, 197, 0.18));
+      linear-gradient(
+        90deg,
+        rgb(var(--rc-line) / 0.18),
+        rgb(var(--rc-line) / 0.5),
+        rgb(var(--rc-line) / 0.18)
+      );
     background-size: 200% 100%;
     animation: rc-shimmer 1.8s ease-in-out infinite;
   }
@@ -522,9 +618,9 @@ body {
   }
 
   .rc-step-done .rc-step-marker {
-    border-color: #9ab39b;
-    background: #e4eee1;
-    color: var(--green);
+    border-color: var(--success-line);
+    background: var(--success-soft);
+    color: var(--success-ink);
   }
 
   .rc-step strong {
@@ -548,14 +644,14 @@ body {
     justify-content: space-between;
     gap: 16px;
     margin-top: 18px;
-    border: 1px solid #c7d4c4;
+    border: 1px solid var(--green-line);
     border-radius: 8px;
     background: var(--green-soft);
     padding: 16px 17px;
   }
 
   .rc-funding-total span {
-    color: #52705a;
+    color: var(--success-ink);
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.08em;
@@ -576,7 +672,7 @@ body {
   .rc-funding-strip p {
     max-width: 340px;
     margin: 0;
-    color: #52705a;
+    color: var(--success-ink);
     font-size: 10px;
     line-height: 1.55;
   }
@@ -588,7 +684,7 @@ body {
     border: 1px solid var(--line);
     border-radius: 10px;
     background: var(--paper);
-    box-shadow: 0 18px 40px rgba(49, 45, 34, 0.04);
+    box-shadow: var(--card-shadow);
   }
 
   .rc-money-cell {
@@ -649,7 +745,7 @@ body {
   }
 
   .rc-timeline-item.is-paid:not(:last-child)::before {
-    background: #9ab39b;
+    background: var(--green-line);
   }
 
   .rc-timeline-item.is-active:not(:last-child)::before {
@@ -674,7 +770,7 @@ body {
   }
 
   .rc-timeline-item.is-active .rc-timeline-marker {
-    box-shadow: 0 0 0 4px rgba(23, 61, 44, 0.09);
+    box-shadow: 0 0 0 4px var(--focus-ring);
   }
 
   .rc-timeline-item.is-paid .rc-timeline-marker {
@@ -732,7 +828,7 @@ body {
   }
 
   .rc-timeline-amount .is-paid {
-    color: #3e6c4c;
+    color: var(--success-ink);
   }
 
   .rc-timeline-amount .is-active {
@@ -864,9 +960,17 @@ body {
     box-shadow: 0 32px 90px rgba(27, 29, 24, 0.28);
   }
 
+  .dark .rc-dialog {
+    box-shadow: 0 32px 90px rgba(0, 0, 0, 0.6);
+  }
+
   .rc-dialog::backdrop {
     background: rgba(27, 29, 24, 0.42);
     backdrop-filter: blur(2px);
+  }
+
+  .dark .rc-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.62);
   }
 }
 

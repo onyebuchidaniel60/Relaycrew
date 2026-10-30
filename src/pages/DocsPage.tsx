@@ -67,7 +67,7 @@ export function DocsPage() {
       <PageHeader
         eyebrow="User guide"
         title="How RelayCrew works"
-        description="A wallet-driven escrow for a fixed relay of specialist agents. The client funds the full pipeline, evaluates each stage, and the contract handles the ordered payout and handoff."
+        description="Agent Escrow Protocol for Project Execution on Pipelines. A wallet-driven escrow for a fixed relay of specialist agents. The client funds the full pipeline, evaluates each stage, and the contract handles the ordered payout and handoff."
         breadcrumb={
           <>
             <Link to="/">RelayCrew</Link> / Documentation
@@ -111,7 +111,7 @@ export function DocsPage() {
         <div className="space-y-3">
           <DocsSection id="overview" number="01 · Overview" title="One escrow, one ordered relay.">
             <p>
-              RelayCrew coordinates a fixed sequence of 2–5 specialist stages for one client. The
+              RelayCrew coordinates a fixed sequence of 2–10 specialist stages for one client. The
               client funds every stage budget up front in one parent USDC escrow. Each specialist is
               a wallet address controlled by a human freelancer, an agent, or a team. RelayCrew does
               not find providers, run AI agents, or judge work automatically.
@@ -152,7 +152,7 @@ export function DocsPage() {
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
               <div className="rounded-lg border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Stages</span>
-                <strong className="mt-1 block font-display text-xl font-medium text-ink">2–5</strong>
+                <strong className="mt-1 block font-display text-xl font-medium text-ink">2–10</strong>
                 <span className="text-[9px] text-muted">fixed order</span>
               </div>
               <div className="rounded-lg border border-line bg-paper-soft p-3">
@@ -173,8 +173,9 @@ export function DocsPage() {
             </div>
             <p>
               Each stage duration is 900–604,800 seconds (15 minutes to 7 days) from activation.
-              Amounts use six-decimal USDC base units. The app requests the exact allowance, not an
-              unlimited allowance, and there is no platform fee.
+              The create form uses Days and Hours selectors and converts the choice into seconds
+              before sending it to the contract. Amounts use six-decimal USDC base units. The app
+              requests the exact allowance, not an unlimited allowance, and there is no platform fee.
             </p>
             <div className="rc-warning">
               Provider addresses must be unique, nonzero, and different from the client. Stage order,
@@ -191,7 +192,7 @@ export function DocsPage() {
                 },
                 {
                   title: 'Add the stages in order',
-                  body: 'For each stage, enter a unique provider address, title, public brief, budget of at least 1 USDC, and a duration from 15 minutes to 7 days.',
+                  body: 'For each stage, enter a unique provider address, title, public brief, budget of at least 1 USDC, and a duration using the Days and Hours selector. An optional attachment URL is appended to the public brief and stored on-chain.',
                 },
                 {
                   title: 'Review the total and public data',
@@ -300,7 +301,9 @@ export function DocsPage() {
           <DocsSection id="public-data" number="07 · Public data" title="Everything on chain is permanent.">
             <p>
               Pipeline titles, briefs, provider addresses, budgets, deliverable URIs, and transaction
-              data are public and permanent. They cannot be made private or deleted by RelayCrew.
+              data are public and permanent. An optional attachment URL is stored as part of the
+              brief, so it is public and permanent too. None of this data can be made private or
+              deleted by RelayCrew.
             </p>
             <div className="rc-warning">
               Never enter secrets, personal data, credentials, confidential task instructions, private
@@ -374,6 +377,7 @@ export function DocsPage() {
                 ['RPC unavailable', 'The displayed state may be stale. Retry the read and do not rely on stale amounts for money decisions.'],
                 ['Terminal pipeline', 'Completed, Rejected, and Expired pipelines have no further actions. Create a new pipeline for new work.'],
                 ['Invalid deliverable', 'Use an https:// or ipfs:// URI between 9 and 256 bytes. Only submit links safe to make public.'],
+                ['Theme preference', 'Use the Light/Dark control in the header. The preference is stored in this browser only; it does not affect on-chain data.'],
               ].map(([title, body]) => (
                 <div key={title} className="rounded-lg border border-line bg-paper-soft p-3">
                   <dt className="text-[10px] font-bold text-ink">{title}</dt>

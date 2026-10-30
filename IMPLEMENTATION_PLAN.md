@@ -79,7 +79,7 @@
 **Dependencies:** Phase 2 accepted.
 
 **Tasks**
-1. Implement pipeline and stage records, immutable ordered stage inputs, max five stages, unique providers, budget/duration/text constraints, and user indexes.
+1. Implement pipeline and stage records, immutable ordered stage inputs, max ten stages, unique providers, budget/duration/text constraints, and user indexes.
 2. Implement exact `transferFrom` funding, first-stage activation, `StageHired` event.
 3. Implement provider submit with URI checks and 24-hour evaluation deadline.
 4. Implement approval with exact payout and atomic activation of next stage, plus final completion.

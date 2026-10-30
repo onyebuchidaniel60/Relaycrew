@@ -13,7 +13,7 @@ This decision log captures design choices already made. The coding agent must no
 | D-07 | Total budget funded up front; no per-stage deposits | One allowance and one funding transaction; future budget stays in parent escrow until paid. |
 | D-08 | Approval pays current provider and activates next stage in same transaction | Core differentiator; transfer failure reverts activation. |
 | D-09 | Rejection/expiry ends pipeline and refunds unspent funds | Deterministic terminal path; no skipping, restart, partial payout or arbitration. |
-| D-10 | 2–5 stages; ≥1 USDC each; ≤100 USDC total | Bounded loops and low demo risk. |
+| D-10 | 2–10 stages; ≥1 USDC each; ≤100 USDC total | Bounded loops and low demo risk. The operator raised the stage maximum from 5 to 10 on 2026-10-30. |
 | D-11 | Stage timer starts at activation; eval timer 24h after submission | Avoids later-stage deadlines expiring before the prior stage finishes; limits stalled submitted jobs. |
 | D-12 | User wallet is identity/auth; no app account backend | Keeps MVP client-only and contract-authenticated. |
 | D-13 | No database/indexer/backend/AI runtime | All required state fits in contract and user-index arrays at hackathon scale. |
@@ -26,6 +26,7 @@ This decision log captures design choices already made. The coding agent must no
 | D-20 | No contract owner/admin rescue/upgradeability | Reduces privilege surface; means errors may not be recoverable, explicitly disclosed. |
 | D-21 | AGENTS.md §3 wording fix: "If a frontend exists (it does)" replaced with neutral phrasing that covers both an existing and a not-yet-existing frontend | Resolves the documented conflict between AGENTS.md §3 and the verified absence of a frontend. Wording-only; no architecture, scope, or permission change. Operator-authorized as part of the post-preflight reconciliation. |
 | D-22 | Arc Testnet deployment used Arc Studio’s platform deployer after Circle DCW key provisioning failed | Testnet-only fallback; the contract has no owner/admin role, so the deployer has no special authority. Mainnet remains undeployed and unauthorized. |
+| D-23 | Phase 8.5 operator-authorized deviations: `MAX_STAGES` raised to 10; Light/Dark theme toggle; Days/Hours duration selector; optional attachment URL appended to the public brief; pitch changed to “Agent Escrow Protocol for Project Execution on Pipelines.” | Explicit operator authorization (2026-10-30). Contract access, escrow accounting, evaluator role, and settlement rules are unchanged. The 10-stage maximum still fits the 100 USDC total cap. |
 
 ## Actions requiring future operator decision
 

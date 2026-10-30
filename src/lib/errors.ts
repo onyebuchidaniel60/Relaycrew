@@ -3,7 +3,7 @@ import { BaseError, ContractFunctionRevertedError, UserRejectedRequestError } fr
 const CONTRACT_ERROR_MESSAGES: Record<string, string> = {
   ZeroAddress: 'A required address is zero.',
   UnknownPipeline: 'Pipeline not found.',
-  InvalidStageCount: 'A pipeline must have between 2 and 5 stages.',
+  InvalidStageCount: 'A pipeline must have between 2 and 10 stages.',
   InvalidProvider: 'Each stage needs a valid provider address that is not the client.',
   DuplicateProvider: 'Provider addresses must be unique within a pipeline.',
   InvalidBudget: 'Each stage budget must be at least 1 USDC.',

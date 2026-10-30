@@ -11,7 +11,7 @@ RelayCrew is implemented and deployed to Arc Testnet. The contract has not been 
 - Client is the sole evaluator for every stage and can reject current work. There is no arbitration, appeal, or independent quality verification.
 - If the client does not evaluate within 24 hours after submission, any wallet can trigger expiry and unpaid escrow is returned to client; the provider may not be paid for submitted work.
 - A completed payout is irreversible. Check provider addresses and amounts before signing.
-- The MVP caps a pipeline at 100 USDC and a stage at a minimum of 1 USDC. Those bounds are demonstration safety measures, not insurance.
+- The MVP caps a pipeline at 100 USDC, a stage at a minimum of 1 USDC, and the stage count at 2–10. Those bounds are demonstration safety measures, not insurance.
 
 ## Public data
 

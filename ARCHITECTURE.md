@@ -31,6 +31,18 @@ Provider addresses, stage order, title, brief, budgets, and stage duration are i
 
 There is no cancellation or skip function after funding. If the client rejects the current stage or an eligible deadline expires, pipeline becomes terminal and all unpaid funds are returned to the client. Previously paid providers keep their payouts. No automatic restart.
 
+### Operator-authorized amendments (2026-10-30)
+
+The operator explicitly authorized the following Phase 8.5 changes:
+
+- `MAX_STAGES` is raised from 5 to 10. The maximum total budget remains 100 USDC, and the per-stage minimum remains 1 USDC.
+- The frontend adds a light/dark theme toggle using Tailwind's class-based dark mode. The on-chain contract and accounting are unaffected.
+- The create form replaces the raw-seconds duration field with Days and Hours selectors. The UI converts the selection to integer seconds before calling `createPipeline`.
+- The create form adds an optional attachment URL. When provided, it is appended to the public on-chain brief as `Attachment: <url>`; the combined brief must remain within the contract's 240-byte limit. The field is a link reference only; the app does not fetch or embed its contents.
+- The public pitch is “Agent Escrow Protocol for Project Execution on Pipelines.”
+
+These amendments do not change the evaluator, escrow topology, role checks, settlement rules, or no-admin security model.
+
 ## 2A. Alternatives deliberately rejected
 
 | Alternative | Decision and reason |
@@ -150,7 +162,7 @@ On creation, index pipeline ID for client and each provider exactly once. A prov
 
 ### `createPipeline(StageInput[] stages)`
 
-1. Validate stage count 2–5.
+1. Validate stage count 2–10.
 2. Validate every provider: nonzero, not `msg.sender`, unique within input.
 3. Validate titles/briefs and duration bounds.
 4. Require each stage budget ≥ 1 USDC (1,000,000 base units).
@@ -241,7 +253,7 @@ Event parameter names/order may be adjusted only if required by compiler or Arc 
 - Enforce all limits on-chain, not merely in form logic.
 - State checks, current index checks and monotonic pipeline IDs protect replay/duplicate transitions.
 - Use checks-effects-interactions. Guard all transfer-bearing entrypoints.
-- Bound loops to max five stages and bound strings.
+- Bound loops to max ten stages and bound strings.
 - URI validator must check scheme and length before storage.
 - Verify compiler/dependencies, warnings and complete test suite before any mainnet deployment.
 - This is a new, unaudited contract; show risk notice and keep maximum pipeline size at 100 USDC for this build.

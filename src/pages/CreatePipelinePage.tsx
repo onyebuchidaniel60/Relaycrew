@@ -26,9 +26,17 @@ type StageDraft = {
   provider: string
   title: string
   brief: string
+  attachmentUrl: string
   budget: string
-  duration: string
+  durationDays: string
+  durationHours: string
 }
+
+const MAX_STAGES = 10
+const SECONDS_PER_HOUR = 3_600
+const SECONDS_PER_DAY = 86_400
+const MIN_DURATION_SECONDS = 900
+const MAX_DURATION_SECONDS = 604_800
 
 let draftSequence = 0
 
@@ -39,9 +47,32 @@ function newDraft(): StageDraft {
     provider: '',
     title: '',
     brief: '',
+    attachmentUrl: '',
     budget: '1',
-    duration: '86400',
+    durationDays: '1',
+    durationHours: '0',
   }
+}
+
+function stageDurationSeconds(days: string, hours: string) {
+  return Number(days) * SECONDS_PER_DAY + Number(hours) * SECONDS_PER_HOUR
+}
+
+function formatStageDuration(days: string, hours: string) {
+  const dayCount = Number(days)
+  const hourCount = Number(hours)
+  const parts: string[] = []
+  if (dayCount > 0) parts.push(`${dayCount} ${dayCount === 1 ? 'day' : 'days'}`)
+  if (hourCount > 0) parts.push(`${hourCount} ${hourCount === 1 ? 'hour' : 'hours'}`)
+  return parts.length > 0 ? parts.join(' ') : 'not set'
+}
+
+function buildStoredBrief(brief: string, attachmentUrl: string) {
+  const cleanBrief = brief.trim()
+  const cleanAttachment = attachmentUrl.trim()
+  return [cleanBrief, cleanAttachment ? `Attachment: ${cleanAttachment}` : '']
+    .filter(Boolean)
+    .join('\n\n')
 }
 
 export function CreatePipelinePage() {
@@ -77,6 +108,8 @@ export function CreatePipelinePage() {
       const provider = stage.provider.trim()
       const title = stage.title.trim()
       const brief = stage.brief.trim()
+      const attachmentUrl = stage.attachmentUrl.trim()
+      const storedBrief = buildStoredBrief(brief, attachmentUrl)
 
       if (!isAddress(provider)) {
         problems.push(`${prefix} enter a valid provider address.`)
@@ -95,17 +128,29 @@ export function CreatePipelinePage() {
       if (titleBytes < 1 || titleBytes > 64) {
         problems.push(`${prefix} title must be 1–64 bytes.`)
       }
-      const briefBytes = byteLength(brief)
-      if (briefBytes < 1 || briefBytes > 240) {
-        problems.push(`${prefix} brief must be 1–240 bytes.`)
+      if (attachmentUrl && !/^(https:\/\/|ipfs:\/\/)/i.test(attachmentUrl)) {
+        problems.push(`${prefix} attachment URL must start with https:// or ipfs://.`)
       }
 
-      const durationText = stage.duration.trim()
-      const duration = Number(durationText)
-      if (!/^\d+$/.test(durationText) || !Number.isSafeInteger(duration)) {
-        problems.push(`${prefix} duration must be a whole number of seconds.`)
-      } else if (duration < 900 || duration > 604_800) {
-        problems.push(`${prefix} duration must be between 900 and 604,800 seconds.`)
+      const briefBytes = byteLength(storedBrief)
+      if (briefBytes < 1 || briefBytes > 240) {
+        problems.push(
+          `${prefix} brief plus optional attachment must be 1–240 bytes when stored on-chain.`,
+        )
+      }
+
+      const duration = stageDurationSeconds(stage.durationDays, stage.durationHours)
+      let durationIsValid = false
+      if (
+        !/^\d+$/.test(stage.durationDays) ||
+        !/^\d+$/.test(stage.durationHours) ||
+        Number(stage.durationHours) > 23
+      ) {
+        problems.push(`${prefix} choose a whole number of days and 0–23 hours.`)
+      } else if (duration < MIN_DURATION_SECONDS || duration > MAX_DURATION_SECONDS) {
+        problems.push(`${prefix} duration must be between 15 minutes and 7 days.`)
+      } else {
+        durationIsValid = true
       }
 
       let budget = 0n
@@ -118,12 +163,12 @@ export function CreatePipelinePage() {
         problems.push(`${prefix} ${error instanceof Error ? error.message : 'enter a valid USDC budget.'}`)
       }
 
-      if (isAddress(provider) && budget >= MIN_STAGE_BUDGET) {
+      if (isAddress(provider) && budget >= MIN_STAGE_BUDGET && durationIsValid) {
         parsedStages.push({
           provider: provider as Address,
           budget,
           title,
-          brief,
+          brief: storedBrief,
           durationSeconds: duration,
         })
       }
@@ -178,7 +223,7 @@ export function CreatePipelinePage() {
   }
 
   const addStage = () => {
-    if (stages.length < 5) setStages((current) => [...current, newDraft()])
+    if (stages.length < MAX_STAGES) setStages((current) => [...current, newDraft()])
   }
 
   const removeStage = (id: string) => {
@@ -316,7 +361,7 @@ export function CreatePipelinePage() {
       <PageHeader
         eyebrow="Client action"
         title="Create a pipeline"
-        description="Define a fixed sequence of 2–5 specialist agents and fund the full budget in one parent escrow. Every amount is exact; every stage is public."
+        description="Define a fixed sequence of 2–10 specialist agents and fund the full budget in one parent escrow. Every amount is exact; every stage is public."
         breadcrumb={
           <>
             <Link to="/">RelayCrew</Link> / Create pipeline
@@ -348,7 +393,7 @@ export function CreatePipelinePage() {
               <span className="rc-step-marker">{stageStepDone ? '✓' : '2'}</span>
               <div>
                 <strong>Stages & budgets</strong>
-                <span>{stages.length} stage drafts · 2–5 allowed</span>
+                <span>{stages.length} stage drafts · 2–10 allowed</span>
               </div>
             </div>
             <div
@@ -449,18 +494,23 @@ export function CreatePipelinePage() {
                 <button
                   type="button"
                   onClick={addStage}
-                  disabled={stages.length >= 5}
+                  disabled={stages.length >= MAX_STAGES}
                   className="rc-button rc-button-sm"
                 >
                   + Add stage
                 </button>
-                <span className="text-[9px] text-muted">{stages.length} of 5 stages</span>
+                <span className="text-[9px] text-muted">
+                  {stages.length} of {MAX_STAGES} stages
+                </span>
               </div>
             </div>
 
             <div className="mt-4 grid gap-3">
               {stages.map((stage, index) => (
-                <section key={stage.id} className="rounded-lg border border-line bg-[#fffefa] p-4">
+                <section
+                  key={stage.id}
+                  className="rounded-lg border border-line bg-paper p-4 dark:bg-paper-soft"
+                >
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex min-w-0 items-center gap-2.5">
                       <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-forest-line bg-forest-soft font-display text-[13px] text-forest">
@@ -509,17 +559,52 @@ export function CreatePipelinePage() {
                       <span className="rc-field-note mt-1">Minimum 1 USDC per stage.</span>
                     </label>
 
-                    <label className="rc-field-label">
-                      Duration (seconds)
-                      <input
-                        value={stage.duration}
-                        onChange={(event) => updateStage(stage.id, { duration: event.target.value })}
-                        inputMode="numeric"
-                        placeholder="86400"
-                        className="rc-input mt-1.5 font-mono"
-                      />
-                      <span className="rc-field-note mt-1">900–604,800 seconds (15 minutes–7 days)</span>
-                    </label>
+                    <fieldset className="rc-field-label min-w-0">
+                      <legend>Duration</legend>
+                      <div className="mt-1.5 grid grid-cols-2 gap-2">
+                        <label className="block min-w-0">
+                          <span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.08em] text-muted">
+                            Days
+                          </span>
+                          <select
+                            value={stage.durationDays}
+                            onChange={(event) =>
+                              updateStage(stage.id, { durationDays: event.target.value })
+                            }
+                            className="rc-input font-mono"
+                          >
+                            {Array.from({ length: 8 }, (_, value) => (
+                              <option key={value} value={value}>
+                                {value}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                        <label className="block min-w-0">
+                          <span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.08em] text-muted">
+                            Hours
+                          </span>
+                          <select
+                            value={stage.durationHours}
+                            onChange={(event) =>
+                              updateStage(stage.id, { durationHours: event.target.value })
+                            }
+                            className="rc-input font-mono"
+                          >
+                            {Array.from({ length: 24 }, (_, value) => (
+                              <option key={value} value={value}>
+                                {value}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      </div>
+                      <span className="rc-field-note mt-1">
+                        {formatStageDuration(stage.durationDays, stage.durationHours)} · stored as{' '}
+                        {stageDurationSeconds(stage.durationDays, stage.durationHours)} seconds. 1
+                        hour minimum, 7 days maximum.
+                      </span>
+                    </fieldset>
 
                     <label className="rc-field-label sm:col-span-2">
                       Title
@@ -543,7 +628,28 @@ export function CreatePipelinePage() {
                         placeholder="What should this specialist deliver?"
                         className="rc-textarea mt-1.5"
                       />
-                      <span className="rc-field-note mt-1">{byteLength(stage.brief.trim())}/240 bytes</span>
+                      <span className="rc-field-note mt-1">
+                        {byteLength(buildStoredBrief(stage.brief, stage.attachmentUrl))}/240 bytes
+                        stored on-chain
+                      </span>
+                    </label>
+
+                    <label className="rc-field-label sm:col-span-2">
+                      Attachment URL (optional)
+                      <input
+                        value={stage.attachmentUrl}
+                        onChange={(event) =>
+                          updateStage(stage.id, { attachmentUrl: event.target.value })
+                        }
+                        inputMode="url"
+                        spellCheck={false}
+                        placeholder="https://… or ipfs://…"
+                        className="rc-input mt-1.5 font-mono"
+                      />
+                      <span className="rc-field-note mt-1">
+                        Appended to the public brief as “Attachment: …”. Only https:// or ipfs://
+                        links; the combined brief must stay within 240 bytes.
+                      </span>
                     </label>
                   </div>
                 </section>
