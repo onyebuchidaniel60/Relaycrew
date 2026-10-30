@@ -1,7 +1,8 @@
 # AI_HANDOFF.md — RelayCrew current project state
 
-**Last updated:** 2026-10-28  
-**Status:** Blueprint completed; implementation has not started. This file is the initial truthful state, not evidence of a deployed product.
+**Last updated:** 2026-10-30
+
+**Status:** Blueprint completed; preflight inspection completed 2026-10-30; implementation has not started. This file is the current truthful state, not evidence of a deployed product.
 
 ## Project
 
@@ -38,12 +39,12 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 0 — planning/documentation complete; Phase 1 not started.**
+**Phase 0 complete; preflight inspection completed 2026-10-30; verdict NO APP PRESENT — INSPECTION ONLY; awaiting operator decisions before Phase 1.**
 
 ## URLs and deployments
 
 - Arc Studio project URL: **NOT YET CREATED OR VERIFIED**.
-- GitHub repository URL: **NOT YET CREATED OR VERIFIED**.
+- GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`; HEAD `8c12d5c7b230143e3f13bae2902cbea843fdcc75`; 16 Markdown files; no app code).
 - Vercel Preview URL: **NOT YET DEPLOYED**.
 - Preview deployed commit: **NOT YET DEPLOYED**.
 - Production URL: **NOT DEPLOYED**.
@@ -65,6 +66,8 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 ## Tests/evidence
 
 - Blueprint/documentation consistency reviewed at planning stage.
+- Preflight inspection 2026-10-30: Git working tree clean; 1 commit (`8c12d5c7b230143e3f13bae2902cbea843fdcc75`); public GitHub repository verified at `https://github.com/onyebuchidaniel60/Relaycrew` (default branch `main`; 16 Markdown files).
+- Preflight environment: no package manifest, no contract source/ABI/tests, no build output, no Arc Studio project, no Vercel project.
 - Application tests: **not run; no application code exists**.
 - Contract tests: **not run; no contract code exists**.
 - Preview smoke tests: **not run; no preview exists**.
@@ -81,9 +84,9 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 ## Documentation/footer state
 
 - Root source-of-truth docs created in the blueprint package.
-- In-repository README and `docs/` materials must be copied/maintained when repository is created.
+- In-repository README and `docs/` materials are present; maintain them.
 - Documentation route must be `/docs` and home-footer link must work.
-- Public GitHub URL is unknown until repository exists. Do not invent the URL. Footer GitHub link remains pending until the real public repository is confirmed.
+- Public GitHub repository verified at https://github.com/onyebuchidaniel60/Relaycrew. Footer GitHub link remains pending until the final UI exists and the link is verified on the deployed Preview.
 - No dead links, inert controls, unexplained placeholders, or unverified claims may remain in the final UI.
 
 ## Safety and deployment constraints
@@ -95,14 +98,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Known issues/blockers
 
-1. Arc Studio project/repo/preview not yet created.
-2. Need check compatibility of Arc Studio's generated frontend with the selected React/TypeScript/Vite architecture before modifying generated code; if materially incompatible, stop and ask operator.
-3. Contract implementation, tests, and exported-source parity remain unverified.
-4. No mainnet deployment/transaction authorization.
-5. Need urgently resolve hackathon deadline/timezone discrepancy from the actual submission form and confirm required form fields.
+1. (a) Arc Studio project does not exist or is not linked; Phase 1 tasks 1–2 cannot execute until the operator provides an Arc Studio project URL/export or authorizes a documented deviation.
+2. (b) Vercel project/access not yet provided.
+3. (c) Documentation conflict: `AGENTS.md` §3 states "If a frontend exists (it does)", which is factually incorrect — no frontend exists. Per `AGENTS.md` §1, this conflict is reported, not silently resolved. Operator decision required: authorize a one-line correction to AGENTS.md, or record that the operative Phase 1 requirement stands and the parenthetical is treated as stale.
+4. (d) Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
+5. Compatibility of Arc Studio's generated frontend with the selected React/TypeScript/Vite architecture remains unverified until a Studio project/export exists; if materially incompatible, stop and ask operator.
+6. Contract implementation, tests, and exported-source parity remain unverified.
+7. No mainnet deployment/transaction authorization.
 
 ## Single next task
 
-**Pre-Phase-1 task — repository/Arc Studio inspection only; no modifications:** read the source-of-truth documents, inspect the working directory/repository and any existing Arc Studio project, and report the framework, dependencies, package scripts, entry points, build/test/deploy commands, Git state, generated-file constraints, and compatibility with the fixed React + TypeScript + Vite + wagmi/viem plan. Do not create/edit/delete files, install or upgrade dependencies, change configuration, or deploy during this inspection task. If no application repository or Arc Studio-generated project exists yet, report that accurately and distinguish it from an architecture incompatibility; inventory the available blueprint files and state what access/workspace is missing. If a generated project exists but is materially incompatible with the fixed plan, describe the exact conflict and STOP for operator direction; do not migrate frameworks. If the existing environment is compatible—or the only app code is not yet created—report the inspection findings and STOP.
-
-**Next implementation task after the inspection report is accepted:** Phase 1 only—establish the navigable skeletal shell for `/`, `/create`, `/pipelines`, `/pipelines/:id`, `/docs`, `/risk`, and not-found; use temporary styling and clearly marked nonfunctional placeholders; force Preview to Arc Testnet; deploy to a stable Vercel Preview; report the exact URL, deployed commit, visible/incomplete areas, tests, and blockers; commit and STOP. Do not start core contract implementation until the skeletal preview is accepted.
+**Await operator decisions on (i) AGENTS.md §3 wording, (ii) Arc Studio path — export-and-inspect vs authorized local Vite scaffold, (iii) Vercel project access. Then execute Phase 1 only per IMPLEMENTATION_PLAN.md.**

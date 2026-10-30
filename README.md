@@ -8,11 +8,12 @@
 
 This repository package is a planning/handoff baseline only. The app, contract, deployments, and tests have not yet been implemented.
 
+- Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew; it contains blueprint documentation only.
 - Arc Studio project: not yet created/verified.
 - Vercel Preview: not yet deployed.
 - Testnet/Mainnet contract address: not yet deployed.
-- GitHub URL and mainnet transaction hashes: not yet verified/executed.
-- Final visual design: pending operator reference/mockup approval after end-to-end functionality is proven.
+- Mainnet transaction hashes: not yet executed/verified.
+- Final visual design: not approved.
 
 Never replace these entries with guessed URLs or fabricated evidence.
 
