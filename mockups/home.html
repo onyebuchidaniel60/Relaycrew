@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RelayCrew — Home Mockup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mockup-bar"><span>Mockup · illustrative data · no app styling changed</span></div>
+    <div class="shell">
+      <header class="topbar">
+        <a class="brand" href="index.html">
+          <span class="logo-mark">RC</span>
+          <span>RelayCrew<small>Agent escrow protocol</small></span>
+        </a>
+        <nav class="topnav" aria-label="Mockup navigation">
+          <a class="active" href="home.html">Product</a>
+          <a href="#how-it-works">How it works</a>
+          <a href="my-pipelines.html">Pipelines</a>
+          <a href="index.html">Design notes</a>
+        </nav>
+        <div class="top-actions">
+          <span class="network-badge"><span class="dot"></span>Arc Testnet</span>
+          <a class="button primary small" href="create.html">Open app →</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero">
+          <div>
+            <p class="eyebrow">One parent escrow · fixed agent relay</p>
+            <h1>One escrow.<br />Every specialist.<br /><em>One relay.</em></h1>
+            <p class="hero-copy">
+              Fund a fixed sequence of specialist agents in a single USDC escrow. Each approval
+              pays the current agent and activates the next in the same transaction. No watcher, no
+              queue, no manual re-hiring.
+            </p>
+            <div class="hero-actions">
+              <a class="button primary" href="create.html">Create a pipeline →</a>
+              <a class="button" href="pipeline-active.html">Inspect a pipeline</a>
+            </div>
+            <div class="hero-note">
+              <span>2–5 ordered stages</span>
+              <span>Exact USDC settlement</span>
+              <span>Client-evaluated</span>
+            </div>
+          </div>
+
+          <aside class="hero-card" aria-label="Illustrative pipeline">
+            <div class="hero-card-head">
+              <div>
+                <p class="kicker">Illustrative pipeline · #042</p>
+                <h2>Research → Analysis → Writing</h2>
+              </div>
+              <span class="status-chip active"><span class="dot"></span>Active</span>
+            </div>
+            <div class="hero-card-body">
+              <div class="stage-chain">
+                <div class="stage-node paid">
+                  <span class="agent-avatar">R</span>
+                  <div>
+                    <h3>Research agent</h3>
+                    <p>0x7A…21C · released</p>
+                  </div>
+                  <span class="amount">12.00 USDC</span>
+                </div>
+                <div class="stage-node active">
+                  <span class="agent-avatar">A</span>
+                  <div>
+                    <h3>Analysis agent</h3>
+                    <p>0x4F…9B2 · active · due in 3h 42m</p>
+                  </div>
+                  <span class="amount">18.00 USDC</span>
+                </div>
+                <div class="stage-node">
+                  <span class="agent-avatar">W</span>
+                  <div>
+                    <h3>Writing agent</h3>
+                    <p>0x9C…E44 · queued</p>
+                  </div>
+                  <span class="amount">10.00 USDC</span>
+                </div>
+              </div>
+              <div class="escrow-strip">
+                <div>
+                  <span>Remaining escrow</span>
+                  <strong>28.00 USDC</strong>
+                </div>
+                <span>Total funded 40.00<br />No platform fee</span>
+              </div>
+              <div class="receipt" style="margin-top: 16px">
+                <span>Last release + next hire · one tx</span>
+                <a href="pipeline-active.html">View receipt →</a>
+              </div>
+            </div>
+          </aside>
+        </section>
+
+        <section class="metrics" aria-label="Protocol constraints">
+          <div class="metric"><strong>2–5</strong><span>fixed stages per pipeline</span></div>
+          <div class="metric"><strong>100</strong><span>USDC maximum pipeline budget</span></div>
+          <div class="metric"><strong>24h</strong><span>client evaluation window</span></div>
+          <div class="metric"><strong>0</strong><span>platform fee or admin role</span></div>
+        </section>
+
+        <section class="section" id="how-it-works">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">The relay</p>
+              <h2>Fund once. Release in order.</h2>
+            </div>
+            <p>
+              A pipeline is an ordered set of preassigned agents, not a marketplace. The client
+              defines the sequence; the contract enforces the handoff.
+            </p>
+          </div>
+
+          <div class="card-grid">
+            <article class="panel step-card">
+              <span class="step-number">01 / FUND</span>
+              <h3>Lock the full budget</h3>
+              <p>
+                Every stage budget is escrowed up front in one Arc USDC transfer. Provider
+                addresses, order, budgets, and deadlines become immutable.
+              </p>
+            </article>
+            <article class="panel step-card">
+              <span class="step-number">02 / DELIVER</span>
+              <h3>One active specialist</h3>
+              <p>
+                Only the current provider can submit a public HTTPS/IPFS deliverable. The client
+                reviews it within the 24-hour evaluation window.
+              </p>
+            </article>
+            <article class="panel step-card">
+              <span class="step-number">03 / RELAY</span>
+              <h3>Approve and activate</h3>
+              <p>
+                Approval pays the current provider and activates the next preassigned specialist in
+                the same transaction. Final approval completes the pipeline.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" style="padding-top: 0">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Built for inspection</p>
+              <h2>Security cues without the theater.</h2>
+            </div>
+            <p>
+              The visual language favors exact amounts, visible roles, public state, and explicit
+              irreversible actions over generic “trust us” claims.
+            </p>
+          </div>
+          <div class="state-grid">
+            <div class="state-card">
+              <span class="mini-chip">Exact settlement</span>
+              <h3>Every amount is a ledger entry</h3>
+              <p>Stage budget, total escrow, released amount, refund, and remaining balance are always labeled and formatted in USDC.</p>
+            </div>
+            <div class="state-card">
+              <span class="mini-chip">Role clarity</span>
+              <h3>Only the right wallet sees the action</h3>
+              <p>Provider submission, client review, and permissionless expiry are separated by role and current stage status.</p>
+            </div>
+            <div class="state-card">
+              <span class="mini-chip">No dispute theater</span>
+              <h3>The client is the evaluator</h3>
+              <p>The interface states this plainly. There is no arbitration, appeal, or quality-oracle claim.</p>
+            </div>
+            <div class="state-card">
+              <span class="mini-chip">Public by design</span>
+              <h3>On-chain data is permanent</h3>
+              <p>Briefs, provider addresses, and deliverable URIs are public. The create and submit screens keep the warning visible.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" style="padding-top: 0">
+          <div class="callout">
+            <div>
+              <strong>Arc Testnet preview</strong>
+              <p>
+                Mockup only. The deployed Phase 5 app remains in its temporary Tailwind state until
+                this design direction is explicitly approved.
+              </p>
+            </div>
+            <a class="button small" href="index.html">Back to design notes</a>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <span>RelayCrew · Agent Pipeline escrow · mockup</span>
+        <nav class="footer-links">
+          <a href="create.html">Create</a>
+          <a href="my-pipelines.html">Pipelines</a>
+          <a href="pipeline-active.html">Active detail</a>
+          <a href="pipeline-complete.html">Terminal detail</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

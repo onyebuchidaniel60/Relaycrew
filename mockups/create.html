@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RelayCrew — Create Pipeline Mockup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mockup-bar"><span>Mockup · illustrative data · no app styling changed</span></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="sidebar-brand" href="home.html">
+          <span class="logo-mark">RC</span>
+          <span>RelayCrew<small>Operator console</small></span>
+        </a>
+        <nav class="sidebar-nav" aria-label="Mockup app navigation">
+          <a href="home.html"><span class="nav-dot"></span>Overview</a>
+          <a class="active" href="create.html"><span class="nav-dot"></span>Create pipeline</a>
+          <a href="my-pipelines.html"><span class="nav-dot"></span>My pipelines</a>
+          <a href="pipeline-active.html"><span class="nav-dot"></span>Active detail</a>
+          <a href="index.html"><span class="nav-dot"></span>Design notes</a>
+        </nav>
+        <p class="sidebar-label">Network</p>
+        <div class="wallet-chip">
+          <span><span class="dot" style="display: inline-block; margin-right: 6px"></span>Arc Testnet</span>
+          <strong>0x7A…21C</strong>
+        </div>
+        <div class="sidebar-footer">
+          <span class="mini-chip">Mockup · not connected</span>
+        </div>
+      </aside>
+
+      <main class="app-main">
+        <div class="app-main-inner">
+          <header class="page-head">
+            <div>
+              <p class="breadcrumb"><a href="home.html">RelayCrew</a> / <a href="my-pipelines.html">Pipelines</a> / Create</p>
+              <h1>Create a pipeline</h1>
+              <p>
+                Define an ordered team of 2–5 specialist agents. Every stage budget is funded up
+                front in one parent escrow.
+              </p>
+            </div>
+            <div class="page-head-actions">
+              <span class="status-chip active"><span class="dot"></span>All fields valid</span>
+            </div>
+          </header>
+
+          <div class="content-grid">
+            <div class="stack">
+              <div class="alert warning" style="display: flex; align-items: start; justify-content: space-between; gap: 20px">
+                <div>
+                  <strong>Public and permanent data</strong>
+                  <div>
+                    Provider addresses, titles, briefs, budgets, and deliverable URIs are public on
+                    Arc. Do not enter secrets, personal data, or confidential instructions.
+                  </div>
+                </div>
+                <span class="mini-chip">Required notice</span>
+              </div>
+
+              <article class="stage-card">
+                <div class="stage-card-head">
+                  <div class="stage-title">
+                    <span class="stage-index">01</span>
+                    <div>
+                      <h2>Research</h2>
+                      <p class="field-note" style="margin: 2px 0 0">Provider 0x7A…21C · 2 days</p>
+                    </div>
+                  </div>
+                  <button class="button ghost small" type="button">Remove</button>
+                </div>
+                <div class="form-grid">
+                  <label class="field">
+                    <span>Provider address</span>
+                    <input class="input mono" value="0x7A7c5E4F3d8A9b12C6E0fA21" readonly />
+                  </label>
+                  <label class="field">
+                    <span>Budget (USDC)</span>
+                    <input class="input" value="12.00" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Title</span>
+                    <input class="input" value="Source map and research brief" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Public brief</span>
+                    <textarea class="textarea" readonly>Collect primary sources, summarize the landscape, and flag open questions for the analysis stage.</textarea>
+                  </label>
+                  <label class="field">
+                    <span>Duration (seconds)</span>
+                    <input class="input" value="172800" readonly />
+                    <span class="field-note">2 days · allowed range 900–604,800</span>
+                  </label>
+                </div>
+              </article>
+
+              <article class="stage-card">
+                <div class="stage-card-head">
+                  <div class="stage-title">
+                    <span class="stage-index">02</span>
+                    <div>
+                      <h2>Analysis</h2>
+                      <p class="field-note" style="margin: 2px 0 0">Provider 0x4F…9B2 · 3 days</p>
+                    </div>
+                  </div>
+                  <button class="button ghost small" type="button">Remove</button>
+                </div>
+                <div class="form-grid">
+                  <label class="field">
+                    <span>Provider address</span>
+                    <input class="input mono" value="0x4F9bA7D2c11E6a8B3F0d9B2" readonly />
+                  </label>
+                  <label class="field">
+                    <span>Budget (USDC)</span>
+                    <input class="input" value="18.00" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Title</span>
+                    <input class="input" value="Comparative analysis" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Public brief</span>
+                    <textarea class="textarea" readonly>Turn the research brief into a structured comparison with a recommendation and cited evidence.</textarea>
+                  </label>
+                  <label class="field">
+                    <span>Duration (seconds)</span>
+                    <input class="input" value="259200" readonly />
+                    <span class="field-note">3 days</span>
+                  </label>
+                </div>
+              </article>
+
+              <article class="stage-card" style="border-style: dashed; background: rgba(14, 21, 29, 0.34)">
+                <div class="stage-card-head">
+                  <div class="stage-title">
+                    <span class="stage-index">03</span>
+                    <div>
+                      <h2>Writing</h2>
+                      <p class="field-note" style="margin: 2px 0 0">Queued after analysis</p>
+                    </div>
+                  </div>
+                  <button class="button ghost small" type="button">Remove</button>
+                </div>
+                <div class="form-grid">
+                  <label class="field">
+                    <span>Provider address</span>
+                    <input class="input mono" value="0x9C6e1A4bD7f3C2E8a5B0E44" readonly />
+                  </label>
+                  <label class="field">
+                    <span>Budget (USDC)</span>
+                    <input class="input" value="10.00" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Title</span>
+                    <input class="input" value="Final operator brief" readonly />
+                  </label>
+                  <label class="field full">
+                    <span>Public brief</span>
+                    <textarea class="textarea" readonly>Produce the client-ready brief from the analysis, with an executive summary and next-step recommendations.</textarea>
+                  </label>
+                  <label class="field">
+                    <span>Duration (seconds)</span>
+                    <input class="input" value="86400" readonly />
+                    <span class="field-note">1 day</span>
+                  </label>
+                </div>
+              </article>
+
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+                <button class="button" type="button">+ Add stage</button>
+                <span class="field-note">3 of 5 stages · each budget ≥ 1 USDC</span>
+              </div>
+            </div>
+
+            <aside class="side-stack">
+              <section class="summary-panel">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+                  <h2>Funding summary</h2>
+                  <span class="status-chip active"><span class="dot"></span>Testnet</span>
+                </div>
+                <div class="summary-total">
+                  <span>Total escrow</span>
+                  <strong>40.00 USDC</strong>
+                </div>
+                <div class="summary-row"><span>Wallet balance</span><strong>82.50 USDC</strong></div>
+                <div class="summary-row"><span>Current allowance</span><strong>0.00 USDC</strong></div>
+                <div class="summary-row"><span>Platform fee</span><strong>0.00 USDC</strong></div>
+
+                <div class="steps">
+                  <div class="step active">
+                    <span class="step-marker">1</span>
+                    <div><strong>Approve exact allowance</strong><span>USDC.approve(coordinator, 40.00)</span></div>
+                    <span class="step-chip">NEXT</span>
+                  </div>
+                  <div class="step">
+                    <span class="step-marker">2</span>
+                    <div><strong>Fund pipeline</strong><span>createPipeline(stages)</span></div>
+                    <span class="step-chip">WAITING</span>
+                  </div>
+                </div>
+
+                <button class="button primary" type="button">Approve 40.00 USDC</button>
+                <div class="warning-box">
+                  Approval is separate from funding. The funding button stays disabled until the
+                  allowance receipt is confirmed. The exact total is pulled once.
+                </div>
+                <div class="receipt">
+                  <span>Mockup only</span>
+                  <a href="pipeline-active.html">See detail state →</a>
+                </div>
+              </section>
+
+              <section class="panel padded">
+                <p class="kicker">Validation</p>
+                <h3 style="margin-top: 8px">Ready to fund</h3>
+                <p style="margin-bottom: 0">
+                  Three unique providers, valid budgets, and valid durations. The connected wallet is
+                  not one of the providers.
+                </p>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

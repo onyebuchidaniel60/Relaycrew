@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RelayCrew — Active Pipeline Mockup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mockup-bar"><span>Mockup · illustrative data · no app styling changed</span></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="sidebar-brand" href="home.html">
+          <span class="logo-mark">RC</span>
+          <span>RelayCrew<small>Operator console</small></span>
+        </a>
+        <nav class="sidebar-nav" aria-label="Mockup app navigation">
+          <a href="home.html"><span class="nav-dot"></span>Overview</a>
+          <a href="create.html"><span class="nav-dot"></span>Create pipeline</a>
+          <a href="my-pipelines.html"><span class="nav-dot"></span>My pipelines</a>
+          <a class="active" href="pipeline-active.html"><span class="nav-dot"></span>Active detail</a>
+          <a href="index.html"><span class="nav-dot"></span>Design notes</a>
+        </nav>
+        <p class="sidebar-label">Network</p>
+        <div class="wallet-chip">
+          <span><span class="dot" style="display: inline-block; margin-right: 6px"></span>Arc Testnet</span>
+          <strong>0x7A…21C</strong>
+        </div>
+        <div class="sidebar-footer">
+          <span class="mini-chip">Mockup · not connected</span>
+        </div>
+      </aside>
+
+      <main class="app-main">
+        <div class="app-main-inner">
+          <header class="page-head">
+            <div>
+              <p class="breadcrumb"><a href="home.html">RelayCrew</a> / <a href="my-pipelines.html">Pipelines</a> / #042</p>
+              <div class="status-row">
+                <span class="status-chip active"><span class="dot"></span>Active</span>
+                <span class="mini-chip">Client 0x7A…21C</span>
+                <span class="mini-chip">Created 30 Oct 2026</span>
+              </div>
+              <h1>Research → Analysis → Writing</h1>
+              <p>Stage 2 of 3 · Analysis agent · client-evaluated handoff</p>
+            </div>
+            <div class="page-head-actions">
+              <a class="button small" href="pipeline-complete.html">View terminal state</a>
+            </div>
+          </header>
+
+          <div class="money-grid" style="margin-bottom: 18px">
+            <div class="money-cell"><span>Total budget</span><strong>40.00 USDC</strong></div>
+            <div class="money-cell"><span>Paid out</span><strong>12.00 USDC</strong></div>
+            <div class="money-cell"><span>Remaining escrow</span><strong>28.00 USDC</strong></div>
+            <div class="money-cell"><span>Refunded</span><strong>0.00 USDC</strong></div>
+          </div>
+
+          <div class="content-grid wide-left">
+            <section class="timeline-panel">
+              <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 21px">
+                <div>
+                  <p class="kicker">Stage timeline</p>
+                  <h2 style="margin: 5px 0 0; font-size: 16px">The relay is the product</h2>
+                </div>
+                <span class="status-chip active"><span class="dot"></span>1 active stage</span>
+              </div>
+
+              <div class="timeline">
+                <article class="timeline-item paid">
+                  <span class="timeline-marker">01</span>
+                  <div class="timeline-body">
+                    <h3>Research</h3>
+                    <p>Source map and research brief. Released after client approval.</p>
+                    <div class="timeline-meta">
+                      <span>Provider 0x7A…21C</span>
+                      <span>Paid 30 Oct · 14:08</span>
+                      <a href="pipeline-complete.html#ledger" style="color: var(--accent)">Receipt pattern ↗</a>
+                    </div>
+                  </div>
+                  <div class="timeline-amount">12.00 USDC<br /><span style="color: var(--success)">PAID</span></div>
+                </article>
+
+                <article class="timeline-item active">
+                  <span class="timeline-marker">02</span>
+                  <div class="timeline-body">
+                    <h3>Analysis</h3>
+                    <p>Comparative analysis with a recommendation and cited evidence.</p>
+                    <div class="timeline-meta">
+                      <span>Provider 0x4F…9B2</span>
+                      <span>Due 30 Oct · 17:42</span>
+                      <span>24h evaluation after submit</span>
+                    </div>
+                  </div>
+                  <div class="timeline-amount">18.00 USDC<br /><span style="color: var(--accent)">ACTIVE</span></div>
+                </article>
+
+                <article class="timeline-item">
+                  <span class="timeline-marker">03</span>
+                  <div class="timeline-body">
+                    <h3>Writing</h3>
+                    <p>Final operator brief with an executive summary and next steps.</p>
+                    <div class="timeline-meta">
+                      <span>Provider 0x9C…E44</span>
+                      <span>Starts after stage 2 approval</span>
+                    </div>
+                  </div>
+                  <div class="timeline-amount">10.00 USDC<br /><span style="color: var(--subtle)">QUEUED</span></div>
+                </article>
+              </div>
+
+              <div class="alert warning" style="margin-top: 20px">
+                The current stage is still with the provider. No client action is available until a
+                deliverable URI is submitted.
+              </div>
+            </section>
+
+            <aside class="side-stack">
+              <section class="action-panel">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+                  <div>
+                    <p class="kicker">Current stage</p>
+                    <h2>Analysis</h2>
+                  </div>
+                  <span class="status-chip active"><span class="dot"></span>Active</span>
+                </div>
+                <p style="margin-top: 8px">Provider 0x4F…9B2 · budget 18.00 USDC</p>
+                <div class="countdown" style="margin: 15px 0">
+                  <span>Work deadline</span>
+                  <strong>03:42:18</strong>
+                </div>
+                <div class="action-divider"></div>
+                <div class="action-amount">
+                  <span>Approval payout</span>
+                  <strong>18.00 USDC</strong>
+                </div>
+                <div class="summary-row"><span>Recipient</span><strong>0x4F…9B2</strong></div>
+                <div class="summary-row"><span>Next hire</span><strong>Writing · 10.00 USDC</strong></div>
+                <div class="alert warning" style="margin-top: 14px">
+                  Approve and next hire are one transaction. The payout is irreversible.
+                </div>
+                <button class="button primary" type="button" style="margin-top: 15px">Approve & pay</button>
+                <button class="button danger" type="button" style="margin-top: 8px">Reject & refund</button>
+                <div class="receipt">
+                  <span>Illustrative only</span>
+                  <a href="pipeline-submitted.html">Submitted state →</a>
+                </div>
+              </section>
+
+              <section class="panel padded">
+                <p class="kicker">Escrow invariant</p>
+                <h3 style="margin-top: 8px">Exact, not approximate</h3>
+                <p style="margin-bottom: 0">
+                  Paid out plus refunded can never exceed the parent escrow. Terminal states lock
+                  all future actions.
+                </p>
+              </section>
+            </aside>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

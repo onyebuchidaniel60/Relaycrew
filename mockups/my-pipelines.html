@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RelayCrew — My Pipelines Mockup</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="mockup-bar"><span>Mockup · illustrative data · no app styling changed</span></div>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="sidebar-brand" href="home.html">
+          <span class="logo-mark">RC</span>
+          <span>RelayCrew<small>Operator console</small></span>
+        </a>
+        <nav class="sidebar-nav" aria-label="Mockup app navigation">
+          <a href="home.html"><span class="nav-dot"></span>Overview</a>
+          <a href="create.html"><span class="nav-dot"></span>Create pipeline</a>
+          <a class="active" href="my-pipelines.html"><span class="nav-dot"></span>My pipelines</a>
+          <a href="pipeline-active.html"><span class="nav-dot"></span>Active detail</a>
+          <a href="index.html"><span class="nav-dot"></span>Design notes</a>
+        </nav>
+        <p class="sidebar-label">Network</p>
+        <div class="wallet-chip">
+          <span><span class="dot" style="display: inline-block; margin-right: 6px"></span>Arc Testnet</span>
+          <strong>0x7A…21C</strong>
+        </div>
+        <div class="sidebar-footer">
+          <span class="mini-chip">Mockup · not connected</span>
+        </div>
+      </aside>
+
+      <main class="app-main">
+        <div class="app-main-inner">
+          <header class="page-head">
+            <div>
+              <p class="breadcrumb"><a href="home.html">RelayCrew</a> / Pipelines</p>
+              <h1>My pipelines</h1>
+              <p>Pipelines where the connected wallet is the client or an assigned provider.</p>
+            </div>
+            <div class="page-head-actions">
+              <a class="button primary small" href="create.html">Create pipeline</a>
+            </div>
+          </header>
+
+          <div class="pipeline-list">
+            <a class="pipeline-row" href="pipeline-active.html">
+              <div>
+                <h3>Research → Analysis → Writing</h3>
+                <p>#042 · client 0x7A…21C · created 30 Oct 2026</p>
+              </div>
+              <div><span class="status-chip active"><span class="dot"></span>Active</span></div>
+              <div><span class="mono" style="color: var(--muted)">Stage 2 of 3</span><div class="mono" style="font-size: 13px">28.00 USDC</div></div>
+              <div class="row-arrow">→</div>
+            </a>
+
+            <a class="pipeline-row" href="pipeline-submitted.html">
+              <div>
+                <h3>Data audit → Remediation plan</h3>
+                <p>#039 · provider 0x4F…9B2 · submitted 18h ago</p>
+              </div>
+              <div><span class="status-chip submitted"><span class="dot"></span>Submitted</span></div>
+              <div><span class="mono" style="color: var(--muted)">Stage 2 of 2</span><div class="mono" style="font-size: 13px">24.00 USDC</div></div>
+              <div class="row-arrow">→</div>
+            </a>
+
+            <a class="pipeline-row" href="pipeline-complete.html">
+              <div>
+                <h3>Market map → Positioning brief</h3>
+                <p>#031 · client 0x7A…21C · completed 28 Oct 2026</p>
+              </div>
+              <div><span class="status-chip completed"><span class="dot"></span>Completed</span></div>
+              <div><span class="mono" style="color: var(--muted)">All stages paid</span><div class="mono" style="font-size: 13px">36.00 USDC</div></div>
+              <div class="row-arrow">→</div>
+            </a>
+          </div>
+
+          <section class="section" style="padding-bottom: 0">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">State inventory</p>
+                <h2>Empty, loading, error, wrong network.</h2>
+              </div>
+              <p>These are the review states that must be designed alongside the populated list.</p>
+            </div>
+
+            <div class="state-grid">
+              <article class="state-card">
+                <span class="mini-chip">Empty</span>
+                <h3>No pipelines found.</h3>
+                <p>Create a pipeline or connect the wallet assigned to an existing one.</p>
+                <button class="button small" type="button" style="margin-top: 16px">Create pipeline</button>
+              </article>
+
+              <article class="state-card">
+                <span class="mini-chip">Loading</span>
+                <h3>Reading wallet index…</h3>
+                <div class="stack" style="margin-top: 18px">
+                  <div style="height: 42px; border-radius: 8px; background: var(--panel-2)"></div>
+                  <div style="height: 42px; width: 82%; border-radius: 8px; background: var(--panel-2)"></div>
+                </div>
+              </article>
+
+              <article class="state-card">
+                <span class="mini-chip">Error</span>
+                <h3>Failed to load data.</h3>
+                <p>The RPC read failed. The list is not replaced with an empty state.</p>
+                <button class="button small" type="button" style="margin-top: 16px">Retry</button>
+              </article>
+
+              <article class="state-card">
+                <span class="mini-chip">Wrong network</span>
+                <h3>Wrong Network: Please switch to Arc Testnet.</h3>
+                <p>Reads remain available; write actions are blocked until the chain matches.</p>
+                <button class="button small" type="button" style="margin-top: 16px">Switch to Arc Testnet</button>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

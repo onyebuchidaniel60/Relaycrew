@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 5 edge-case completion gate implemented: balance/gas checks, cancellation messaging, RPC retries, terminal-state cleanup, deadline countdown, and duplicate-create protection. Awaiting operator sign-off on the manual E2E walkthrough. Final visual design has not started. Mainnet remains unauthorized.
+**Status:** Phase 6 reference-informed mockups proposed; explicit operator approval is pending. The working app remains in its temporary Tailwind state; Phase 7 has not started. Mainnet remains unauthorized.
 
 ## Project
 
@@ -39,7 +39,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 5 complete (awaiting operator sign-off on the manual E2E walkthrough): edge-case handling and console verification completed for the Arc Testnet contract `0x85bbf546b09d990959de0672c273b56400f84f05`; Phase 6 not started.**
+**Phase 6 complete (mockups presented, awaiting explicit operator approval): “Operator Console” reference direction and static mockups in `mockups/`; Phase 7 blocked.**
 
 ## URLs and deployments
 
@@ -93,16 +93,17 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Phase 5 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.23 kB, JS 607.13 kB (chunk-size warning only).
 - Phase 5 headless Chromium console check: all seven routes plus a mock-wallet connected `/create` form and “Add stage” interaction produced **0 console errors/warnings**.
 - Phase 5 Vercel Preview: `https://relaycrew-clflx1o67-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200; deployed bundle contains the cancellation, pending, retry, countdown, expire, and terminal-state strings.
+- Phase 6: three candidate references documented; static mockups created for Home, Create, My Pipelines, Active, Submitted, Completed/terminal variants, mobile, and the empty/loading/error/wrong-network inventory. No app code, contract calls, or production styling changed.
 - Contract tests: **29 passed**.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
 ## Design reference/mockup state
 
-- Final aesthetic: **NOT SELECTED**.
-- Design references: **NONE SUPPLIED/APPROVED YET**.
-- Mockups: **NOT CREATED**.
+- Final aesthetic: **NOT APPROVED**.
+- Design references: **PROPOSED** — Linear, Vercel, Safe (pending operator selection or written direction).
+- Mockups: **CREATED** — `mockups/index.html`, `home.html`, `create.html`, `my-pipelines.html`, `pipeline-active.html`, `pipeline-submitted.html`, `pipeline-complete.html`, `mobile.html`, `styles.css`, `README.md`.
 - Operator approval: **NOT GIVEN**.
-- Required sequence: finish core E2E on deployed testnet Preview → present references/candidates → create mockups → obtain explicit approval → implement final visual system.
+- Required sequence: operator review and explicit written approval → Phase 7 only. Silence is not approval.
 
 ## Documentation/footer state
 
@@ -121,7 +122,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Known issues/blockers
 
-1. Operator sign-off on the manual live testnet E2E walkthrough is pending; the automated live create → submit → approve → reject/expire journey has not been executed.
+1. Phase 5 was accepted by the operator; the operator’s manual live transaction hashes are not recorded in this repository, and the automated live create → submit → approve → reject/expire journey was not executed here.
 2. A real injected-wallet transaction flow was not exercised in automation; a local mock wallet verified the connected create form only. No transaction was sent.
 3. The frontend bundle is 607.13 kB (185.15 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
 4. Final visual design has not started; the functional UI uses temporary Tailwind styling and must not be treated as the approved design.
@@ -130,7 +131,8 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 7. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
 8. No mainnet deployment/transaction authorization.
 9. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
+10. Phase 6 design direction is awaiting explicit operator approval; Phase 7 is blocked. The working app remains in its temporary Tailwind state.
 
 ## Single next task
 
-**Await operator sign-off on the Phase 5 manual E2E walkthrough at https://relaycrew-clflx1o67-uhhh2.vercel.app; if accepted, then Phase 6 only per IMPLEMENTATION_PLAN.md.**
+**Operator review and explicit written approval of the Phase 6 “Operator Console” mockups; then Phase 7 only per IMPLEMENTATION_PLAN.md.**
