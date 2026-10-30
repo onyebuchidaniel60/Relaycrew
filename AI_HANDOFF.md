@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 3 core `PipelineCoordinator` implemented, 29 Foundry tests passing, and deployed to Arc Testnet; Vercel Preview updated. Mainnet deployment is not authorized.
+**Status:** Phase 4 functional frontend integrated with the Arc Testnet contract: create/fund, pipeline list, detail timeline, provider submit, client approve/reject, and permissionless expire flows are implemented. Final visual design has not started. Mainnet remains unauthorized.
 
 ## Project
 
@@ -39,14 +39,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 3 complete (pending operator acceptance): full sequential escrow/milestone-hiring contract, 29 Foundry tests passing, Arc Testnet deployment `0x85bbf546b09d990959de0672c273b56400f84f05`, and updated Vercel Preview on 2026-10-30; Phase 4 not started.**
+**Phase 4 complete (pending operator acceptance): functional create/list/detail/actions connected to the Arc Testnet contract `0x85bbf546b09d990959de0672c273b56400f84f05`; Vercel Preview updated on 2026-10-30; Phase 5 not started.**
 
 ## URLs and deployments
 
 - Arc Studio project: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (“Relay Crew Communication Platform”); verified via CLI; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`).
-- Vercel Preview URL: **https://relaycrew-59bh3t2a8-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
-- Preview deployed commit: **6961a3c5c07f1f9034d34df35dd61c570c0f5df1**.
+- Vercel Preview URL: **https://relaycrew-cjg44hlki-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **83624067bc5a6e6d6d04aebf7804343c0e5ac0c8**.
 - Production URL: **NOT DEPLOYED — no production deployment retained**.
 - Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic implemented and tested.
 - ABI wiring: **`src/lib/contracts.ts`** generated from the final Arc Studio ABI; Arc Testnet address configured.
@@ -85,6 +85,10 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Phase 3 Arc Testnet deployment: `0x85bbf546b09d990959de0672c273b56400f84f05`; tx `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`; explorer link above. `eth_getCode` confirms bytecode; `usdc()` returns `0x3600000000000000000000000000000000000000`; `pipelineCount()` returns `0`; deployment receipt status is `0x1`. Deployed via Arc Studio platform deployer after Circle DCW key provisioning failed; the contract has no owner role.
 - Phase 3 Vercel Preview: `https://relaycrew-59bh3t2a8-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains the wallet/network UI strings.
 - Phase 3 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1787 modules transformed, CSS 12.29 kB, JS 297.48 kB.
+- Phase 4 implementation: 6-decimal USDC amount helpers; exact allowance reset/approve flow; create form with 2–5 stages and live total/validation; pipeline list by wallet; detail timeline; provider submit; client approve/reject; permissionless expire; global wallet/pending/success/error status; custom-error mapping; stale-read refresh via query invalidation.
+- Phase 4 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.11 kB, JS 602.52 kB (chunk-size warning only).
+- Phase 4 local smoke test: headless Chromium verified `/`, `/create`, `/pipelines`, `/pipelines/1`, `/risk`, and `/bad-route`; create form, public-data warning, and testnet banner rendered. A mock injected wallet connected locally and the create form rendered with the connected client address; no transaction was sent.
+- Phase 4 Vercel Preview: `https://relaycrew-cjg44hlki-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains the create form, list/action copy, custom-error text, contract address, and testnet-only banner.
 - Contract tests: **29 passed**.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
@@ -113,15 +117,16 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Known issues/blockers
 
-1. A full create → submit → approve → reject/expire lifecycle was not executed on live Arc Testnet; Foundry tests cover these paths, and deployment/read checks passed. Operator-funded client/provider signing wallets were not available in this environment.
-2. The frontend remains in its Phase 1/2 placeholder state; Phase 4 integration has not started.
-3. A live injected-wallet connect/switch was not exercised in the headless test environment; the button and guard are present.
-4. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; this is recorded as an operational fallback.
-5. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
-6. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
-7. No mainnet deployment/transaction authorization.
-8. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
+1. A full create → submit → approve → reject/expire lifecycle was not executed on live Arc Testnet; Foundry tests cover the contract paths, but operator-funded client/provider signing wallets were not available for a live UI journey.
+2. A real injected-wallet transaction flow was not exercised; a local mock wallet verified the connected create form only. No transaction was sent.
+3. Final visual design has not started; the functional UI uses temporary Tailwind styling and must not be treated as the approved design.
+4. The frontend bundle is 602.52 kB (184.22 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+5. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; this is recorded as an operational fallback.
+6. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
+7. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
+8. No mainnet deployment/transaction authorization.
+9. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
 
 ## Single next task
 
-**Operator acceptance of the Phase 3 Arc Testnet deployment (`0x85bbf546b09d990959de0672c273b56400f84f05`) and Preview at https://relaycrew-59bh3t2a8-uhhh2.vercel.app; then Phase 4 only per IMPLEMENTATION_PLAN.md.**
+**Operator acceptance of the Phase 4 Preview at https://relaycrew-cjg44hlki-uhhh2.vercel.app; then Phase 5 only per IMPLEMENTATION_PLAN.md.**
