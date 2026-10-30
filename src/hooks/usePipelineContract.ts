@@ -8,8 +8,7 @@ import {
 } from '../lib/contracts'
 import { useNetworkGuard } from './useNetworkGuard'
 
-const contractAddress: Address | undefined =
-  pipelineCoordinatorAddress === '' ? undefined : pipelineCoordinatorAddress
+const contractAddress: Address = pipelineCoordinatorAddress
 const readsEnabled = isPipelineConfigured && appConfig.isValid
 
 export type StageInput = {
