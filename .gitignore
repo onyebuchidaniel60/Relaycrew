@@ -9,3 +9,5 @@ artifacts/
 cache/
 *.log
 .DS_Store
+.arc-studio/
+*.tsbuildinfo

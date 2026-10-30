@@ -6,11 +6,11 @@
 
 ## Current status
 
-This repository package is a planning/handoff baseline only. The app, contract, deployments, and tests have not yet been implemented.
+The Phase 1 React + TypeScript + Vite shell is implemented locally. Contract integration, wallet actions, deployments beyond the shell, and functional tests are not yet implemented.
 
-- Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew; it contains blueprint documentation only.
-- Arc Studio project: not yet created/verified.
-- Vercel Preview: not yet deployed.
+- Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
+- Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); scaffold pulled and frontend shell established.
+- Vercel Preview: **deployment in progress**; the exact URL will be recorded after the first successful preview deploy.
 - Testnet/Mainnet contract address: not yet deployed.
 - Mainnet transaction hashes: not yet executed/verified.
 - Final visual design: not approved.
@@ -51,20 +51,24 @@ The workflow methodology supplied by the operator is included in this package as
 - Preview uses Arc Testnet only. Mainnet deployment/payment requires explicit operator authorization.
 - No backend/database/runtime AI/marketplace/reputation/arbitration/fees.
 
-## Developer setup (implementation phase)
+## Developer setup
 
-The actual install/test commands must be confirmed from the generated Arc Studio project and recorded here after Phase 1. Do not invent commands before inspecting the generated project. Expected tools are Node.js compatible with Arc Studio's current documented requirements, npm, Arc Studio, and a browser wallet. Use the actual lockfile and project scripts after generation.
+Available commands for the Phase 1 app (verified locally with Node.js v24.22.1 and npm 11.19.1):
 
-Once the app exists, this section must be replaced/expanded with verified commands for:
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview
+npm run lint
+npm run typecheck
+```
 
-- dependency installation;
-- local development;
-- lint/typecheck/build;
-- unit/integration/E2E tests;
-- contract testing in Arc Studio;
-- safe testnet configuration;
-- Vercel preview deployment;
-- exported-source verification and authorized manual mainnet release.
+`npm run build` runs the TypeScript check and builds the Vite app into `dist/`.
+
+Local testnet configuration: copy `.env.example` to `.env` and keep `VITE_NETWORK_MODE=testnet`. `.env` is ignored by Git. The Vercel Preview must use the same Arc Testnet values; never place deployer keys or private credentials in Vercel or client variables.
+
+Route inventory: `/`, `/create`, `/pipelines`, `/pipelines/:id`, `/docs`, `/risk`, and the not-found route.
 
 ## Environment safety
 
