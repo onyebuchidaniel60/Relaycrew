@@ -2,7 +2,7 @@
 
 **RelayCrew is a working-name project for the Arc Microgrants: Built with Arc Studio hackathon.** It coordinates a fixed sequence of specialist stages using one parent-funded Arc USDC escrow. Approving a submitted stage pays the current provider and activates the next preassigned specialist in the same on-chain transaction.
 
-> Experimental hackathon software. The planned contract is not independently audited. USDC transfers are irreversible, task metadata is public, and the client is the only evaluator. Do not use sensitive tasks or more money than you can afford to lose.
+> Experimental hackathon software. The contract is not independently audited. USDC transfers are irreversible, task metadata is public, and the client is the only evaluator. Do not use sensitive tasks or more money than you can afford to lose.
 
 ## Current status
 
@@ -10,7 +10,7 @@ Phase 7 is implemented: the operator-approved “Warm Editorial Escrow” visual
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
-- Vercel Preview: https://relaycrew-clflx1o67-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
+- Vercel Preview: https://relaycrew-kl661uga9-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled). Deployed source commit: `9f23d9cfe9a2927003ed9a3c63ac6894f0447ffd`.
 - Vercel Production: not deployed.
 - Contract: `contracts/PipelineCoordinator.sol`; ABI/address in `src/lib/contracts.ts`.
 - Testnet contract address: `0x85bbf546b09d990959de0672c273b56400f84f05`.

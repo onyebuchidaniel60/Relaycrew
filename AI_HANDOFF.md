@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-10-30
 
-**Status:** Phase 6 revised “Warm Editorial Escrow” mockups created from the operator reference images; explicit approval is pending. The previous dark direction was rejected and removed. The working app remains in its temporary Tailwind state; Phase 7 is blocked. Mainnet remains unauthorized.
+**Status:** Phase 7 complete and deployed. The operator-approved “Warm Editorial Escrow” visual system is applied to the working Arc Testnet app. No contract, transaction, state-machine, or security behavior changed. Phase 8 has not started. Mainnet remains unauthorized.
 
 ## Project
 
@@ -19,7 +19,7 @@ Read before any implementation:
 3. `IMPLEMENTATION_PLAN.md`
 4. `AGENTS.md`
 5. This file
-6. `docs/DECISIONS.md`, `docs/CONTRACT_INTERFACE.md`, `docs/SECURITY.md` and any relevant docs before the corresponding phase.
+6. `docs/DECISIONS.md`, `docs/CONTRACT_INTERFACE.md`, `docs/SECURITY.md`, `docs/DESIGN_DECISIONS.md` and any relevant docs before the corresponding phase.
 
 Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md`.
 
@@ -35,18 +35,20 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - No marketplace, runtime AI, backend, database, indexer, queue, admin panel, fee, arbitration, reputation, or dynamic routing.
 - Arc Studio is required for contracts, tests and app. Its documented deploy path targets Arc Testnet; mainnet deployment requires a manual export/deploy step after approval.
 - Preview must use Arc Testnet only; Production must use Arc Mainnet only after operator authorization.
-- Final UI design is not selected/approved. No final visual implementation before core E2E gate, reference-informed mockups, and explicit operator approval.
+- Final visual direction: **approved 2026-10-30** — “Warm Editorial Escrow”; Phase 7 implementation complete.
 
 ## Current phase
 
-**Phase 6 revised (awaiting explicit operator approval): “Warm Editorial Escrow” mockups derived from `docs/references/reference 1.webp` and `reference 2.jpg`; Phase 7 blocked.**
+**Phase 7 complete — implement approved final UI.** The approved visual system is deployed on the Arc Testnet Preview. Phase 8 (frontend and documentation completeness) is the next task and has not started.
 
 ## URLs and deployments
 
 - Arc Studio project: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (“Relay Crew Communication Platform”); verified via CLI; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public via GitHub API; default branch `main`).
-- Vercel Preview URL: **https://relaycrew-clflx1o67-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
-- Preview deployed commit: **aba57f9357e5c42a6fa8f2f277eca2eb504216ba**.
+- Vercel Preview URL: **https://relaycrew-kl661uga9-uhhh2.vercel.app** (Preview target; Vercel Deployment Protection enabled).
+- Preview deployed commit: **9f23d9cfe9a2927003ed9a3c63ac6894f0447ffd** — deployment created from a clean tree at this commit; deployed JS/CSS asset hashes match the local production build of the same commit. Vercel CLI did not attach Git metadata to this deployment.
+- Repository Phase 7 commit: **9f23d9cfe9a2927003ed9a3c63ac6894f0447ffd** (implementation commit; this handoff update is a docs-only commit on top).
+- Vercel deployment ID: **dpl_44YZmjAvVMYVfymJSgwJCMEPSZKZ**.
 - Production URL: **NOT DEPLOYED — no production deployment retained**.
 - Contract: **`contracts/PipelineCoordinator.sol`** — full sequential escrow/milestone-hiring logic implemented and tested.
 - ABI wiring: **`src/lib/contracts.ts`** generated from the final Arc Studio ABI; Arc Testnet address configured.
@@ -58,83 +60,83 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Video walkthrough: **NOT RECORDED**.
 - Builder profile URL for submission: use actual operator-supplied or verified URL; do not invent.
 
-## Confirmed research notes (as checked 2026-10-28)
+## Design approval and implementation record
 
-- Arc Mainnet chain ID is 5042; official RPC `https://rpc.mainnet.arc.io`; explorer `https://explorer.arc.io`.
-- Arc Testnet chain ID is 5042002; official RPC `https://rpc.testnet.arc.io`; explorer `https://explorer.testnet.arc.io`.
-- Arc docs list the USDC ERC-20 interface at `0x3600000000000000000000000000000000000000` on both networks with 6 decimals. Verify again before deployment.
-- Arc Studio docs state it deploys to Arc Testnet. Exported source must be deployed to mainnet manually after operator authorization.
-- Arc official contract-address page lists ERC-8183 reference implementation on Arc Testnet; it does not list a mainnet implementation. Do not rely on or claim a mainnet ERC-8183 address.
-- Official hackathon page fetch returned 405 during latest verification. Recheck deadline, judging weights and submission artifact list manually before submitting.
+- Final aesthetic: **APPROVED** — “Warm Editorial Escrow,” 2026-10-30.
+- Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
+- Approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`.
+- Approval text recorded: “The ‘Warm Editorial Escrow’ mockups were reviewed and explicitly APPROVED.” (operator instruction, 2026-10-30).
+- Implementation: Phase 7 applied the tokens and layouts to the working app. Tokens live in `tailwind.config.js` and `src/index.css`; new components are `LogoMark`, `StatusPill`, and `ConfirmDialog`.
+- Imagery: original warm editorial SVGs at `public/images/relay-hero.svg` and `public/images/relay-panel.svg`; favicon at `public/favicon.svg`. No licensed photography was copied.
+- Recorded deviations: SVG imagery instead of photography; Google Fonts delivery for Fraunces/Manrope/IBM Plex Mono; existing exact trimmed amount display retained; browser-native `window.confirm` replaced by an accessible in-app confirmation dialog with identical guards and values; mobile nav remains visible as a compact second header row.
+- Behavior freeze: no contract call, ABI, address, validation, role check, allowance rule, state transition, or security control changed.
+- Full record: `docs/DESIGN_DECISIONS.md`.
+
+## Phase 7 completed work
+
+- Global shell: editorial header, relay mark, network badge, wallet control, testnet preview strip, warm wrong-network/configuration alerts, and footer links.
+- Home: split editorial hero, warm visual panel, illustrative stage cards explicitly labeled “not live data,” protocol-constraint stats, relay explanation, inspection panel, risk callout.
+- Create: setup checklist, wallet/balance/allowance summary, stage editors, byte counters, exact total strip, public-data warning, and the unchanged single wallet flow.
+- Pipelines: wallet-view ledger rows, status pills, exact budget amounts, loading/error/empty/not-connected states.
+- Pipeline detail: current-agent title, money summary, stage rail with active/paid/submitted/rejected markers, countdown, payout/recipient/next-hire/refund panel, provider submit form, client review controls, permissionless expiry, and terminal ledger.
+- Terminal states: Completed, Rejected, and Expired show reconciled total/paid/refunded/finished values and no action controls.
+- Confirmation dialogs: accessible native `<dialog>` for approve, reject, and expire; repeats exact recipient, payout, next hire, and refund; Escape/cancel/backdrop close without sending a transaction.
+- Accessibility/polish: visible forest focus ring on inputs, `:focus-visible` outlines, labelled inputs, keyboard-operable native dialog, reduced-motion handling, card/button transitions, paper shadows, mono-font amount fields, mobile layouts at 390px.
+- Assets/metadata: favicon, page title/description, theme color, updated `/docs`, `/risk`, and 404 styling.
 
 ## Tests/evidence
 
-- Blueprint/documentation consistency reviewed at planning stage.
-- Preflight inspection 2026-10-30: Git working tree clean; 1 commit (`8c12d5c7b230143e3f13bae2902cbea843fdcc75`); public GitHub repository verified at `https://github.com/onyebuchidaniel60/Relaycrew` (default branch `main`; 16 Markdown files).
-- Phase 1: Arc Studio Vite scaffold pulled; generic wallet/Foundry boilerplate removed; shell routes and placeholders deployed. `npm install react-router-dom` (143 packages, 0 vulnerabilities); `npm run typecheck`, `npm run lint`, and `npm run build` passed; local headless Chromium verified all seven routes; Vercel Preview build passed and all routes returned HTTP 200.
-- Phase 2 dependencies: `npm install wagmi viem @tanstack/react-query` completed; 21 packages installed; 0 vulnerabilities.
-- Phase 2 contract scaffold: Arc Studio generated `contracts/PipelineCoordinator.sol`; `forge build` passed with Solc 0.8.28; ABI artifact `contracts/out/PipelineCoordinator.sol/PipelineCoordinator.json`; all function bodies revert with `NotImplemented()` and no business logic or deployment exists.
-- Phase 2 ABI wiring: `src/lib/contracts.ts` generated from the Arc Studio ABI; contract address intentionally empty; `src/lib/chain.ts` defines Arc Testnet `5042002` and Arc Mainnet `5042`; `WagmiProvider` and injected connector wired; real Connect Wallet/Disconnect implemented; wrong-network warning and write guard implemented.
-- Phase 2 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1787 modules transformed, `dist/index.html` 0.61 kB, CSS 12.29 kB, JS 297.44 kB.
-- Phase 2 local smoke test: headless Chromium verified `/`, `/create`, `/pipelines`, `/pipelines/1`, `/docs`, `/risk`, and `/bad-route`; Connect Wallet and Arc Testnet badge present; wrong-network banner string present in the bundle. No injected wallet was available in the headless environment, so a live wallet connect/switch was not exercised.
-- Phase 2 Vercel Preview: `https://relaycrew-reh3adohp-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains Connect Wallet, wrong-network warning, Arc Testnet, and Phase 2 footer strings.
-- Vercel Preview env: `VITE_NETWORK_MODE=testnet`, `VITE_CHAIN_ID=5042002`, `VITE_RPC_URL`, `VITE_EXPLORER_URL`, `VITE_USDC_ADDRESS`, `VITE_PIPELINE_CONTRACT_ADDRESS=0x85bbf546b09d990959de0672c273b56400f84f05`, and `VITE_GITHUB_REPOSITORY_URL` set for Preview.
-- Vercel deployments: only Preview deployments are retained; no production deployment exists.
-- Phase 3 contract: full `PipelineCoordinator` logic implemented with SafeERC20, ReentrancyGuard, exact accounting, events, custom errors, and views.
-- Phase 3 Foundry tests: `forge build` **PASS** (Solc 0.8.28); `forge test -vvv` **29 passed, 0 failed, 0 skipped**; source/test parity with Arc Studio verified.
-- Phase 3 Arc Testnet deployment: `0x85bbf546b09d990959de0672c273b56400f84f05`; tx `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`; explorer link above. `eth_getCode` confirms bytecode; `usdc()` returns `0x3600000000000000000000000000000000000000`; `pipelineCount()` returns `0`; deployment receipt status is `0x1`. Deployed via Arc Studio platform deployer after Circle DCW key provisioning failed; the contract has no owner role.
-- Phase 3 Vercel Preview: `https://relaycrew-59bh3t2a8-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains the wallet/network UI strings.
-- Phase 3 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1787 modules transformed, CSS 12.29 kB, JS 297.48 kB.
-- Phase 4 implementation: 6-decimal USDC amount helpers; exact allowance reset/approve flow; create form with 2–5 stages and live total/validation; pipeline list by wallet; detail timeline; provider submit; client approve/reject; permissionless expire; global wallet/pending/success/error status; custom-error mapping; stale-read refresh via query invalidation.
-- Phase 4 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.11 kB, JS 602.52 kB (chunk-size warning only).
-- Phase 4 local smoke test: headless Chromium verified `/`, `/create`, `/pipelines`, `/pipelines/1`, `/risk`, and `/bad-route`; create form, public-data warning, and testnet banner rendered. A mock injected wallet connected locally and the create form rendered with the connected client address; no transaction was sent.
-- Phase 4 Vercel Preview: `https://relaycrew-cjg44hlki-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200 through `vercel curl`; deployed bundle contains the create form, list/action copy, custom-error text, contract address, and testnet-only banner.
-- Phase 5 edge cases: ERC-20 balance and native-gas preflight; “Transaction cancelled by user” mapping; retry controls for IDs, summaries, stages, balances, and allowances; terminal-state banners with paid/refunded totals and no action controls; deadline countdown; duplicate-create protection with pending receipt and “Check receipt” flow.
-- Phase 5 checks: `npm run typecheck` **PASS**; `npm run lint` **PASS**; `npm run build` with testnet env **PASS** — Vite 6.4.5, 1799 modules transformed, CSS 16.23 kB, JS 607.13 kB (chunk-size warning only).
-- Phase 5 headless Chromium console check: all seven routes plus a mock-wallet connected `/create` form and “Add stage” interaction produced **0 console errors/warnings**.
-- Phase 5 Vercel Preview: `https://relaycrew-clflx1o67-uhhh2.vercel.app`; target `preview`; state `READY`; all seven routes returned HTTP 200; deployed bundle contains the cancellation, pending, retry, countdown, expire, and terminal-state strings.
-- Phase 6 revision: operator-supplied references analyzed; previous dark mockups removed; new “Warm Editorial Escrow” static mockups created for reference analysis, Home, Create, Active Detail, and mobile. No app code, contract calls, or production styling changed.
-- Contract tests: **29 passed**.
+- Phase 7 typecheck: `npm run typecheck` **PASS**.
+- Phase 7 lint: `npm run lint` **PASS** (oxlint, no warnings reported).
+- Phase 7 production build: `npm run build` **PASS** — Vite 6.4.5, 1801 modules; CSS 34.46 kB (7.88 kB gzip); JS 632.92 kB (191.81 kB gzip); chunk-size warning only.
+- Phase 7 visual verification: headless Chromium at 1440px and 390px; Home, Create, Pipelines, Detail, Docs, Risk, 404; active client-review state, provider-submit state, Completed/Rejected settlement ledgers, wrong-network state, and approve confirmation dialog.
+- Connected-state verification used a temporary local mock injected wallet and mocked Arc JSON-RPC; no transaction was signed or sent and no test-only harness was committed.
+- Browser checks: **0 console errors** across tested routes/states; **0px horizontal overflow** at 1440px and 390px; all tested create/detail inputs have associated labels; focus test confirmed forest border `rgb(23, 61, 44)` plus 3px green focus shadow after transition; dialog recipient full address present and Escape closes the dialog.
+- Deployed Preview verification: Vercel state **READY**; all seven routes returned HTTP 200 through `vercel curl` (`/`, `/create`, `/pipelines`, `/pipelines/1`, `/docs`, `/risk`, `/not-a-route`).
+- Deployed bundle parity: deployed `index-7J2Jg7ay.css` and `index-D7BqpU9Q.js` match the local production build of commit `9f23d9c…`; deployed JS contains the new design copy, “Settlement ledger,” “Irreversible on-chain action,” the public GitHub URL, and the verified contract address; deployed CSS contains the approved palette, Fraunces/Manrope/IBM Plex Mono, and dialog styles.
+- Prior functional evidence retained: contract tests **29 passed, 0 failed**; Phase 4/5 allowance, create/list/detail/submit/approve/reject/expire flows and edge states were implemented and previously accepted by the operator.
 - Mainnet tests: **not run; no authorization given and no transaction executed**.
 
 ## Design reference/mockup state
 
-- Final aesthetic: **NOT APPROVED**.
-- Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
-- Proposed direction: **“Warm Editorial Escrow”** — ivory/paper canvas, forest-green actions, editorial serif display, sans UI, thin rules, warm visual panels.
-- Mockups: **REVISED** — `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`, `README.md`.
+- Final aesthetic: **APPROVED** (2026-10-30).
+- References: operator-supplied images in `docs/references/`.
+- Mockups: **APPROVED** — `mockups/` retained as the design record.
 - Previous direction: **REJECTED AND REMOVED** — dark “Operator Console” mockups.
-- Operator approval: **NOT GIVEN**.
-- Required sequence: operator review and explicit written approval → Phase 7 only. Silence is not approval.
+- Implementation deviations recorded in `docs/DESIGN_DECISIONS.md`.
+- Phase 8 may not change the approved design direction; it finishes documentation, link integrity, accessibility, and release-facing completeness only.
 
 ## Documentation/footer state
 
-- Root source-of-truth docs created in the blueprint package.
-- In-repository README and `docs/` materials are present; maintain them.
-- Documentation route must be `/docs` and home-footer link must work.
-- Public GitHub repository verified at https://github.com/onyebuchidaniel60/Relaycrew. Footer GitHub link remains pending until the final UI exists and the link is verified on the deployed Preview.
-- No dead links, inert controls, unexplained placeholders, or unverified claims may remain in the final UI.
+- Root `README.md` and `docs/` materials are present; Phase 8 owns the complete user/operator documentation pass.
+- `/docs` is styled and clearly marked “In progress” with planned contents; it is **not** presented as complete documentation.
+- Home/footer Documentation link resolves to `/docs`; Risk notice resolves to `/risk`.
+- GitHub footer link uses `VITE_GITHUB_REPOSITORY_URL`; the configured public URL appears in the deployed bundle. Full deployed link crawl remains Phase 8 work.
+- Contract footer link uses the verified testnet address and explorer base.
+- No dead links, inert controls, `href="#"`, or unexplained placeholders were introduced in Phase 7; the `/docs` placeholder is explicitly labeled.
 
 ## Safety and deployment constraints
 
 - No mainnet deployment or real-USDC transaction without explicit operator authorization.
-- Keep Preview on testnet only; never include deployment key in Vercel or client bundle.
-- Use exact allowance, low-value mainnet demo, verified contract/token addresses, and controlled/consenting provider wallets.
-- Contract is unaudited experimental software and must include a risk notice.
+- Preview is Arc Testnet only; no deployer key or signing key is in the client bundle.
+- No secrets were added to the repository or deployed bundle in Phase 7.
+- Contract remains unaudited experimental software with the risk notice visible.
+- Vercel Deployment Protection remains enabled; use `vercel curl` or an authorized browser session to inspect the Preview.
 
 ## Known issues/blockers
 
 1. Phase 5 was accepted by the operator; the operator’s manual live transaction hashes are not recorded in this repository, and the automated live create → submit → approve → reject/expire journey was not executed here.
-2. A real injected-wallet transaction flow was not exercised in automation; a local mock wallet verified the connected create form only. No transaction was sent.
-3. The frontend bundle is 607.13 kB (185.15 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
-4. Final visual design has not started; the functional UI uses temporary Tailwind styling and must not be treated as the approved design.
-5. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; this is recorded as an operational fallback.
+2. A real injected-wallet transaction flow was not exercised in Phase 7 automation; a mock wallet/RPC verified UI states only. No transaction was sent.
+3. The frontend bundle is 632.92 kB (191.81 kB gzip) and Vite reports a chunk-size warning; code splitting is deferred.
+4. `/docs` remains an explicitly labeled Phase 8 placeholder; the full user/operator guide and link audit are incomplete.
+5. Circle DCW key provisioning failed, so the testnet deployment used Arc Studio’s shared platform deployer. The contract has no owner/admin role, so that wallet has no special authority; recorded as an operational fallback.
 6. Vercel Deployment Protection is enabled; the Preview requires Vercel authentication or a protection bypass.
 7. Deadline discrepancy still unresolved (2026-11-01 20:59 WAT vs 2026-11-02 04:59 UTC); requires confirmation from the official submission form.
 8. No mainnet deployment/transaction authorization.
-9. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded here to reinforce that inspection-only tasks must not modify files. No application code, dependencies, contract, or deployment was involved.
-10. The revised Phase 6 “Warm Editorial Escrow” direction is awaiting explicit operator approval; Phase 7 is blocked. The working app remains in its temporary Tailwind state.
+9. Scope deviation, commit 8a7c8b9: the authorized preflight task was inspection-only, but the run created `.gitignore` and modified `AI_HANDOFF.md` and `README.md`, then committed. Operator did not authorize file modification. Changes were retained (they are factually correct; `.gitignore` addresses a real gap) but the deviation is recorded to reinforce that inspection-only tasks must not modify files.
+10. The Vercel CLI deployment does not carry attached Git metadata. The deployed source commit is identified by the clean tree at `9f23d9c…` plus matching local/deployed CSS and JS asset hashes. Re-verify if the deployment is replaced.
+11. The in-app confirmation dialog replaced browser-native `window.confirm`; this is recorded as a visual/interaction deviation. The same guard, exact values, and irreversible-action warning are preserved, and no contract call was changed.
 
 ## Single next task
 
-**Operator review and explicit written approval of the revised Phase 6 “Warm Editorial Escrow” mockups; then Phase 7 only per IMPLEMENTATION_PLAN.md.**
+**Phase 8 only per `IMPLEMENTATION_PLAN.md`: complete the frontend/documentation release pass — real `/docs` and `/risk` content, metadata/favicon checks, link crawl, accessibility and responsive verification, and the actual public GitHub/footer destinations. Do not start Phase 9 or any mainnet action.**
