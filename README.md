@@ -6,15 +6,18 @@
 
 ## Current status
 
-The Phase 2 React + TypeScript + Vite foundation is deployed to a Vercel Preview. Wallet connect/disconnect and an Arc Testnet network guard are implemented; the `PipelineCoordinator` contract is a scaffold only with no business logic, and no contract is deployed.
+Phase 3 core contract logic is implemented, tested, and deployed to Arc Testnet; the frontend remains the Phase 1/2 placeholder shell with wallet/network foundation only.
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
-- Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract scaffold generated at `contracts/PipelineCoordinator.sol`.
-- Vercel Preview: https://relaycrew-reh3adohp-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
+- Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
+- Vercel Preview: https://relaycrew-59bh3t2a8-uhhh2.vercel.app (Preview only; Vercel Deployment Protection enabled).
 - Vercel Production: not deployed.
-- Contract scaffold: `contracts/PipelineCoordinator.sol`; ABI in `src/lib/contracts.ts`; contract address intentionally empty.
-- Testnet/Mainnet contract address: not yet deployed.
+- Contract: `contracts/PipelineCoordinator.sol`; ABI in `src/lib/contracts.ts`.
+- Testnet contract address: `0x85bbf546b09d990959de0672c273b56400f84f05`.
+- Testnet deployment tx: `0xf1b0d68678eb16faa2e072204e8ac0a9da5177efba95c72eefa119f0f9c75122`.
+- Mainnet contract address: not deployed; no mainnet authorization.
 - Mainnet transaction hashes: not yet executed/verified.
+- Foundry tests: 29 passed, 0 failed in Arc Studio.
 - Final visual design: not approved.
 
 Never replace these entries with guessed URLs or fabricated evidence.
@@ -55,7 +58,7 @@ The workflow methodology supplied by the operator is included in this package as
 
 ## Developer setup
 
-Available commands for the Phase 2 app (verified locally with Node.js v24.22.1 and npm 11.19.1):
+Available commands for the app (verified locally with Node.js v24.22.1 and npm 11.19.1):
 
 ```bash
 npm install
@@ -68,7 +71,7 @@ npm run typecheck
 
 `npm run build` runs the TypeScript check and builds the Vite app into `dist/`.
 
-Contract scaffold: `contracts/PipelineCoordinator.sol` is generated and compiled in Arc Studio (Solc 0.8.28). The ABI is embedded in `src/lib/contracts.ts`; no contract address is configured. Arc Studio remains the contract build source; no local Foundry workflow is configured yet.
+Contract: `contracts/PipelineCoordinator.sol` is implemented and tested in Arc Studio (Solc 0.8.28; 29 Foundry tests). The ABI and Arc Testnet address are in `src/lib/contracts.ts`. Arc Studio remains the contract build/test source; no local Foundry workflow is configured.
 
 Preview deployment: `vercel deploy --environment preview` using the authenticated CLI. Do not run `vercel deploy --prod` for this phase.
 

@@ -1,7 +1,8 @@
 # Contract Interface and Event Reference
 
-**Contract name:** `PipelineCoordinator` (planned).  
-**Status:** design/interface baseline; ABI and signatures must be generated from actual tested Arc Studio source before integration. Do not treat this document as a compiled ABI.
+**Contract name:** `PipelineCoordinator` (implemented).
+
+**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 29 Foundry tests). Deployed to Arc Testnet at `0x85bbf546b09d990959de0672c273b56400f84f05` on 2026-10-30. The tested ABI is embedded in `src/lib/contracts.ts`. Mainnet is not deployed. This is unaudited experimental software.
 
 ## Core types
 
@@ -63,7 +64,7 @@ Pipeline constraints: 2–5 stages, total no more than 100,000,000 USDC base uni
 - `getUserPipelineIds(address)`
 - `usdc()`
 
-Exact return tuple shape must be finalized from the tested source and included in generated TypeScript ABI types. Do not hand-edit a mismatched ABI.
+Exact return tuple shapes are generated from the tested source and embedded in `src/lib/contracts.ts`. Do not hand-edit a mismatched ABI.
 
 ## Events
 
