@@ -13,6 +13,7 @@ import { useTxRunner } from '../hooks/useTxRunner'
 import { formatUsdcDisplay } from '../lib/amounts'
 import { appConfig } from '../lib/config'
 import {
+  formatCountdown,
   formatDuration,
   formatTimestamp,
   isTerminalPipeline,
@@ -34,7 +35,14 @@ function StageTimelineItem({ pipelineId, index }: { pipelineId: bigint; index: n
   if (query.isError || !query.data) {
     return (
       <li className="ml-1 border-l border-red-200 pb-6 pl-6 text-sm text-red-700">
-        Stage {index + 1} could not be loaded.
+        <p>Stage {index + 1} could not be loaded.</p>
+        <button
+          type="button"
+          onClick={() => void query.refetch()}
+          className="mt-2 rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold"
+        >
+          Retry
+        </button>
       </li>
     )
   }
@@ -79,7 +87,7 @@ function StageTimelineItem({ pipelineId, index }: { pipelineId: bigint; index: n
           <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">Work deadline</dt>
           <dd className="text-slate-800">{formatTimestamp(stage.dueAt)}</dd>
         </div>
-        {status === 2 || status === 3 ? (
+        {Number(stage.submittedAt) > 0 ? (
           <div>
             <dt className="text-xs font-semibold uppercase tracking-wide text-slate-500">Submitted</dt>
             <dd className="text-slate-800">{formatTimestamp(stage.submittedAt)}</dd>
@@ -141,7 +149,7 @@ export function PipelineDetailPage() {
 
   const { address } = useAccount()
   const guard = useNetworkGuard()
-  const now = useNow()
+  const now = useNow(1000)
   const { run } = useTxRunner()
   const writes = usePipelineWrites()
   const [deliverableUri, setDeliverableUri] = useState('')
@@ -174,7 +182,7 @@ export function PipelineDetailPage() {
           description="This pipeline could not be read from Arc Testnet."
         />
         <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-900">
-          <p>The pipeline may not exist, or the RPC read failed.</p>
+          <p>Failed to load data. The pipeline may not exist, or the RPC read failed.</p>
           <button
             type="button"
             onClick={() => void summaryQuery.refetch()}
@@ -222,6 +230,13 @@ export function PipelineDetailPage() {
     !workDeadlinePassed &&
     guard.isWriteEnabled
   const remaining = summary.totalBudget - summary.paidOut - summary.refundedAmount
+  const activeDeadline =
+    currentStage && stageStatus === 1
+      ? Number(currentStage.dueAt)
+      : currentStage && stageStatus === 2
+        ? Number(currentStage.evaluationDeadline)
+        : undefined
+  const deadlineSecondsRemaining = activeDeadline === undefined ? undefined : activeDeadline - now
   const uriProblem = deliverableUri.trim() ? validateDeliverableUri(deliverableUri) : null
 
   const submit = async () => {
@@ -335,8 +350,29 @@ export function PipelineDetailPage() {
       ) : null}
 
       {terminal ? (
-        <div className="rounded-xl border border-slate-200 bg-slate-100 p-4 text-sm text-slate-700">
-          This pipeline is terminal. No further actions are available.
+        <div className="rounded-xl border border-slate-300 bg-slate-100 p-4 text-sm text-slate-800">
+          <p className="font-semibold">Final status: {pipelineStatusLabel(status)}</p>
+          <p className="mt-1">
+            {status === 1
+              ? `${formatUsdcDisplay(summary.totalBudget)} USDC was paid to the stage providers.`
+              : `${formatUsdcDisplay(summary.refundedAmount)} USDC was refunded to the client.`}
+          </p>
+          <p className="mt-1">No further actions are available.</p>
+        </div>
+      ) : null}
+
+      {active && activeDeadline !== undefined ? (
+        <div className="rounded-xl border border-sky-200 bg-sky-50 p-4 text-sm text-sky-950">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <span className="font-semibold">
+              {stageStatus === 1 ? 'Work deadline' : 'Evaluation deadline'}: {formatTimestamp(activeDeadline)}
+            </span>
+            <span className="font-mono text-base font-bold">
+              {deadlineSecondsRemaining !== undefined && deadlineSecondsRemaining > 0
+                ? `Expires in ${formatCountdown(deadlineSecondsRemaining)}`
+                : 'Deadline passed — expiry is available'}
+            </span>
+          </div>
         </div>
       ) : null}
 

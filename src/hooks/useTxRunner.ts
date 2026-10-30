@@ -19,11 +19,16 @@ export function useTxRunner() {
   )
 
   const run = useCallback(
-    async (label: string, action: () => Promise<Hash>): Promise<TransactionReceipt | undefined> => {
+    async (
+      label: string,
+      action: () => Promise<Hash>,
+      onHash?: (hash: Hash) => void,
+    ): Promise<TransactionReceipt | undefined> => {
       setStatus({ phase: 'wallet', message: `Confirm ${label} in your wallet…` })
 
       try {
         const hash = await action()
+        onHash?.(hash)
         setStatus({ phase: 'pending', message: `${label} submitted. Waiting for confirmation…`, hash })
 
         if (!publicClient) throw new Error('Arc Testnet RPC client is unavailable.')

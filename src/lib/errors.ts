@@ -37,7 +37,7 @@ export function getUserErrorMessage(error: unknown): string {
     }
 
     if (error.walk((candidate) => candidate instanceof UserRejectedRequestError)) {
-      return 'Wallet request was rejected.'
+      return 'Transaction cancelled by user.'
     }
 
     return error.shortMessage || error.message
@@ -47,8 +47,8 @@ export function getUserErrorMessage(error: unknown): string {
   for (const [name, friendly] of Object.entries(CONTRACT_ERROR_MESSAGES)) {
     if (message.includes(name)) return friendly
   }
-  if (/user rejected|rejected the request|denied transaction/i.test(message)) {
-    return 'Wallet request was rejected.'
+  if (/user rejected|rejected the request|denied transaction|cancelled by user/i.test(message)) {
+    return 'Transaction cancelled by user.'
   }
 
   return message || 'Transaction failed. Please try again.'

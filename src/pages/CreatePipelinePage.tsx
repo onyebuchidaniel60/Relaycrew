@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useAccount, usePublicClient } from 'wagmi'
-import { isAddress, parseEventLogs, type Address } from 'viem'
+import { useAccount, useBalance, usePublicClient } from 'wagmi'
+import { isAddress, parseEventLogs, type Address, type Hash } from 'viem'
 import { PageHeader } from '../components/PageHeader'
+import { useTxStatus } from '../context/TxStatusContext'
 import { useNetworkGuard } from '../hooks/useNetworkGuard'
 import { usePipelineWrites, type StageInput } from '../hooks/usePipelineContract'
 import { useApproveUsdc, useUsdcAllowance, useUsdcBalance } from '../hooks/useUsdc'
@@ -47,13 +48,21 @@ export function CreatePipelinePage() {
   const { address } = useAccount()
   const guard = useNetworkGuard()
   const balance = useUsdcBalance(address)
+  const nativeBalance = useBalance({
+    address,
+    chainId: appConfig.expectedChainId,
+    query: { enabled: Boolean(address) },
+  })
   const allowance = useUsdcAllowance(address, pipelineCoordinatorAddress)
   const approveUsdc = useApproveUsdc()
   const writes = usePipelineWrites()
   const { fail, run } = useTxRunner()
+  const { setStatus } = useTxStatus()
 
   const [stages, setStages] = useState<StageDraft[]>(() => [newDraft(), newDraft()])
   const [busy, setBusy] = useState(false)
+  const [pendingCreateHash, setPendingCreateHash] = useState<Hash>()
+  const [checkingPending, setCheckingPending] = useState(false)
 
   const validation = useMemo(() => {
     const problems: string[] = []
@@ -131,13 +140,18 @@ export function CreatePipelinePage() {
 
   const insufficientBalance =
     balance.data !== undefined && balance.data < validation.totalBudget
+  const noGasBalance = nativeBalance.data !== undefined && nativeBalance.data.value === 0n
+  const walletDataReady = balance.data !== undefined && nativeBalance.data !== undefined
   const canSubmit =
     validation.problems.length === 0 &&
     validation.parsedStages.length === stages.length &&
     Boolean(address) &&
     guard.isWriteEnabled &&
+    walletDataReady &&
     !busy &&
-    !insufficientBalance
+    !insufficientBalance &&
+    !noGasBalance &&
+    !pendingCreateHash
 
   const updateStage = (id: string, patch: Partial<StageDraft>) => {
     setStages((current) => current.map((stage) => (stage.id === id ? { ...stage, ...patch } : stage)))
@@ -198,10 +212,27 @@ export function CreatePipelinePage() {
         account: address,
       })
 
-      const receipt = await run('Create and fund pipeline', () =>
-        writes.createPipeline(validation.parsedStages),
+      let submittedHash: Hash | undefined
+      const receipt = await run(
+        'Create and fund pipeline',
+        () => writes.createPipeline(validation.parsedStages),
+        (hash) => {
+          submittedHash = hash
+          setPendingCreateHash(hash)
+        },
       )
-      if (!receipt) return
+
+      if (!receipt) {
+        if (submittedHash) {
+          setStatus({
+            phase: 'pending',
+            message:
+              'Create transaction submitted. Do not submit again; check your wallet or Arc Explorer for the receipt.',
+            hash: submittedHash,
+          })
+        }
+        return
+      }
 
       const created = parseEventLogs({
         abi: pipelineCoordinatorAbi,
@@ -210,15 +241,53 @@ export function CreatePipelinePage() {
       })
       const pipelineId = created[0]?.args.pipelineId
       if (pipelineId === undefined) {
-        fail(new Error('Pipeline created, but the PipelineCreated event was not found.'))
+        fail(new Error('Pipeline created, but the PipelineCreated event was not found. Check the explorer before retrying.'))
         return
       }
 
+      setPendingCreateHash(undefined)
       navigate(`/pipelines/${pipelineId.toString()}`)
     } catch (error) {
       fail(error)
     } finally {
       setBusy(false)
+    }
+  }
+
+  const checkPendingReceipt = async () => {
+    if (!pendingCreateHash || !publicClient) return
+    setCheckingPending(true)
+
+    try {
+      const receipt = await publicClient.getTransactionReceipt({ hash: pendingCreateHash })
+      if (receipt.status !== 'success') {
+        setPendingCreateHash(undefined)
+        fail(new Error('The create transaction reverted. You may review the form and try again.'))
+        return
+      }
+
+      const created = parseEventLogs({
+        abi: pipelineCoordinatorAbi,
+        eventName: 'PipelineCreated',
+        logs: receipt.logs,
+      })
+      const pipelineId = created[0]?.args.pipelineId
+      if (pipelineId === undefined) {
+        fail(new Error('The receipt was found, but the PipelineCreated event was missing. Check Arc Explorer.'))
+        return
+      }
+
+      setPendingCreateHash(undefined)
+      navigate(`/pipelines/${pipelineId.toString()}`)
+    } catch {
+      setStatus({
+        phase: 'pending',
+        message:
+          'Receipt not found yet. Check your wallet or Arc Explorer; do not submit the pipeline again.',
+        hash: pendingCreateHash,
+      })
+    } finally {
+      setCheckingPending(false)
     }
   }
 
@@ -256,6 +325,21 @@ export function CreatePipelinePage() {
             </span>
           </span>
         </div>
+        {balance.isError || nativeBalance.isError ? (
+          <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-slate-200 pt-3 text-red-800">
+            <span>Failed to load wallet data.</span>
+            <button
+              type="button"
+              onClick={() => {
+                void balance.refetch()
+                void nativeBalance.refetch()
+              }}
+              className="rounded-md border border-red-300 bg-white px-2.5 py-1 text-xs font-semibold"
+            >
+              Retry
+            </button>
+          </div>
+        ) : null}
       </div>
 
       <form
@@ -390,6 +474,40 @@ export function CreatePipelinePage() {
           </p>
         ) : null}
 
+        {noGasBalance ? (
+          <p className="text-sm font-semibold text-red-700" role="alert">
+            Your wallet needs Arc Testnet USDC for gas before it can submit transactions.
+          </p>
+        ) : null}
+
+        {pendingCreateHash ? (
+          <div className="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950" role="alert">
+            <p className="font-semibold">Transaction pending…</p>
+            <p className="mt-1">
+              The create transaction was submitted, but the receipt is not confirmed yet. Do not
+              submit again. Check your wallet or Arc Explorer for the receipt.
+            </p>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              <a
+                href={`${appConfig.explorerUrl}/tx/${pendingCreateHash}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline underline-offset-2"
+              >
+                View transaction
+              </a>
+              <button
+                type="button"
+                onClick={() => void checkPendingReceipt()}
+                disabled={checkingPending}
+                className="rounded-md border border-amber-400 bg-white px-2.5 py-1 text-xs font-semibold disabled:opacity-50"
+              >
+                {checkingPending ? 'Checking…' : 'Check receipt'}
+              </button>
+            </div>
+          </div>
+        ) : null}
+
         {!guard.isConnected ? (
           <p className="text-sm text-slate-600">Connect a wallet to create and fund a pipeline.</p>
         ) : guard.isWrongNetwork ? (
@@ -405,7 +523,9 @@ export function CreatePipelinePage() {
         >
           {busy
             ? 'Preparing transaction…'
-            : `Create & fund pipeline${validation.totalBudget > 0n ? ` — ${formatUsdcDisplay(validation.totalBudget)} USDC` : ''}`}
+            : pendingCreateHash
+              ? 'Transaction pending — check receipt above'
+              : `Create & fund pipeline${validation.totalBudget > 0n ? ` — ${formatUsdcDisplay(validation.totalBudget)} USDC` : ''}`}
         </button>
       </form>
     </div>

@@ -40,6 +40,18 @@ export function shortAddress(address: string): string {
   return `${address.slice(0, 6)}…${address.slice(-4)}`
 }
 
+export function formatCountdown(totalSeconds: number): string {
+  const seconds = Math.max(0, Math.floor(totalSeconds))
+  const days = Math.floor(seconds / 86_400)
+  const hours = Math.floor((seconds % 86_400) / 3_600)
+  const minutes = Math.floor((seconds % 3_600) / 60)
+  const remainingSeconds = seconds % 60
+  const clock = [hours, minutes, remainingSeconds]
+    .map((part) => part.toString().padStart(2, '0'))
+    .join(':')
+  return days > 0 ? `${days}d ${clock}` : clock
+}
+
 export function statusTone(status: number): string {
   switch (status) {
     case 0:
