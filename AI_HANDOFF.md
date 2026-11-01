@@ -45,6 +45,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## URLs and deployments
 
+- **Repository release commit: `924440f450591353a593a903ef47ac238f610858`** (`release: arc mainnet demo and submission evidence`).
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. It contains the current `contracts/PipelineCoordinator.sol`, tests, and deployment records.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
 - **Production URL: https://relaycrew-omega.vercel.app** — Arc Mainnet, real USDC.
@@ -135,7 +136,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 4. The contract is unaudited; the client is the sole evaluator and there is no dispute mechanism.
 5. The frontend bundle is about `657 kB` (`197.6 kB` gzip) and Vite reports a chunk-size warning; code splitting is deferred.
 6. Vercel CLI did not attach Git metadata to the production deployment. The deployed source is identified by the local release commit plus matching asset hashes.
-7. The deployed production asset hash matches the local mainnet build, but the release commit will be created after this handoff is written. Record the final SHA in the release report.
+7. The deployed production asset hash matches local mainnet build `b636b66d7459f3f0b6e7cc22d80f8edc3b3d6f393ed7ba28a42b4647323806f6`; the release commit is `924440f450591353a593a903ef47ac238f610858`. Vercel did not attach Git metadata, so this correspondence is established by the matching asset hash plus the committed source.
 8. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. Deliberate UI limitation.
 9. The optional attachment URL must fit the combined 240-byte brief limit.
 10. Vercel Deployment Protection remains enabled for the Preview; Production returned HTTP 200 publicly in this check.
