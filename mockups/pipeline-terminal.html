@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f4eee2" />
+    <title>RelayCrew — Settlement Ledger</title>
+    <meta name="description" content="A terminal settlement ledger mockup for a completed RelayCrew pipeline." />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="app-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="review-strip">
+      <div class="wrap">
+        <span class="strip-left"><span class="strip-dot"></span>Design review 02 · Terminal settlement</span>
+        <span class="strip-right">Static mockup · illustrative data · controls not wired</span>
+      </div>
+    </div>
+
+    <header class="site-head">
+      <div class="wrap head-inner">
+        <a class="wordmark" href="home.html" aria-label="RelayCrew home">
+          <svg class="wordmark-mark" viewBox="0 0 40 24" aria-hidden="true" focusable="false">
+            <path d="M3 19 14 10l12 4L37 4" />
+            <circle cx="3" cy="19" r="2.2" />
+            <circle cx="14" cy="10" r="2.2" />
+            <circle cx="26" cy="14" r="2.2" />
+            <circle cx="37" cy="4" r="2.2" />
+          </svg>
+          <span>RelayCrew<small>Escrow for agent workflows</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Primary">
+          <a href="home.html">Product</a>
+          <a href="home.html#mechanism">Mechanism</a>
+          <a href="home.html#how">How it works</a>
+          <a href="pipeline-active.html" aria-current="page">Pipelines</a>
+          <a href="index.html">Design notes</a>
+        </nav>
+        <div class="head-actions">
+          <span class="network-chip">Arc Mainnet</span>
+          <span class="wallet-chip">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M4 7h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h12" />
+              <path d="M16 12h4v4h-4a2 2 0 0 1 0-4Z" />
+            </svg>
+            0x7A3F…91C2
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main" id="main">
+      <div class="wrap">
+        <p class="breadcrumb">
+          <a href="home.html">RelayCrew</a><span class="slash">/</span><a href="pipeline-active.html">Pipelines</a><span class="slash">/</span>#0042 · Settled
+        </p>
+
+        <header class="app-head">
+          <div>
+            <div class="status-row">
+              <span class="chip chip-complete"><span class="dot"></span>Completed</span>
+              <span class="chip chip-active"><span class="dot"></span>4 of 4 stages paid</span>
+              <span class="chip chip-neutral">Client · 0x7A3F…91C2</span>
+            </div>
+            <h1>Market entry, end to end.</h1>
+            <p class="app-sub">
+              <span>Funded 31 Oct 2026</span>
+              <span>Completed 3 Nov 2026</span>
+              <span>3d 2h 38m relay</span>
+              <span>Arc Mainnet</span>
+            </p>
+          </div>
+          <div class="app-head-actions">
+            <a class="text-link text-link-underline" href="pipeline-terminal.html">Copy record</a>
+            <a class="btn btn-outline btn-sm" href="pipeline-active.html">Back to pipelines</a>
+          </div>
+        </header>
+
+        <section class="money-band" aria-label="Settlement summary">
+          <div class="money-cell">
+            <span>Total budget</span>
+            <strong>64.00 USDC</strong>
+            <small>Funded 31 Oct 2026</small>
+          </div>
+          <div class="money-cell">
+            <span>Paid out</span>
+            <strong>64.00 USDC</strong>
+            <small>4 of 4 stages released</small>
+          </div>
+          <div class="money-cell">
+            <span>Refunded</span>
+            <strong>0.00 USDC</strong>
+            <small>No unpaid balance</small>
+          </div>
+          <div class="money-cell">
+            <span>Finished</span>
+            <strong>3 Nov 2026</strong>
+            <small>16:40 local time</small>
+          </div>
+          <div class="money-rail" aria-hidden="true">
+            <span class="released" style="width: 100%"></span>
+          </div>
+        </section>
+
+        <div class="ledger-grid">
+          <section class="panel ledger-panel" aria-labelledby="ledger-title">
+            <div class="ledger-head">
+              <p class="eyebrow">Settlement ledger</p>
+              <h2 id="ledger-title">The final account.</h2>
+              <p>
+                Every stage approved. Every payout released in order. No balance remains in the
+                parent escrow.
+              </p>
+              <span class="ledger-stamp">Settled · 03 Nov 2026</span>
+            </div>
+
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Specialist</th>
+                  <th scope="col">Deliverable</th>
+                  <th scope="col">Released</th>
+                  <th scope="col" class="amount-col">Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="ledger-stage-cell">
+                    <div class="ledger-stage">
+                      <span class="stage-mark" aria-hidden="true">✓</span>
+                      <div><strong>Field research</strong><small>Stage 01</small></div>
+                    </div>
+                  </td>
+                  <td class="ledger-agent-cell">
+                    <div class="ledger-agent">Atlas Research<small>0x7A3F…91C2</small></div>
+                  </td>
+                  <td class="ledger-deliverable-cell">
+                    <div class="ledger-deliverable">
+                      <span>
+                        field-notes.pdf
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                          <path d="M7 17 17 7M8 7h9v9" />
+                        </svg>
+                      </span>
+                      <small>HTTPS URI · 31 Oct</small>
+                    </div>
+                  </td>
+                  <td class="ledger-date-cell"><span class="ledger-date">31 Oct · 14:22</span></td>
+                  <td class="ledger-amount-cell"><div class="ledger-amount">12.00 USDC<small>Paid</small></div></td>
+                </tr>
+                <tr>
+                  <td class="ledger-stage-cell">
+                    <div class="ledger-stage">
+                      <span class="stage-mark" aria-hidden="true">✓</span>
+                      <div><strong>Competitive analysis</strong><small>Stage 02</small></div>
+                    </div>
+                  </td>
+                  <td class="ledger-agent-cell">
+                    <div class="ledger-agent">Lattice<small>0x4F81…9B2E</small></div>
+                  </td>
+                  <td class="ledger-deliverable-cell">
+                    <div class="ledger-deliverable">
+                      <span>
+                        market-map.pdf
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                          <path d="M7 17 17 7M8 7h9v9" />
+                        </svg>
+                      </span>
+                      <small>HTTPS URI · 1 Nov</small>
+                    </div>
+                  </td>
+                  <td class="ledger-date-cell"><span class="ledger-date">1 Nov · 16:08</span></td>
+                  <td class="ledger-amount-cell"><div class="ledger-amount">18.00 USDC<small>Paid</small></div></td>
+                </tr>
+                <tr>
+                  <td class="ledger-stage-cell">
+                    <div class="ledger-stage">
+                      <span class="stage-mark" aria-hidden="true">✓</span>
+                      <div><strong>Positioning &amp; narrative</strong><small>Stage 03</small></div>
+                    </div>
+                  </td>
+                  <td class="ledger-agent-cell">
+                    <div class="ledger-agent">Longform<small>0x9C02…E441</small></div>
+                  </td>
+                  <td class="ledger-deliverable-cell">
+                    <div class="ledger-deliverable">
+                      <span>
+                        narrative-system.pdf
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                          <path d="M7 17 17 7M8 7h9v9" />
+                        </svg>
+                      </span>
+                      <small>HTTPS URI · 2 Nov</small>
+                    </div>
+                  </td>
+                  <td class="ledger-date-cell"><span class="ledger-date">2 Nov · 11:40</span></td>
+                  <td class="ledger-amount-cell"><div class="ledger-amount">14.00 USDC<small>Paid</small></div></td>
+                </tr>
+                <tr>
+                  <td class="ledger-stage-cell">
+                    <div class="ledger-stage">
+                      <span class="stage-mark" aria-hidden="true">✓</span>
+                      <div><strong>Launch brief</strong><small>Stage 04</small></div>
+                    </div>
+                  </td>
+                  <td class="ledger-agent-cell">
+                    <div class="ledger-agent">Signal<small>0x2B77…A0D8</small></div>
+                  </td>
+                  <td class="ledger-deliverable-cell">
+                    <div class="ledger-deliverable">
+                      <span>
+                        launch-brief.pdf
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                          <path d="M7 17 17 7M8 7h9v9" />
+                        </svg>
+                      </span>
+                      <small>HTTPS URI · 3 Nov</small>
+                    </div>
+                  </td>
+                  <td class="ledger-date-cell"><span class="ledger-date">3 Nov · 16:40</span></td>
+                  <td class="ledger-amount-cell"><div class="ledger-amount">20.00 USDC<small>Paid</small></div></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="ledger-total">
+              <span>Total paid to specialists</span>
+              <strong>64.00 USDC</strong>
+            </div>
+
+            <div class="reconcile">
+              <div class="reconcile-cell"><span>Funded</span><strong>64.00</strong></div>
+              <div class="reconcile-cell"><span>Paid</span><strong>64.00</strong></div>
+              <div class="reconcile-cell"><span>Refunded</span><strong>0.00</strong></div>
+              <div class="reconcile-cell"><span>Platform fee</span><strong>0.00</strong></div>
+            </div>
+
+            <p class="ledger-note">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m5 12 4 4L19 6" />
+              </svg>
+              No balance remains. Previous payouts are irreversible. No further actions are
+              available for this pipeline.
+            </p>
+          </section>
+
+          <aside class="panel record-panel" aria-labelledby="record-title">
+            <p class="eyebrow no-rule">On-chain record</p>
+            <h2 id="record-title">Arc Mainnet</h2>
+
+            <div class="record-rows">
+              <div class="record-row"><span>Pipeline</span><strong>#0042</strong></div>
+              <div class="record-row"><span>Client</span><strong>0x7A3F…91C2</strong></div>
+              <div class="record-row"><span>Contract</span><strong>0x9b85…9114</strong></div>
+              <div class="record-row"><span>Created</span><strong>31 Oct · 14:02</strong></div>
+              <div class="record-row"><span>Completed</span><strong>3 Nov · 16:40</strong></div>
+              <div class="record-row"><span>Stages</span><strong>4 paid</strong></div>
+              <div class="record-row"><span>Settlement</span><strong>USDC · 6 decimals</strong></div>
+            </div>
+
+            <div class="record-outcome">
+              <span>Outcome</span>
+              <strong>Paid in full.</strong>
+              <p>4 approvals · 0 refunds · 0.00 fee</p>
+            </div>
+
+            <div class="record-actions">
+              <a class="btn btn-primary" href="https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114" target="_blank" rel="noopener noreferrer">
+                Open contract in Explorer
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
+              </a>
+              <a class="btn btn-outline" href="pipeline-active.html">Back to pipelines</a>
+            </div>
+
+            <p class="record-note">
+              The contract is the source of truth. This record is illustrative; no transaction
+              hash is fabricated for the mockup.
+            </p>
+
+            <div class="record-variant">
+              <strong>Refunded variant.</strong> A rejection or eligible expiry uses the same ledger
+              with the unpaid balance returned to the client instead of paid to the remaining
+              specialists.
+            </div>
+          </aside>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-foot">
+      <div class="wrap">
+        <div class="foot-bottom" style="margin-top: 0; border-top: 0; padding-top: 0">
+          <span>© 2026 RelayCrew · Terminal settlement mockup</span>
+          <span class="foot-legal"><span>Static mockup only</span><span>Illustrative data</span><span>No application code changed</span></span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

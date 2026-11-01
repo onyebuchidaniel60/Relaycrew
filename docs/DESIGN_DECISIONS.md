@@ -1,6 +1,6 @@
 # Design Decisions and Approval Record
 
-**Current status:** Phase 8.5 complete. The operator explicitly approved the revised “Warm Editorial Escrow” mockups on 2026-10-30 and separately authorized a Dark Warm Editorial theme. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks are in place on the Arc Testnet Preview. The Phase 8.5 contract limit and form changes did not alter escrow accounting, permissions, or settlement logic.
+**Current status:** Phase 9 mainnet release is live. The operator approved the “Warm Editorial Escrow” direction on 2026-10-30 and separately authorized the Dark Warm Editorial theme; those remain the implemented system. A new high-fidelity **Design Review 02** mockup set was created on 2026-11-02 and is **pending explicit operator approval**; it has not been implemented. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks remain in place on the live application. The Phase 8.5 contract limit and form changes did not alter escrow accounting, permissions, or settlement logic.
 
 ## Required process
 
@@ -124,3 +124,14 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Phase 7 status:** implemented on top of working flows. No product, contract, or security behavior changed.
 - **Phase 8 status:** documentation, risk, metadata, footer destinations, and release-checklist completeness verified.
 - **Phase 9 status (2026-11-01):** mainnet release authorized. Production at `https://relaycrew-omega.vercel.app` uses Arc Mainnet, the verified contract `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`, and network-aware labels/risk copy. No visual direction changed; only network-dependent copy and configuration were added.
+
+## Design Review 02 — pending approval (2026-11-02)
+
+- **Trigger:** operator instruction on 2026-11-01 to install the Stageshow skill by Benji Taylor, generate a new high-fidelity static HTML/CSS mockup set, overwrite the previous `mockups/`, commit with `docs: generate high-fidelity stageshow mockups`, push `main`, and stop for review.
+- **Scope:** static mockups only. No application code, contract, deployment, or production styling was changed. The previously approved implementation remains live and approved.
+- **Files:** `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, `previews/*.webp`. The prior `mobile.html` was removed; the new pages are responsive at 1440/1024/768/390.
+- **Direction:** “Warm Editorial Escrow, review 02.” The ivory/forest/serif core is retained but made stricter: Newsreader display, Instrument Sans UI, IBM Plex Mono ledger type; 2–3px radii; fewer shadows; paper artifacts (pipeline dossier, escrow statement, settlement receipt) instead of generic dashboard cards; clay for rejection/refund; amber for review states.
+- **Screens:** Home (editorial hero, dossier + release slip, mixed bento, dark settlement band); Create (four-step progress, expandable stage terms, receipt summary); Active (vertical relay, one expanded submitted stage, 24-hour decision panel); Terminal (reconciled settlement ledger and on-chain record).
+- **Data:** illustrative only. Four stages `12.00 + 18.00 + 14.00 + 20.00 = 64.00 USDC`; 2–10 stages, 1.00 USDC minimum, 100.00 USDC maximum, 24-hour review, 6-decimal base units, zero platform fee. No real transaction hash is presented as evidence.
+- **Approval status:** **PENDING.** The operator has not approved this direction. Do not implement it or treat the review as approval.
+- **Known limitations:** mockup controls are not wired; the deliverable link uses an illustrative `example.com` URL; the mockup pages are not deployed; the mainnet E2E evidence task remains separate and pending.

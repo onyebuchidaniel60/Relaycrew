@@ -1,8 +1,8 @@
 # AI_HANDOFF.md — RelayCrew current project state
 
-**Last updated:** 2026-11-01
+**Last updated:** 2026-11-02
 
-**Status:** Phase 9 mainnet release is deployed. The operator explicitly authorized the Arc Mainnet deployment and a low-value real-USDC demonstration. `PipelineCoordinator` is live on Arc Mainnet, the production frontend is live with mainnet configuration, and the production build has been smoke-tested. The operator's browser-wallet E2E pipeline has **not** been executed yet, so no mainnet E2E transaction hashes exist. Do not fabricate them.
+**Status:** Phase 9 mainnet release is deployed. The operator explicitly authorized the Arc Mainnet deployment and a low-value real-USDC demonstration. `PipelineCoordinator` is live on Arc Mainnet, the production frontend is live with mainnet configuration, and the production build has been smoke-tested. The operator's browser-wallet E2E pipeline has **not** been executed yet, so no mainnet E2E transaction hashes exist. Do not fabricate them. A separate **Design Review 02** mockup set was generated on 2026-11-02 and is **awaiting explicit operator approval**; no application code or deployed styling was changed for it.
 
 ## Project
 
@@ -41,7 +41,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 9 complete for deployment and production configuration; operator E2E evidence pending.** The contract and production app are live. The remaining release evidence is the operator's real browser-wallet pipeline and its Explorer transaction hashes.
+**Phase 9 remains the live release; Design Review 02 is pending operator approval.** The contract and production app are live. The remaining release evidence is the operator's real browser-wallet pipeline and its Explorer transaction hashes. Separately, the operator requested a new high-fidelity mockup round on 2026-11-01; those static files are in `mockups/` and no application styling has been implemented from them.
 
 ## URLs and deployments
 
@@ -49,6 +49,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. It contains the current `contracts/PipelineCoordinator.sol`, tests, and deployment records.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
 - **Production URL: https://relaycrew-omega.vercel.app** — Arc Mainnet, real USDC.
+- **Design Review 02 mockups:** local static review only at `http://localhost:8080/mockups/`; **not deployed**. Entry point: `mockups/index.html`.
 - Production deployment ID: `dpl_4FB9YFD8RbFYEnPahRs8bSXUuXQ1`.
 - Production deployment URL: `https://relaycrew-rom2qwkni-uhhh2.vercel.app`.
 - Vercel Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet; Deployment Protection enabled).
@@ -88,6 +89,16 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Preview env vars remain Arc Testnet.
 - Added `scripts/deploy-mainnet.mjs` (preflight by default; `--confirm` to broadcast) and `deployments/arc-mainnet.json` evidence.
 
+## Design Review 02 — pending approval (2026-11-02)
+
+- **Operator request:** install the Stageshow skill by Benji Taylor, generate a new high-fidelity static HTML/CSS mockup set for Home, Create Pipeline, Active Pipeline, and Terminal Settlement, overwrite the previous `mockups/` set, commit as `docs: generate high-fidelity stageshow mockups`, push `main`, and stop for review.
+- **Skill installation:** `.agents/skills/stageshow` and `skills-lock.json` were installed locally by `npx skills add benjitaylor/skills --skill stageshow`. They are intentionally not part of the mockup commit.
+- **Direction:** “Warm Editorial Escrow, review 02” — warmer ivory paper, deeper forest, clay reserved for refusal/refund, 2–3px radii, Newsreader display + Instrument Sans UI + IBM Plex Mono ledger type. Paper artifacts replace generic dashboard cards.
+- **Files:** `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, and `previews/*.webp`. The previous `mobile.html` was removed; every new page is responsive at 1440/1024/768/390.
+- **Scope:** static mockups only. No file in `src/`, no contract file, no deployment configuration, and no production deployment was changed.
+- **Accuracy:** illustrative data only; 4 stages summing to `64.00 USDC`; 2–10 stage limits, 1.00 USDC minimum, 100.00 USDC maximum, 24-hour evaluation window, 6-decimal base units, and zero platform fee are represented. No transaction hash or transaction URL is fabricated.
+- **Approval status:** **AWAITING OPERATOR APPROVAL.** The prior “Warm Editorial Escrow” implementation remains the approved live visual system. Review 02 is a proposal, not an approved direction.
+
 ## Tests/evidence
 
 - `npm run typecheck` — **PASS**.
@@ -101,12 +112,16 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Headless Chromium on Production — mainnet badge and real-USDC notices rendered on `/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`; no configuration-error banner; not-found route renders 404 content.
 - Explorer links checked — contract and deployment tx both return HTTP 200.
 - Contract E2E on Mainnet — **not executed**; pending operator.
+- Design Review 02 static pages — `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, and `index.html` returned HTTP 200 from the local static server; no console errors.
+- Design Review 02 responsive check — no horizontal overflow at 320, 360, 390, 430, 600, 768, 900, 1024, 1280, 1440, or 1920 widths; fonts loaded as Instrument Sans / Newsreader / IBM Plex Mono.
+- Design Review 02 content check — exact illustrative totals reconcile (`12 + 18 + 14 + 20 = 64.00 USDC`); active payout/refund figures reconcile (`52.00 - 18.00 = 34.00` remaining); no real transaction hash is presented as evidence.
 
 ## Design approval and implementation record
 
 - Final aesthetic: **APPROVED** — “Warm Editorial Escrow,” 2026-10-30; Dark Warm Editorial extension **AUTHORIZED** 2026-10-30.
 - Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
-- Approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css`.
+- Previously approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css` (retained in Git history).
+- **Current mockup set on disk:** Design Review 02 (`mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, `previews/`). **PENDING OPERATOR APPROVAL**; not implemented.
 - Phase 9 did not change the visual direction. It only made network-dependent copy, labels, explorer links, and configuration accurate for Mainnet.
 - Full record: `docs/DESIGN_DECISIONS.md` and `docs/DECISIONS.md`.
 
@@ -140,7 +155,8 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 8. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. Deliberate UI limitation.
 9. The optional attachment URL must fit the combined 240-byte brief limit.
 10. Vercel Deployment Protection remains enabled for the Preview; Production returned HTTP 200 publicly in this check.
+11. **Design Review 02 is not approved.** The mockups are static, use illustrative data, and have not been implemented. Do not style the application from them until the operator explicitly approves or requests revisions.
 
 ## Single next task
 
-**Operator executes the authorized low-value Mainnet E2E** on `https://relaycrew-omega.vercel.app` with two distinct provider wallets: approve the exact 2 USDC allowance, create/fund a 2-stage pipeline at 1 USDC per stage, submit a dummy HTTPS URI from provider 1, approve Stage 1, submit from provider 2, approve Stage 2, then record the real create/submit/approve transaction hashes and Explorer links in `README.md` and this handoff. Do not fabricate hashes; do not send additional mainnet transactions beyond this authorized test.
+**Operator reviews Design Review 02** at `http://localhost:8080/mockups/` (or directly at the four screen routes) and gives explicit approval or revision notes. Do not implement the new visual direction, change application code, or proceed to Phase 7 restyling until that approval is recorded. The separate pending release task remains the authorized low-value Mainnet E2E on `https://relaycrew-omega.vercel.app`; that is not part of this mockup review.

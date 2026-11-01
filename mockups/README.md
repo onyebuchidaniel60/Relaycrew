@@ -1,10 +1,8 @@
-# RelayCrew Phase 6 Mockups — Operator Reference Revision
+# RelayCrew — Design Review 02
 
-Static, reference-led mockups used for the approved “Warm Editorial Escrow” direction. The Phase 7 production implementation now lives in `src/`; see `docs/DESIGN_DECISIONS.md` for the approval and implementation record. All mockup data is illustrative and no mockup is connected to the contract.
+High-fidelity static mockups for the operator review of the next RelayCrew visual direction. **This is a review artifact only.** No application code, contract, deployment, or production styling has been changed.
 
-The previous dark “Operator Console” mockups were rejected and removed. This revision is based on the two operator-supplied reference images in `docs/references/`.
-
-## Review entry point
+## Review locally
 
 From the repository root:
 
@@ -12,37 +10,50 @@ From the repository root:
 python3 -m http.server 8080
 ```
 
-Open [http://localhost:8080/mockups/](http://localhost:8080/mockups/) (serving from the repository root keeps the reference-image paths working).
+Open [http://localhost:8080/mockups/](http://localhost:8080/mockups/).
 
-## Direction: Warm Editorial Escrow
+The review index links every screen and includes the palette, type specimens, design notes, and the approval status. Each screen is also directly addressable:
 
-A light, editorial marketplace language adapted to an agent escrow protocol.
+- [`home.html`](home.html) — editorial landing page
+- [`create.html`](create.html) — four-step create pipeline form
+- [`pipeline-active.html`](pipeline-active.html) — active pipeline, submitted stage, client decision
+- [`pipeline-terminal.html`](pipeline-terminal.html) — completed pipeline settlement ledger
+- [`index.html`](index.html) — design review dossier
 
-- **Canvas:** warm ivory `#F5F0E6`, paper cards `#FFFDF8`, subtle grid lines.
-- **Ink:** near-black `#1B1D18` with soft gray-green metadata.
-- **Primary:** forest green `#173D2C` for actions and active state.
-- **Accents:** sage/olive imagery, warm amber warnings, rust terminal actions.
-- **Type:** high-contrast serif display (`Fraunces`) with a geometric sans (`Manrope`) for UI and metadata.
-- **Radii:** cards around 10px, buttons 6px, status chips only.
-- **Composition:** top navigation, asymmetric split heroes, photo-led warm panels, thin rules, generous whitespace, stepped create form.
+All pages are responsive at 1440, 1024, 768, and 390 widths. There is intentionally no separate `mobile.html`; each screen is composed for narrow widths rather than duplicated.
 
-## References used
+## Direction
 
-| Reference | File | What we borrowed |
+**“Warm Editorial Escrow,” review 02.** A stricter, more editorial version of the previously approved direction:
+
+- **Canvas:** warm ivory paper `#F4EEE2`, paper surfaces `#FBF7EE`, deep forest `#173F2D`, clay `#9F5334` reserved for refusal/refund, amber `#B37C39` for review states.
+- **Type:** `Newsreader` for display and editorial argument; `Instrument Sans` for UI; `IBM Plex Mono` for money, addresses, deadlines, and ledger figures.
+- **Shape:** 2–3px radii, thin warm rules, restrained shadows. No glassmorphism, neon, gradient decoration, or generic rounded dashboard cards.
+- **Composition:** one focal artifact per screen. The landing page uses a pipeline dossier with a release slip and a settlement receipt; the app screens use the same paper language with a single active surface.
+- **Stageshow-informed:** one hero object plus a satellite, a mixed bento rather than repeated cards, hard crops, legible type at final size, and no invented photography or stock “AI” imagery.
+
+The design uses the principles and craft rules from the Stageshow skill by Benji Taylor, adapted to plain HTML/CSS. It does not use the React kit or any copied example assets.
+
+## What the screens contain
+
+| Screen | The story | Key decisions |
 |---|---|---|
-| Reference 1 — editorial marketplace multi-screen board | `docs/references/reference 1.webp` | Ivory canvas, forest-green primary buttons, photo-led hero, thin warm borders, serif/sans contrast, compact nav, stepped create modal |
-| Reference 2 — Craftly brand collage | `docs/references/reference 2.jpg` | Oversized serif statement, uppercase sans microcopy, fine grid texture, layered product screens, large evidence numbers, star-brand mark |
+| Home | Why a fixed relay needs one escrow | Editorial serif hero; pipeline dossier; stage rail; release slip; mixed bento; dark settlement band |
+| Create | Setting exact terms before funding | Four-step progress rail; expandable stage terms; exact budget/duration fields; receipt-like escrow statement |
+| Active | One submitted stage awaiting the client | Vertical relay; one expanded review state; visible 24-hour deadline; separated payout, activation, and refund |
+| Terminal | The closed account | Reconciliation ledger; per-stage specialist, deliverable, release date, amount; on-chain record; refunded-state note |
 
-**Original to RelayCrew:** the relay stage rail, exact escrow ledger, current-provider action panel, approve/release + next-hire language, refund/terminal states, and on-chain public-data warnings.
+## Data and accuracy
 
-## Screen inventory
-
-- [`index.html`](index.html) — reference analysis, extracted tokens, and review map.
-- [`home.html`](home.html) — editorial hero, warm agent visual, protocol constraints, how-it-works.
-- [`create.html`](create.html) — stepped create form, stage editor, exact allowance/funding strip.
-- [`pipeline-active.html`](pipeline-active.html) — stage timeline, countdown, approve/reject panel.
-- [`mobile.html`](mobile.html) — 390px Home, Create, and Active detail views.
+- The illustrative pipeline has **4 stages** with budgets `12.00 + 18.00 + 14.00 + 20.00 = 64.00 USDC`.
+- The product constraints shown are the current ones: **2–10 stages**, **1.00 USDC minimum per stage**, **100.00 USDC maximum per pipeline**, **24-hour evaluation window**, 6-decimal USDC base units, and **0.00 platform fee**.
+- The active screen shows stage 2 **Submitted**, with `52.00 USDC` unpaid and `18.00 USDC` payable on approval. After approval, `34.00 USDC` remains for stages 3–4.
+- All names, addresses, deliverable URIs, transaction references, timestamps, and amounts are illustrative. No transaction hash or transaction URL is fabricated as evidence.
+- The only real external links are the public repository and the verified Arc Mainnet coordinator contract; they are labeled as source/record links.
+- The review strip on every page says the mockup is static, illustrative, and not wired.
 
 ## Approval status
 
-**APPROVED — 2026-10-30.** The operator explicitly approved the revised “Warm Editorial Escrow” direction and this mockup set. The approved visual system was implemented in Phase 7 on top of the working Arc Testnet flows; see `docs/DESIGN_DECISIONS.md` for the implementation record and recorded deviations.
+**AWAITING OPERATOR APPROVAL — 2 November 2026.**
+
+The previous “Warm Editorial Escrow” system remains the approved and implemented visual direction in `src/`. These review-02 mockups are an unapproved proposal. Do not implement them, modify the live application, or treat silence as approval.
