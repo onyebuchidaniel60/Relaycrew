@@ -1,0 +1,30 @@
+{
+  "network": "Arc Mainnet",
+  "chainId": 5042,
+  "contract": "PipelineCoordinator",
+  "constructorUsdc": "0x3600000000000000000000000000000000000000",
+  "contractAddress": "0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114",
+  "deployer": "0x6B24827a732f7e8CD35c56F50E3418a05A0Ee054",
+  "deploymentNonce": 0,
+  "txHash": "0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e",
+  "blockNumber": "29054729",
+  "gasUsed": "2236465",
+  "effectiveGasPriceWei": "21000000000",
+  "gasCostUsdc": "0.046965765",
+  "deployedCodeBytes": 9992,
+  "onChainUsdc": "0x3600000000000000000000000000000000000000",
+  "onChainMaxStages": "10",
+  "onChainPipelineCount": "0",
+  "compiler": "0.8.28+commit.7893614a",
+  "optimizer": { "enabled": true, "runs": 200 },
+  "evmVersion": "cancun",
+  "sourceKeccak": "0x32485699eec5a9e958b418f867b47ef8378a972a7ab1bfeb86c9cae75a770b72",
+  "creationBytecodeKeccak": "0x833f16c07942bdab254a58c5820f336fff9a988c4443005f74cd7e1bd6b8eaa0",
+  "arcStudioAppId": "9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961",
+  "explorerAddress": "https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114",
+  "explorerTx": "https://explorer.arc.io/tx/0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e",
+  "e2e": {
+    "status": "pending operator browser-wallet execution",
+    "note": "No mainnet create/submit/approve transaction has been executed by the implementation agent. Operator will run the low-value 2-stage pipeline and record real hashes."
+  }
+}

@@ -92,7 +92,9 @@ export function DocsPage() {
           </nav>
 
           <div className="rc-warning mt-4">
-            This build is an Arc Testnet preview. Use test USDC only. No real funds.
+            {appConfig.isMainnet
+              ? 'This build targets Arc Mainnet. Real USDC is at risk. Verify every transaction before signing.'
+              : 'This build is an Arc Testnet preview. Use test USDC only. No real funds.'}
           </div>
 
           <div className="mt-4 grid gap-2">
@@ -187,8 +189,8 @@ export function DocsPage() {
             <StepList
               items={[
                 {
-                  title: 'Connect a wallet on Arc Testnet',
-                  body: 'Use the wallet control in the header. If the wallet is on another chain, switch to Arc Testnet before writing.',
+                  title: `Connect a wallet on ${appConfig.networkLabel}`,
+                  body: `Use the wallet control in the header. If the wallet is on another chain, switch to ${appConfig.networkLabel} before writing.`,
                 },
                 {
                   title: 'Add the stages in order',
@@ -323,7 +325,9 @@ export function DocsPage() {
             <div className="grid gap-2 sm:grid-cols-2">
               <div className="rounded-lg border border-forest-line bg-forest-soft p-3">
                 <span className="rc-eyebrow">This build</span>
-                <strong className="mt-1 block text-[11px] text-forest">Arc Testnet</strong>
+                <strong className="mt-1 block text-[11px] text-forest">
+                  {appConfig.networkLabel}
+                </strong>
                 <dl className="mt-2 space-y-1 text-[10px]">
                   <div className="flex justify-between gap-3">
                     <dt>Chain ID</dt>
@@ -331,46 +335,59 @@ export function DocsPage() {
                   </div>
                   <div className="flex justify-between gap-3">
                     <dt>Funds</dt>
-                    <dd className="text-ink">Test USDC only</dd>
+                    <dd className="text-ink">
+                      {appConfig.isMainnet ? 'Real USDC' : 'Test USDC only'}
+                    </dd>
                   </div>
                   <div className="flex justify-between gap-3">
                     <dt>Explorer</dt>
-                    <dd className="text-right text-ink">Arc Testnet</dd>
+                    <dd className="text-right text-ink">{appConfig.explorerName}</dd>
                   </div>
                 </dl>
               </div>
               <div className="rounded-lg border border-line bg-paper-soft p-3">
-                <span className="rc-eyebrow">Production</span>
-                <strong className="mt-1 block text-[11px] text-ink">Arc Mainnet</strong>
+                <span className="rc-eyebrow">Other network</span>
+                <strong className="mt-1 block text-[11px] text-ink">
+                  {appConfig.isMainnet ? 'Arc Testnet' : 'Arc Mainnet'}
+                </strong>
                 <dl className="mt-2 space-y-1 text-[10px]">
                   <div className="flex justify-between gap-3">
                     <dt>Chain ID</dt>
-                    <dd className="font-mono text-ink">5042</dd>
+                    <dd className="font-mono text-ink">{appConfig.isMainnet ? '5042002' : '5042'}</dd>
                   </div>
                   <div className="flex justify-between gap-3">
                     <dt>Status</dt>
-                    <dd className="text-ink">Not deployed or authorized</dd>
+                    <dd className="text-right text-ink">
+                      {appConfig.isMainnet ? 'Separate testnet preview' : 'Production network'}
+                    </dd>
                   </div>
                   <div className="flex justify-between gap-3">
                     <dt>Funds</dt>
-                    <dd className="text-ink">Real USDC only after approval</dd>
+                    <dd className="text-ink">
+                      {appConfig.isMainnet ? 'Test USDC only' : 'Real USDC'}
+                    </dd>
                   </div>
                 </dl>
               </div>
             </div>
             <p>
-              This preview is configured for Arc Testnet only. Do not send real USDC to the Preview,
-              and do not assume a Testnet transaction is final on Mainnet. A Production release
-              requires a separately verified Mainnet contract, token configuration, and explicit
-              operator authorization.
+              {appConfig.isMainnet
+                ? 'This build is configured for Arc Mainnet. Every transaction uses real USDC and is irreversible. Verify the chain, contract address, provider addresses, and exact budget before signing.'
+                : 'This build is configured for Arc Testnet. Do not send real USDC to this preview. A Mainnet transaction is separate and uses the production contract.'}
             </p>
           </DocsSection>
 
           <DocsSection id="troubleshooting" number="09 · Troubleshooting" title="What to check before retrying.">
             <dl className="grid gap-2 sm:grid-cols-2">
               {[
-                ['Wrong network', 'Switch to Arc Testnet before writing. The app disables writes on another chain.'],
-                ['Insufficient balance', 'Keep enough test USDC for the full budget plus gas for every transaction.'],
+                [
+                  'Wrong network',
+                  `Switch to ${appConfig.networkLabel} before writing. The app disables writes on another chain.`,
+                ],
+                [
+                  'Insufficient balance',
+                  `Keep enough ${appConfig.isMainnet ? '' : 'test '}USDC for the full budget plus gas for every transaction.`,
+                ],
                 ['Wallet cancelled', 'Nothing was sent. Review the values and try again when ready.'],
                 ['Pending or timed out', 'Do not resubmit pipeline creation. Check the wallet or explorer, then use the check-receipt action if shown.'],
                 ['Permission error', 'Only the assigned current provider can submit; only the client can approve or reject.'],
@@ -390,7 +407,7 @@ export function DocsPage() {
           <DocsSection id="contract" number="10 · Contract and source" title="Inspect the deployed rail.">
             <dl className="grid gap-2 sm:grid-cols-2">
               <div className="rounded-lg border border-line bg-paper-soft p-3 sm:col-span-2">
-                <dt className="rc-eyebrow">Coordinator contract · Arc Testnet</dt>
+                <dt className="rc-eyebrow">Coordinator contract · {appConfig.networkLabel}</dt>
                 <dd className="mt-1 break-all font-mono text-[10px] text-ink">
                   {appConfig.pipelineAddress ?? 'Not configured in this build.'}
                 </dd>
@@ -401,7 +418,7 @@ export function DocsPage() {
                     rel="noopener noreferrer"
                     className="rc-link mt-2 inline-block text-[10px]"
                   >
-                    Open on Arc Testnet Explorer ↗
+                    Open on {appConfig.explorerName} ↗
                   </a>
                 ) : null}
               </div>

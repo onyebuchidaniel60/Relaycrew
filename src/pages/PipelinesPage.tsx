@@ -95,7 +95,7 @@ export function PipelinesPage() {
       <PageHeader
         eyebrow="Wallet view"
         title="My pipelines"
-        description="Pipelines where the connected wallet is the client or an assigned provider. Every amount and status is read from Arc Testnet."
+        description={`Pipelines where the connected wallet is the client or an assigned provider. Every amount and status is read from ${appConfig.networkLabel}.`}
         breadcrumb={
           <>
             <Link to="/">RelayCrew</Link> / Pipelines

@@ -669,13 +669,14 @@ export function CreatePipelinePage() {
 
             {insufficientBalance ? (
               <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
-                Your wallet does not hold enough Arc Testnet USDC for this total.
+                Your wallet does not hold enough USDC on {appConfig.networkLabel} for this total.
               </p>
             ) : null}
 
             {noGasBalance ? (
               <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
-                Your wallet needs Arc Testnet USDC for gas before it can submit transactions.
+                Your wallet needs USDC on {appConfig.networkLabel} for gas before it can submit
+                transactions.
               </p>
             ) : null}
 
@@ -765,7 +766,7 @@ export function CreatePipelinePage() {
               </p>
             ) : guard.isWrongNetwork ? (
               <p className="mt-4 text-[10px] font-semibold text-rust" role="alert">
-                Switch your wallet to Arc Testnet before submitting.
+                Switch your wallet to {appConfig.networkLabel} before submitting.
               </p>
             ) : null}
           </div>

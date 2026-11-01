@@ -226,7 +226,7 @@ export function PipelineDetailPage() {
         <PageHeader
           eyebrow="Pipeline"
           title={`Pipeline #${pipelineId.toString()}`}
-          description="This pipeline could not be read from Arc Testnet."
+          description={`This pipeline could not be read from ${appConfig.networkLabel}.`}
           breadcrumb={
             <>
               <Link to="/">RelayCrew</Link> / <Link to="/pipelines">Pipelines</Link> / #
@@ -342,7 +342,7 @@ export function PipelineDetailPage() {
     actionPill = 'Read only'
   } else if (guard.isWrongNetwork) {
     actionEyebrow = 'Network'
-    actionTitle = 'Switch to Arc Testnet'
+    actionTitle = `Switch to ${appConfig.networkLabel}`
     actionPill = 'Blocked'
     actionTone = 'warm'
   } else if (canReview) {
@@ -479,7 +479,7 @@ export function PipelineDetailPage() {
 
       {!terminal && address && guard.isWrongNetwork ? (
         <div className="rc-alert rc-alert-danger mt-4" role="alert">
-          Wrong Network: Please switch to Arc Testnet before acting.
+          Wrong Network: Please switch to {appConfig.networkLabel} before acting.
         </div>
       ) : null}
 

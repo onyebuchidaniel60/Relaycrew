@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { appConfig } from '../lib/config'
 
 const steps = [
   {
@@ -273,12 +274,13 @@ export function HomePage() {
         <div className="flex flex-col justify-between gap-5 rounded-[10px] border border-warm-line bg-warm-soft p-5 sm:flex-row sm:items-center sm:p-6">
           <div>
             <strong className="font-display text-xl font-medium tracking-[-0.04em] text-warm-ink">
-              Arc Testnet preview
+              {appConfig.isMainnet ? 'Arc Mainnet' : 'Arc Testnet preview'}
             </strong>
             <p className="mt-1 max-w-[730px] text-[11px] leading-5 text-warm-ink">
-              Experimental, unaudited software using test USDC only. Titles, briefs, provider
-              addresses, budgets, and deliverable URIs are public and permanent. The client is the
-              sole evaluator and there is no dispute mechanism.
+              Experimental, unaudited software using {appConfig.isMainnet ? 'real' : 'test'} USDC
+              {appConfig.isMainnet ? ', with irreversible transfers' : ' only'}. Titles, briefs,
+              provider addresses, budgets, and deliverable URIs are public and permanent. The client
+              is the sole evaluator and there is no dispute mechanism.
             </p>
           </div>
           <div className="flex flex-wrap gap-2">

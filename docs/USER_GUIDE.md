@@ -1,6 +1,6 @@
 # RelayCrew User Guide
 
-**Status:** Implemented and in use on Arc Testnet. The live app includes the complete in-app guide at `/docs`; this file mirrors the same behavior for the repository. Mainnet is not deployed or authorized. The contract has not been independently audited.
+**Status:** Implemented and live on Arc Mainnet and Arc Testnet. Production uses real USDC on Arc Mainnet (`https://relaycrew-omega.vercel.app`); Preview uses test USDC on Arc Testnet. The live app includes the complete in-app guide at `/docs`; this file mirrors the same behavior for the repository. The contract has not been independently audited.
 
 ## What RelayCrew does
 

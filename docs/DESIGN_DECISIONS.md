@@ -95,10 +95,10 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Documentation:** `/docs` now contains the user guide: overview, roles, limits and exact amounts, create/fund, provider submission, approve/reject/expiry, statuses, public-data warning, Arc Testnet vs Mainnet, troubleshooting, and contract/source details.
 - **Risk notice:** `/risk` now covers the experimental/unaudited contract, irreversible USDC transfers, sole client evaluation, evaluator non-response and expiry/refund, public/permanent data, and the absence of admin rescue or upgrade.
 - **Metadata:** `index.html` uses the approved title, description, Open Graph/Twitter tags, theme color, favicon, and a real 1200×630 Open Graph card at `public/images/og-relaycrew.png`.
-- **Footer:** Documentation resolves to `/docs`; Risk notice resolves to `/risk`; GitHub resolves to the actual public repository configured through `VITE_GITHUB_REPOSITORY_URL`; Contract opens the verified Arc Testnet address in the official explorer.
+- **Footer:** Documentation resolves to `/docs`; Risk notice resolves to `/risk`; GitHub resolves to the actual public repository configured through `VITE_GITHUB_REPOSITORY_URL`; Contract opens the active network's verified coordinator address in the official explorer (Mainnet in Production, Testnet in Preview).
 - **State/link audit:** header, footer, documentation anchors, internal routes, external destinations, loading/empty/error/terminal states, wrong-network state, form labels, focus rings, and 390/768/1440 responsive layouts were checked in headless Chromium. No dead anchors, unnamed buttons, console errors, or horizontal overflow were found.
 - **Deployment:** Phase 8.5 Preview at `https://relaycrew-1gp6xbcd6-uhhh2.vercel.app`, deployed source commit `4bb066302f17ca6b1c025bafd80beffa37eed57b` (`dpl_3XDUsqQn1A1SzEcFajVGxoZTsudg`). All main routes and the OG image returned HTTP 200 through the protected deployment; deployed CSS/JS hashes match the local build.
-- **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet remains undeployed and unauthorized.
+- **Repository docs:** README, USER_GUIDE, SECURITY, DEPLOYMENT, CONTRACT_INTERFACE, DECISIONS, and this record were brought in line with the implemented Testnet state. Mainnet was subsequently deployed under the Phase 9 authorization recorded below.
 
 ## Phase 8.5 dark mode extension
 
@@ -122,4 +122,5 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Operator's explicit approval text/decision:** “The ‘Warm Editorial Escrow’ mockups were reviewed and explicitly APPROVED.” (operator instruction, 2026-10-30).
 - **Deviations accepted/recorded:** original SVG imagery instead of photography; Google Fonts delivery; existing trimmed amount display retained; in-app confirmation dialog replacing `window.confirm`; mobile nav remains visible.
 - **Phase 7 status:** implemented on top of working flows. No product, contract, or security behavior changed.
-- **Phase 8 status:** documentation, risk, metadata, footer destinations, and release-checklist completeness verified. Mainnet remains unauthorized.
+- **Phase 8 status:** documentation, risk, metadata, footer destinations, and release-checklist completeness verified.
+- **Phase 9 status (2026-11-01):** mainnet release authorized. Production at `https://relaycrew-omega.vercel.app` uses Arc Mainnet, the verified contract `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`, and network-aware labels/risk copy. No visual direction changed; only network-dependent copy and configuration were added.

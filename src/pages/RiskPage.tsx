@@ -6,7 +6,7 @@ import { appConfig } from '../lib/config'
 const risks = [
   {
     title: 'Experimental and unaudited',
-    body: 'RelayCrew is a hackathon prototype. The contract has been implemented and deployed to Arc Testnet, but it has not been independently audited. Treat every interaction as experimental software and do not risk funds you cannot afford to lose.',
+    body: `RelayCrew is a hackathon prototype. The contract is deployed to ${appConfig.networkLabel}, but it has not been independently audited. Treat every interaction as experimental software and do not risk funds you cannot afford to lose.`,
   },
   {
     title: 'USDC transfers are irreversible',
@@ -57,9 +57,18 @@ export function RiskPage() {
       />
 
       <div className="rc-alert rc-alert-warm mb-3">
-        <strong className="font-semibold">Arc Testnet preview.</strong> This build uses test USDC
-        only. No mainnet deployment or real-USDC transaction is authorized by this preview. Do not
-        send real funds to this app.
+        {appConfig.isMainnet ? (
+          <>
+            <strong className="font-semibold">Arc Mainnet.</strong> This build uses real USDC.
+            Approval, rejection, and expiry move funds irreversibly. Verify the chain, contract, and
+            every amount before signing.
+          </>
+        ) : (
+          <>
+            <strong className="font-semibold">Arc Testnet preview.</strong> This build uses test USDC
+            only. Do not send real funds to this app.
+          </>
+        )}
       </div>
 
       <div className="grid items-start gap-3 lg:grid-cols-[minmax(0,1fr)_320px]">
@@ -71,7 +80,10 @@ export function RiskPage() {
             </h2>
             <ul className="mt-4 grid gap-3 sm:grid-cols-2">
               {[
-                ['Network', 'The wallet is on Arc Testnet, chain 5042002. The app blocks writes on another chain.'],
+                [
+                  'Network',
+                  `The wallet is on ${appConfig.networkLabel}, chain ${appConfig.expectedChainId}. The app blocks writes on another chain.`,
+                ],
                 ['Recipients', 'Every provider address and stage order is correct. They cannot be changed after funding.'],
                 ['Amounts', 'The exact total is within the 1–100 USDC pipeline bounds and each stage is at least 1 USDC.'],
                 ['Data', 'Everyone accepts that titles, briefs, addresses, budgets, and deliverable URIs are public and permanent.'],
@@ -136,7 +148,7 @@ export function RiskPage() {
                 rel="noopener noreferrer"
                 className="rc-link mt-2 inline-block text-[10px]"
               >
-                Arc Testnet Explorer ↗
+                {appConfig.explorerName} ↗
               </a>
             </div>
           ) : null}

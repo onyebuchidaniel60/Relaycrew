@@ -145,3 +145,4 @@ This matrix supplements FR-01–FR-10 with actor, preconditions, inputs, process
 - **Errors:** wrong source/token/config, insufficient gas/funds, deployment failure, RPC/explorer lag, wrong destination.
 - **Edge cases:** transaction pending near deadline; explorer lag; Production env pointed at testnet; repo not public.
 - **Acceptance:** real USDC moved through the deployed app/contract, events/receipts verify, live URL works, public repo and Studio project links are real, and evidence package is complete. No fabricated hash or claim.
+- **Current status (2026-11-01):** deployment complete — contract `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`, deployment tx `0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e`, production `https://relaycrew-omega.vercel.app`. The low-value browser-wallet E2E and its transaction hashes are **pending operator execution**. The acceptance criterion is not fully met until those real hashes are recorded.

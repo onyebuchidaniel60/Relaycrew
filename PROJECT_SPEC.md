@@ -1,10 +1,10 @@
 # PROJECT_SPEC.md — RelayCrew
 
-**Status:** Approved design baseline for implementation planning; mainnet actions and final visual design are not approved by this document.  
+**Status:** Approved design baseline, implemented and released. The operator explicitly authorized the Phase 9 Arc Mainnet deployment and low-value real-USDC demonstration on 2026-11-01; this document does not itself authorize any further mainnet action.
 **Working product name:** RelayCrew.  
 **Product concept:** Milestone Team Pipeline.  
 **Tagline:** Escrow for Agent Workflows.
-**Last updated:** 2026-10-30.
+**Last updated:** 2026-11-01.
 
 ## 1. Product overview
 
@@ -311,11 +311,12 @@ Only after acceptance may the agent collect/agree on design references, produce 
 
 ## 14. Submission evidence (update only with real values)
 
-- Arc Studio project URL: **Not yet created/verified**.
-- Live app URL: **Not yet deployed**.
-- GitHub public repository: **Not yet created/verified**.
-- Mainnet coordinator address: **Not yet deployed**.
-- Mainnet transaction hashes: **Not yet executed/verified**.
+- Arc Studio app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`** (verified via CLI).
+- Live app URL: **https://relaycrew-omega.vercel.app** (Production, Arc Mainnet).
+- GitHub public repository: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public).
+- Mainnet coordinator address: **`0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`**.
+- Mainnet deployment transaction: **`0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e`**.
+- Mainnet E2E transaction hashes: **pending operator browser-wallet execution**; do not fabricate.
 - Video walkthrough: **Not yet recorded**.
 - Builder profile URL: use actual operator-provided GitHub/X/Farcaster URL; do not invent.
 

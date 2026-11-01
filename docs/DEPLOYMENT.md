@@ -1,17 +1,32 @@
 # Deployment Guide
 
-**Do not use this guide to deploy or transact on mainnet without explicit operator authorization.**
+**Arc Mainnet is live.** The operator explicitly authorized the mainnet deployment and a low-value real-USDC demonstration. Mainnet transactions are irreversible. Before any further mainnet action, re-verify the chain, contract, token, recipient, amount, and allowance.
 
-## Current testnet deployment
+## Current deployments
 
-- Preview network: **Arc Testnet**, chain ID `5042002`; test USDC only.
+### Production — Arc Mainnet
+
+- Network: **Arc Mainnet**, chain ID `5042`.
+- Production URL: **https://relaycrew-omega.vercel.app**.
+- Deployment ID: `dpl_4FB9YFD8RbFYEnPahRs8bSXUuXQ1`.
+- Deployment URL: `https://relaycrew-rom2qwkni-uhhh2.vercel.app`.
+- Coordinator contract: **`0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`**.
+- Deployment tx: **`0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e`**.
+- Block: `29054729`; gas used `2,236,465`; effective gas price `21 gwei`; gas cost `0.046965765 USDC`.
+- Constructor argument: official USDC ERC-20 interface `0x3600000000000000000000000000000000000000`.
+- On-chain verification: `usdc()` returns the official interface; `MAX_STAGES()` returns `10`; `pipelineCount()` returns `0`; deployed code is `9,992` bytes.
+- Explorer: https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114.
+- Mainnet E2E transaction hashes: **pending operator browser-wallet execution**. No agent-created pipeline exists on Mainnet.
+
+### Preview — Arc Testnet
+
+- Network: **Arc Testnet**, chain ID `5042002`; test USDC only.
 - Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Deployment Protection enabled).
-- Preview deployed source commit: **`4bb066302f17ca6b1c025bafd80beffa37eed57b`**; deployment ID `dpl_3XDUsqQn1A1SzEcFajVGxoZTsudg`.
+- Preview deployed source commit: `4bb066302f17ca6b1c025bafd80beffa37eed57b`; deployment ID `dpl_3XDUsqQn1A1SzEcFajVGxoZTsudg`.
 - Coordinator contract: `0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070` (`MAX_STAGES = 10`).
-- Testnet deployment transaction: `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`.
+- Testnet deployment tx: `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`.
 - Arc Testnet Explorer: https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070.
-- Previous 5-stage contract (superseded): `0x85bbf546b09d990959de0672c273b56400f84f05`.
-- Mainnet: **not deployed and not authorized**.
+- Previous 5-stage testnet contract (superseded): `0x85bbf546b09d990959de0672c273b56400f84f05`.
 
 ## Network configuration
 
@@ -24,53 +39,78 @@
 | USDC ERC-20 interface | `0x3600000000000000000000000000000000000000` | `0x3600000000000000000000000000000000000000` |
 | Token precision for escrow | 6 decimals | 6 decimals |
 
-Always reverify these values against the official Arc network and contract-address documentation before deployment. The ERC-20 interface uses 6 decimals; native gas token representation uses 18 decimals. Do not mix them.
+Official values were rechecked against https://docs.arc.io/arc/references/contract-addresses and https://docs.arc.io/arc/references/connect-to-arc on 2026-11-01. The ERC-20 interface uses 6 decimals; native gas representation uses 18 decimals. Do not mix them.
+
+The server-side build guard in `vite.config.ts` fails a Vercel Preview build if it is not Arc Testnet and fails a Vercel Production build if it is not Arc Mainnet with chain `5042` and a valid contract address.
+
+## Mainnet deployment record
+
+- Source: `contracts/PipelineCoordinator.sol`.
+- Arc Studio App ID: `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`.
+- Exact Arc Studio compile artifact exported from the workspace; not committed.
+- Compiler: `0.8.28+commit.7893614a`; optimizer enabled, 200 runs; EVM `cancun`.
+- Source keccak: `0x32485699eec5a9e958b418f867b47ef8378a972a7ab1bfeb86c9cae75a770b72` — matches the artifact metadata.
+- ABI: 58 entries, matched against `src/lib/contracts.ts`.
+- Creation bytecode keccak: `0x833f16c07942bdab254a58c5820f336fff9a988c4443005f74cd7e1bd6b8eaa0`.
+- Constructor: `PipelineCoordinator(0x3600000000000000000000000000000000000000)`.
+- Deployer: `0x6B24827a732f7e8CD35c56F50E3418a05A0Ee054` (nonce 0; local-only key).
+- Deployment method: `scripts/deploy-mainnet.mjs` with the exported Arc Studio artifact; direct CREATE, signed locally with viem.
+- Evidence record: `deployments/arc-mainnet.json`.
+
+The script performs a preflight only by default. It prints the deployer, chain ID, USDC argument, nonce, predicted contract address, gas estimate, fee cap, and worst-case cost. It requires `--confirm` to sign and broadcast, never prints the private key, and verifies the deployed code and immutable token address after the receipt.
 
 ## Arc Studio workflow
 
 1. Open the real Arc Studio project and record its project URL.
 2. Build and test the contract/app within Arc Studio as required by the hackathon.
-3. Export the tested source and record the source commit, compiler version and dependency lock.
-4. Verify exported source/ABI matches the version tested in Arc Studio.
-5. Arc Studio documentation states its deploy flow targets Arc Testnet. Use a separate manual mainnet deployment for the exported tested source only after explicit operator authorization.
+3. Export the tested source and compile artifact; record the source commit, compiler version, and dependency lock.
+4. Verify exported source/ABI/compiler parity.
+5. Arc Studio's automated deploy flow targets Arc Testnet. Mainnet deployment is manual from the exported tested artifact after explicit operator authorization.
 
 Never use an unverified ERC-8183 testnet address on mainnet. RelayCrew uses its own linear pipeline contract and does not claim ERC-8183 compliance.
 
 ## Vercel environments
 
-### Preview (required early, Phase 1)
+### Preview (Arc Testnet only)
 
-- Set `VITE_NETWORK_MODE=testnet`.
-- Set `VITE_CHAIN_ID=5042002`.
-- Set RPC/explorer/USDC values for Arc Testnet.
-- Set `VITE_PIPELINE_CONTRACT_ADDRESS` only after a verified testnet deployment exists; before that, writes stay disabled.
-- No deployer keys or private credentials.
-- Keep this URL updated after each verified phase and record exact URL plus deployed commit in `AI_HANDOFF.md`.
+- `VITE_NETWORK_MODE=testnet`
+- `VITE_CHAIN_ID=5042002`
+- `VITE_RPC_URL=https://rpc.testnet.arc.io`
+- `VITE_EXPLORER_URL=https://explorer.testnet.arc.io`
+- `VITE_USDC_ADDRESS=0x3600000000000000000000000000000000000000`
+- `VITE_PIPELINE_CONTRACT_ADDRESS=0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`
+- `VITE_GITHUB_REPOSITORY_URL=https://github.com/onyebuchidaniel60/Relaycrew`
 
-### Production (only after authorization)
+No deployer keys or private credentials. Keep the Preview URL updated after each verified phase.
 
-- Set `VITE_NETWORK_MODE=mainnet` and `VITE_CHAIN_ID=5042`.
-- Use only the verified mainnet contract address and official mainnet RPC/explorer.
-- Set the actual public GitHub repo URL after confirming the repository is public.
-- Never set `DEPLOYER_PRIVATE_KEY` in Vercel. Users sign app transactions with their own wallets.
-- Do not promote Production until mainnet contract and transfer evidence are verified and operator authorizes it.
+### Production (Arc Mainnet)
+
+- `VITE_NETWORK_MODE=mainnet`
+- `VITE_CHAIN_ID=5042`
+- `VITE_RPC_URL=https://rpc.mainnet.arc.io`
+- `VITE_EXPLORER_URL=https://explorer.arc.io`
+- `VITE_USDC_ADDRESS=0x3600000000000000000000000000000000000000`
+- `VITE_PIPELINE_CONTRACT_ADDRESS=0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`
+- `VITE_GITHUB_REPOSITORY_URL=https://github.com/onyebuchidaniel60/Relaycrew`
+
+Never set `DEPLOYER_PRIVATE_KEY` in Vercel. Users sign app transactions with their own wallets.
 
 ## Contract deployment safety checklist
 
-- [ ] Official Arc chain ID and RPC rechecked.
-- [ ] Official USDC ERC-20 address and 6 decimals rechecked.
-- [ ] Contract source and compiler match tested Arc Studio export.
-- [ ] No compile warnings remain unexplained.
-- [ ] Complete contract tests passed.
-- [ ] Constructor token argument reviewed.
-- [ ] Deployment wallet is dedicated and low-value; key is local-only.
-- [ ] Operator has explicitly approved mainnet deployment and a specific low-value transaction.
-- [ ] Contract deployment transaction, address, compiler/dependency data recorded.
-- [ ] Read `usdc()` and verify correct token address.
-- [ ] Mainnet app env is set to chain 5042 and verified contract address.
-- [ ] Test pipeline has budgets and provider addresses reviewed before signing.
-- [ ] `StageReleased`, next `StageHired`, USDC Transfer events and balances confirmed on Explorer.
-- [ ] Actual contract address and transaction hashes written to README, docs and handoff.
+- [x] Official Arc chain ID and RPC rechecked.
+- [x] Official USDC ERC-20 address and 6 decimals rechecked.
+- [x] Contract source and compiler match the tested Arc Studio export.
+- [x] No compile warnings remain unexplained.
+- [x] Complete contract tests passed in Arc Studio (31/31).
+- [x] Constructor token argument reviewed.
+- [x] Deployment wallet is dedicated and low-value; key is local-only.
+- [x] Operator explicitly approved the mainnet deployment and the low-value E2E plan.
+- [x] Contract deployment transaction, address, compiler, and dependency data recorded.
+- [x] Read `usdc()` and verified the correct token address.
+- [x] Mainnet app env set to chain 5042 and the verified contract address.
+- [ ] Test pipeline budgets and provider addresses reviewed before signing (operator E2E).
+- [ ] `StageReleased`, next `StageHired`, USDC Transfer events, and balances confirmed on Explorer (operator E2E).
+- [x] Actual contract address and deployment transaction written to README, docs, and handoff.
 
 ## Environment variables
 
@@ -89,8 +129,9 @@ Local deploy-only variables:
 - `DEPLOYER_PRIVATE_KEY` — secret; never committed or used in frontend/Vercel.
 - `ARC_MAINNET_RPC_URL` — optional local deployment URL.
 - `ARC_TESTNET_RPC_URL` — optional local test deployment URL.
+- `ARTIFACT_PATH` — optional path to the exported Arc Studio compile artifact.
 
-Do not invent contract addresses or external links. Use “not yet deployed/verified” until real values exist.
+Do not invent contract addresses or external links. Use "not yet deployed/verified" until real values exist.
 
 ## Release and rollback
 
@@ -98,4 +139,12 @@ The contract is immutable/non-upgradeable and has no generic admin withdrawal. A
 
 ## Post-deploy smoke test
 
-Open the actual Production URL in a fresh browser, verify the chain badge, connect a wallet, inspect contract address, confirm empty/live data behavior, run a deliberately low-value approved pipeline test with controlled/consenting provider addresses, and inspect transaction links on `https://explorer.arc.io`. Record actual results and commit in `AI_HANDOFF.md`.
+Production was smoke-tested on 2026-11-01:
+
+- `/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`, `/favicon.svg`, and `/images/og-relaycrew.png` returned HTTP 200.
+- Headless Chromium rendered `Arc Mainnet` and real-USDC notices on the main routes.
+- No configuration-error banner appeared.
+- The deployed JS asset `index-eXZt2eAI.js` matched the local mainnet build's SHA-256 exactly.
+- The deployed bundle contains the mainnet contract address and official USDC address.
+
+Still required: the operator's browser-wallet E2E pipeline and Explorer reconciliation. Record the actual create/submit/approve transaction hashes in README and `AI_HANDOFF.md` after execution.

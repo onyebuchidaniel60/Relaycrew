@@ -2,7 +2,9 @@
 
 **Contract name:** `PipelineCoordinator` (implemented).
 
-**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 31 Foundry tests; `MAX_STAGES = 10`). Deployed to Arc Testnet at [`0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`](https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070) on 2026-10-30. Deployment tx: `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`. The tested ABI is embedded in `src/lib/contracts.ts`. The previous 5-stage testnet deployment at `0x85bbf546b09d990959de0672c273b56400f84f05` is superseded. Mainnet is not deployed. This is unaudited experimental software.
+**Status:** Implemented and tested in Arc Studio (Solc 0.8.28; 31 Foundry tests; `MAX_STAGES = 10`). Deployed to **Arc Mainnet** at [`0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`](https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114) on 2026-11-01. Mainnet deployment tx: `0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e`. Constructor USDC: `0x3600000000000000000000000000000000000000`; on-chain `usdc()`, `MAX_STAGES()`, and `pipelineCount()` were verified after deployment. Mainnet pipeline E2E transaction hashes are pending operator browser-wallet execution. The same tested ABI is embedded in `src/lib/contracts.ts`.
+
+Testnet deployment: [`0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`](https://explorer.testnet.arc.io/address/0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070), tx `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`. The previous 5-stage testnet deployment at `0x85bbf546b09d990959de0672c273b56400f84f05` is superseded. This is unaudited experimental software.
 
 ## Core types
 

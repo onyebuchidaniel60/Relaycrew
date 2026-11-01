@@ -1,4 +1,4 @@
-import { isAddress, type Address } from 'viem'
+import { isAddress, zeroAddress, type Address } from 'viem'
 
 export const pipelineCoordinatorAbi = [
   {
@@ -889,13 +889,21 @@ export const pipelineCoordinatorAbi = [
   }
 ] as const
 
-export const deployedPipelineCoordinatorAddress: Address =
-  '0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070'
+export const pipelineCoordinatorAddresses: Record<number, Address> = {
+  5042: '0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114',
+  5042002: '0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070',
+}
 
 const configuredAddress = import.meta.env.VITE_PIPELINE_CONTRACT_ADDRESS?.trim() ?? ''
+const expectedChainId = Number(import.meta.env.VITE_CHAIN_ID?.trim() ?? '')
+
+export const deployedPipelineCoordinatorAddress: Address | undefined =
+  pipelineCoordinatorAddresses[expectedChainId]
 
 export const pipelineCoordinatorAddress: Address = isAddress(configuredAddress)
   ? (configuredAddress as Address)
-  : deployedPipelineCoordinatorAddress
+  : (deployedPipelineCoordinatorAddress ?? zeroAddress)
 
-export const isPipelineConfigured = true
+export const isPipelineConfigured = Boolean(
+  isAddress(configuredAddress) || deployedPipelineCoordinatorAddress,
+)

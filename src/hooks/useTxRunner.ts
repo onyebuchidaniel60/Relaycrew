@@ -31,7 +31,7 @@ export function useTxRunner() {
         onHash?.(hash)
         setStatus({ phase: 'pending', message: `${label} submitted. Waiting for confirmation…`, hash })
 
-        if (!publicClient) throw new Error('Arc Testnet RPC client is unavailable.')
+        if (!publicClient) throw new Error('RPC client is unavailable.')
 
         const receipt = await publicClient.waitForTransactionReceipt({ hash })
         if (receipt.status !== 'success') throw new Error('Transaction reverted.')

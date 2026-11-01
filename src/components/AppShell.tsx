@@ -1,7 +1,6 @@
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useSwitchChain } from 'wagmi'
 import { useNetworkGuard } from '../hooks/useNetworkGuard'
-import { arcTestnet } from '../lib/chain'
 import { appConfig } from '../lib/config'
 import { ConnectWalletButton } from './ConnectWalletButton'
 import { LogoMark } from './LogoMark'
@@ -17,15 +16,17 @@ const navItems = [
 ]
 
 function NetworkBadge() {
-  const isTestnet = appConfig.networkMode === 'testnet' && appConfig.isValid
+  const isReady = appConfig.isValid
 
   return (
     <span
       title={`Chain ID ${appConfig.expectedChainId}`}
-      className={`rc-pill ${isTestnet ? 'rc-pill-active' : 'rc-pill-warm'}`}
+      className={`rc-pill ${
+        isReady ? (appConfig.isMainnet ? 'rc-pill-warm' : 'rc-pill-active') : 'rc-pill-warm'
+      }`}
     >
       <span className="rc-dot" aria-hidden="true" />
-      {isTestnet ? 'Arc Testnet' : 'Network config error'}
+      {isReady ? appConfig.networkLabel : 'Network config error'}
     </span>
   )
 }
@@ -37,7 +38,11 @@ export function AppShell() {
   return (
     <div className="flex min-h-screen flex-col">
       <div className="rc-preview-bar" role="note">
-        <p className="rc-shell py-2">Arc Testnet preview — test USDC only · no real funds</p>
+        <p className="rc-shell py-2">
+          {appConfig.isMainnet
+            ? 'Arc Mainnet — real USDC · transactions are irreversible'
+            : 'Arc Testnet preview — test USDC only · no real funds'}
+        </p>
       </div>
 
       {configError ? (
@@ -51,15 +56,15 @@ export function AppShell() {
       {isWrongNetwork ? (
         <div className="border-b border-rust-line bg-rust-soft" role="alert">
           <div className="rc-shell flex flex-col gap-2 py-2 text-[11px] font-semibold text-[#6f3021] dark:text-[#f0b5a2] sm:flex-row sm:items-center sm:justify-between">
-            <span>Wrong Network: Please switch to Arc Testnet</span>
+            <span>Wrong Network: Please switch to {appConfig.networkLabel}</span>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 disabled={isSwitching}
-                onClick={() => switchChain({ chainId: arcTestnet.id })}
+                onClick={() => switchChain({ chainId: appConfig.expectedChainId })}
                 className="rc-button rc-button-sm border-rust-line bg-paper text-rust hover:bg-rust-soft disabled:cursor-not-allowed disabled:opacity-50"
               >
-                {isSwitching ? 'Switching…' : 'Switch to Arc Testnet'}
+                {isSwitching ? 'Switching…' : `Switch to ${appConfig.networkLabel}`}
               </button>
               {switchError ? (
                 <span className="text-[10px] font-normal">{switchError.message}</span>
@@ -124,7 +129,8 @@ export function AppShell() {
             </Link>
             <p className="mt-2 max-w-sm text-[10px] leading-5 text-muted">
               Escrow for Agent Workflows. One parent escrow, a fixed specialist relay, and
-              experimental Arc Testnet software.
+              experimental {appConfig.networkLabel} software.
+              {appConfig.isMainnet ? ' Real USDC is at risk.' : ' Test USDC only.'}
             </p>
           </div>
           <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2 text-[10px] font-semibold text-ink-soft">
@@ -151,8 +157,8 @@ export function AppShell() {
                 href={`${appConfig.explorerUrl}/address/${appConfig.pipelineAddress}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                title="View the RelayCrew contract on Arc Testnet Explorer"
-                aria-label="View the RelayCrew contract on Arc Testnet Explorer (opens in a new tab)"
+                title={`View the RelayCrew contract on ${appConfig.explorerName}`}
+                aria-label={`View the RelayCrew contract on ${appConfig.explorerName} (opens in a new tab)`}
                 className="transition-colors hover:text-forest"
               >
                 Contract <span aria-hidden="true">↗</span>
@@ -162,7 +168,9 @@ export function AppShell() {
         </div>
         <div className="border-t border-line/70">
           <div className="rc-shell flex flex-col gap-2 py-4 text-[8px] uppercase tracking-[0.08em] text-muted sm:flex-row sm:items-center sm:justify-between">
-            <p>Arc Testnet · chain {appConfig.expectedChainId}</p>
+            <p>
+              {appConfig.networkLabel} · chain {appConfig.expectedChainId}
+            </p>
             <p>No platform fee · client is sole evaluator</p>
           </div>
         </div>

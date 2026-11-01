@@ -1,6 +1,6 @@
 # Sources and Verification Record
 
-Last checked: 2026-10-28. Verify network/token/deadline values again before any mainnet deploy or hackathon submission.
+Last checked: 2026-11-01. Mainnet chain ID `5042`, RPC `https://rpc.mainnet.arc.io`, explorer `https://explorer.arc.io`, and USDC ERC-20 interface `0x3600000000000000000000000000000000000000` were rechecked against the official Arc docs immediately before deployment. Verify the deadline on the official submission form.
 
 ## Official Arc/Circle sources
 

@@ -2,7 +2,7 @@
 
 ## Status
 
-RelayCrew is implemented and deployed to Arc Testnet. The contract has not been independently audited. These controls reduce known risks but are not a guarantee of safety. Mainnet is not deployed or authorized.
+RelayCrew is implemented and deployed to Arc Mainnet and Arc Testnet. Arc Mainnet moves real USDC. The contract has not been independently audited. These controls reduce known risks but are not a guarantee of safety. The operator explicitly authorized the mainnet deployment and a low-value real-USDC demonstration; that authorization does not extend to unrelated mainnet activity.
 
 ## Money and authority
 
@@ -42,7 +42,7 @@ Pipeline details, provider addresses, budgets, stage titles/briefs, transaction 
 - Never commit `DEPLOYER_PRIVATE_KEY`, seed phrase, wallet backups, API credentials or `.env` files.
 - Never place deployer credentials in Vercel, browser variables or Arc Studio prompts/screenshots.
 - Review Git diff and history for secrets before pushing public.
-- Verify token/chain/contract before mainnet operations. Mainnet deploy and real USDC test require explicit operator authorization.
+- Verify token/chain/contract before mainnet operations. The Mainnet deployment is documented in `deployments/arc-mainnet.json`; any further mainnet deploy or real-USDC test requires specific operator authorization.
 - Use small values and operator-controlled or consenting provider wallets for demonstration.
 - Check dependency/compiler versions and all tests. Do not claim a formal audit has occurred unless an independent audit was actually commissioned and completed.
 
