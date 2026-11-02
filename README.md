@@ -10,6 +10,7 @@ Phase 9 mainnet release is deployed. The operator explicitly authorized the Arc 
 
 - Public GitHub repository: **verified** at https://github.com/onyebuchidaniel60/Relaycrew.
 - Release commit: **`924440f450591353a593a903ef47ac238f610858`** (`release: arc mainnet demo and submission evidence`).
+- Demo/evidence commit: **`0a16460df975bd7d7ffe071bff3a6ce4e08d9049`** (`feat: generate automated demo video and mainnet evidence`).
 - Arc Studio project: **verified** via CLI (App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`); contract source and tests in `contracts/`.
 - **Vercel Production: https://relaycrew-omega.vercel.app** (Arc Mainnet, chain ID `5042`; real USDC). Deployment ID `dpl_4FB9YFD8RbFYEnPahRs8bSXUuXQ1`; deployment URL `https://relaycrew-rom2qwkni-uhhh2.vercel.app`.
 - Vercel Preview: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet only; Vercel Deployment Protection enabled). Existing Preview deployment source commit `4bb066302f17ca6b1c025bafd80beffa37eed57b`.

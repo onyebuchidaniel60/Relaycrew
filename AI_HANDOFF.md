@@ -46,6 +46,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 ## URLs and deployments
 
 - **Current UI commit (deployed): `068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`** (`feat: apply stageshow refined ui to production app`).
+- **Demo/evidence repository commit: `0a16460df975bd7d7ffe071bff3a6ce4e08d9049`** (`feat: generate automated demo video and mainnet evidence`).
 - Previous release commit: `924440f450591353a593a903ef47ac238f610858` (`release: arc mainnet demo and submission evidence`).
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. It contains the current `contracts/PipelineCoordinator.sol`, tests, and deployment records.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
