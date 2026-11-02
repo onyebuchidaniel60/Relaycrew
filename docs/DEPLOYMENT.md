@@ -14,9 +14,14 @@
 - Deployment tx: **`0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e`**.
 - Block: `29054729`; gas used `2,236,465`; effective gas price `21 gwei`; gas cost `0.046965765 USDC`.
 - Constructor argument: official USDC ERC-20 interface `0x3600000000000000000000000000000000000000`.
-- On-chain verification: `usdc()` returns the official interface; `MAX_STAGES()` returns `10`; `pipelineCount()` returns `0`; deployed code is `9,992` bytes.
+- On-chain verification: `usdc()` returns the official interface; `MAX_STAGES()` returns `10`; `pipelineCount()` returned `0` after deployment and `1` after the E2E; deployed code is `9,992` bytes.
 - Explorer: https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114.
-- Mainnet E2E transaction hashes: **pending operator browser-wallet execution**. No agent-created pipeline exists on Mainnet.
+- **Mainnet E2E completed 2026-11-02.** Pipeline #1 is `Completed`: 2 stages, 2 USDC total, 2 USDC paid, 0 refunded.
+  - Create/fund: `0x12b1b81d4b34eeb00cb857f6fea615351429767597285d51dc354d528ced5361`.
+  - Stage 1 approve: `0xfddd46b6b322a1f3b66efc4b99626e862d2bfd7d7a12c0f0306a422b5cbc9e62`.
+  - Stage 2 approve: `0x2f1929bb583352c8f2c6c7e1231acdad777e17227ab4be9f4563aaebd849785b`.
+  - Stage 1 submit: `0x258a289db9777afe19748b9ad56c974f3cb340de3c1265c65b0d04101a984193`; Stage 2 submit: `0xb35c318e500f712ad3c0be7ca15c292e71ca243b638823f0e6974f6ad22bff0f`.
+  - The operator-supplied “create/fund” hash `0x45bdd556522a82dda088855bf92cbf99f87a135be702a436a57fe693a41a8e55` is the USDC allowance approval, not the pipeline creation.
 
 ### Preview — Arc Testnet
 

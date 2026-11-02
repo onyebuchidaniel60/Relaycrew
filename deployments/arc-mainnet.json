@@ -24,7 +24,27 @@
   "explorerAddress": "https://explorer.arc.io/address/0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114",
   "explorerTx": "https://explorer.arc.io/tx/0x05354169f4406c949d15e8eae6a94c42d4dc323821022f40aacd4dc52542aa7e",
   "e2e": {
-    "status": "pending operator browser-wallet execution",
-    "note": "No mainnet create/submit/approve transaction has been executed by the implementation agent. Operator will run the low-value 2-stage pipeline and record real hashes."
+    "status": "completed by operator on 2026-11-02",
+    "pipelineId": "1",
+    "pipelineStatus": "Completed",
+    "stageCount": 2,
+    "totalBudgetBaseUnits": "2000000",
+    "paidOutBaseUnits": "2000000",
+    "refundedBaseUnits": "0",
+    "client": "0x6B24827a732f7e8CD35c56F50E3418a05A0Ee054",
+    "usdcAllowanceApprovalTx": "0x45bdd556522a82dda088855bf92cbf99f87a135be702a436a57fe693a41a8e55",
+    "createFundTx": "0x12b1b81d4b34eeb00cb857f6fea615351429767597285d51dc354d528ced5361",
+    "stage1SubmitTx": "0x258a289db9777afe19748b9ad56c974f3cb340de3c1265c65b0d04101a984193",
+    "stage1ApproveTx": "0xfddd46b6b322a1f3b66efc4b99626e862d2bfd7d7a12c0f0306a422b5cbc9e62",
+    "stage2SubmitTx": "0xb35c318e500f712ad3c0be7ca15c292e71ca243b638823f0e6974f6ad22bff0f",
+    "stage2ApproveTx": "0x2f1929bb583352c8f2c6c7e1231acdad777e17227ab4be9f4563aaebd849785b",
+    "note": "The operator-supplied create/fund hash is the USDC allowance approval, not the pipeline creation. The createFundTx above is the verified PipelineCreated transaction. Stage 1 approve emitted StageReleased(0) and StageHired(1); Stage 2 approve emitted StageReleased(1) and PipelineCompleted."
+  },
+  "demoVideo": {
+    "file": "relaycrew_demo.mp4",
+    "durationSeconds": 82,
+    "resolution": "1440x900",
+    "codec": "H.264/AAC",
+    "note": "The Arc Studio workspace requires sign-in; the Studio segment uses exported source and 31-test evidence labelled EXPORTED SOURCE. The app and Explorer segments are live recordings."
   }
 }

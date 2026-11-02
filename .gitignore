@@ -11,3 +11,6 @@ cache/
 .DS_Store
 .arc-studio/
 *.tsbuildinfo
+
+# Generated demo recordings and intermediate renders
+recordings/
