@@ -1,6 +1,6 @@
 # Design Decisions and Approval Record
 
-**Current status:** Phase 9 mainnet release is live. The operator approved the “Warm Editorial Escrow” direction on 2026-10-30 and separately authorized the Dark Warm Editorial theme; those remain the implemented system. A new high-fidelity **Design Review 02** mockup set was created on 2026-11-02 and is **pending explicit operator approval**; it has not been implemented. The approved visual system, complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks remain in place on the live application. The Phase 8.5 contract limit and form changes did not alter escrow accounting, permissions, or settlement logic.
+**Current status:** Phase 9 mainnet release is live. On 2026-11-02 the operator explicitly approved the **“Warm Editorial Escrow, review 02”** mockup set and authorized Phase 7 UI polish only. The approved review-02 visual system — Newsreader display, Instrument Sans UI, IBM Plex Mono ledger type, the ivory/forest/sage/clay palette, 2–3px radii, paper artifacts, the vertical stage relay, separated action panel, and terminal ledger — is now implemented on the live application. No business logic, contract call, state transition, or security control changed. Complete `/docs` and `/risk` content, metadata, footer destinations, and release-facing completeness checks remain in place. The Phase 8.5 contract limit and form changes did not alter escrow accounting, permissions, or settlement logic.
 
 ## Required process
 
@@ -67,15 +67,15 @@ A brand-level collage for the same “Craftly” system.
 
 ## Mockup inventory
 
-| Screen/state | Desktop mockup | Mobile mockup | Reviewed? | Feedback/status |
+| Screen/state | Desktop mockup | Responsive coverage | Reviewed? | Feedback/status |
 |---|---|---|---|---|
-| Reference analysis & review map | `mockups/index.html` | Responsive | Yes | Approved as the direction record |
-| Home / landing hero | `mockups/home.html` | `mockups/mobile.html` (Home frame) | Yes | Approved |
-| Create Pipeline + allowance/funding | `mockups/create.html` | `mockups/mobile.html` (Create frame) | Yes | Approved |
-| Pipeline Active Detail | `mockups/pipeline-active.html` | `mockups/mobile.html` (Detail frame) | Yes | Approved |
-| Mobile views | — | `mockups/mobile.html` | Yes | Approved |
+| Reference analysis & review map | `mockups/index.html` | Responsive | Yes | Approved as the review-02 direction record |
+| Home / landing hero | `mockups/home.html` | 1440/1024/768/390 | Yes | Approved 2026-11-02; implemented |
+| Create Pipeline + allowance/funding | `mockups/create.html` | 1440/1024/768/390 | Yes | Approved 2026-11-02; implemented |
+| Active Pipeline Detail | `mockups/pipeline-active.html` | 1440/1024/768/390 | Yes | Approved 2026-11-02; implemented |
+| Terminal settlement ledger | `mockups/pipeline-terminal.html` | 1440/1024/768/390 | Yes | Approved 2026-11-02; implemented |
 
-The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-complete.html` mockups were removed with the rejected direction. The current approved review set covers Home, Create, Active Detail, and Mobile.
+The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-complete.html` mockups were removed with the rejected direction. The approved review-02 set covers Home, Create, Active Detail, and Terminal. The older `mobile.html` was superseded by responsive review-02 pages.
 
 ## Phase 7 implementation record
 
@@ -125,7 +125,7 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Phase 8 status:** documentation, risk, metadata, footer destinations, and release-checklist completeness verified.
 - **Phase 9 status (2026-11-01):** mainnet release authorized. Production at `https://relaycrew-omega.vercel.app` uses Arc Mainnet, the verified contract `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`, and network-aware labels/risk copy. No visual direction changed; only network-dependent copy and configuration were added.
 
-## Design Review 02 — pending approval (2026-11-02)
+## Design Review 02 — approved and implemented (2026-11-02)
 
 - **Trigger:** operator instruction on 2026-11-01 to install the Stageshow skill by Benji Taylor, generate a new high-fidelity static HTML/CSS mockup set, overwrite the previous `mockups/`, commit with `docs: generate high-fidelity stageshow mockups`, push `main`, and stop for review.
 - **Scope:** static mockups only. No application code, contract, deployment, or production styling was changed. The previously approved implementation remains live and approved.
@@ -133,5 +133,7 @@ The prior dark `my-pipelines.html`, `pipeline-submitted.html`, and `pipeline-com
 - **Direction:** “Warm Editorial Escrow, review 02.” The ivory/forest/serif core is retained but made stricter: Newsreader display, Instrument Sans UI, IBM Plex Mono ledger type; 2–3px radii; fewer shadows; paper artifacts (pipeline dossier, escrow statement, settlement receipt) instead of generic dashboard cards; clay for rejection/refund; amber for review states.
 - **Screens:** Home (editorial hero, dossier + release slip, mixed bento, dark settlement band); Create (four-step progress, expandable stage terms, receipt summary); Active (vertical relay, one expanded submitted stage, 24-hour decision panel); Terminal (reconciled settlement ledger and on-chain record).
 - **Data:** illustrative only. Four stages `12.00 + 18.00 + 14.00 + 20.00 = 64.00 USDC`; 2–10 stages, 1.00 USDC minimum, 100.00 USDC maximum, 24-hour review, 6-decimal base units, zero platform fee. No real transaction hash is presented as evidence.
-- **Approval status:** **PENDING.** The operator has not approved this direction. Do not implement it or treat the review as approval.
-- **Known limitations:** mockup controls are not wired; the deliverable link uses an illustrative `example.com` URL; the mockup pages are not deployed; the mainnet E2E evidence task remains separate and pending.
+- **Approval status:** **APPROVED — 2026-11-02.** The operator reviewed the set and explicitly approved the “Warm Editorial Escrow, review 02” direction (Stageshow refined) as the premium visual system, then authorized Phase 7 UI polish only. Recorded here and in `DECISIONS.md` (D-27).
+- **Implementation status:** **COMPLETE.** `src/mockup.css` carries the review-02 component and layout system; Home, Create, Active Detail, and Terminal Detail use the approved structures; the shell, buttons, chips, forms, and loading/error/empty states use the same tokens. Dark Warm Editorial remains an authorized extension and was remapped to the same hierarchy.
+- **Behavior freeze:** no contract ABI, address, write function, validation, role check, allowance rule, state transition, or security control changed.
+- **Known limitations of the static mockups:** mockup controls are not wired; the deliverable link uses an illustrative `example.com` URL. These do not apply to the React application, which uses real wallet and contract state.

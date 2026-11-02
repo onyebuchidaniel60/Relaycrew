@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-11-02
 
-**Status:** Phase 9 mainnet release is deployed. The operator explicitly authorized the Arc Mainnet deployment and a low-value real-USDC demonstration. `PipelineCoordinator` is live on Arc Mainnet, the production frontend is live with mainnet configuration, and the production build has been smoke-tested. The operator's browser-wallet E2E pipeline has **not** been executed yet, so no mainnet E2E transaction hashes exist. Do not fabricate them. A separate **Design Review 02** mockup set was generated on 2026-11-02 and is **awaiting explicit operator approval**; no application code or deployed styling was changed for it.
+**Status:** Phase 9 mainnet release remains live, and **Phase 7 UI polish is complete and deployed to Production**. On 2026-11-02 the operator explicitly approved the **“Warm Editorial Escrow, review 02”** mockups and authorized a visual-only implementation. The production frontend now uses the review-02 design system: Newsreader display, Instrument Sans UI, IBM Plex Mono ledger type, the ivory/forest/sage/clay palette, 2–3px radii, the editorial home dossier, four-step create rail and escrow statement, vertical stage relay with separated action panel, and terminal settlement ledger. No contract, state, accounting, permission, or security behavior changed. The operator's browser-wallet E2E pipeline has still **not** been executed, so no mainnet E2E transaction hashes exist. Do not fabricate them.
 
 ## Project
 
@@ -41,17 +41,19 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 9 remains the live release; Design Review 02 is pending operator approval.** The contract and production app are live. The remaining release evidence is the operator's real browser-wallet pipeline and its Explorer transaction hashes. Separately, the operator requested a new high-fidelity mockup round on 2026-11-01; those static files are in `mockups/` and no application styling has been implemented from them.
+**Phase 7 UI Polish is complete on top of the live Phase 9 release.** The contract and Production app remain live on Arc Mainnet. The approved review-02 styling has been applied to the React shell, Home, Create, Pipelines, Pipeline Detail (active and terminal), Docs, Risk, not-found, and loading/error/empty states. The remaining release evidence is still the operator's real browser-wallet pipeline and its Explorer transaction hashes.
 
 ## URLs and deployments
 
-- **Repository release commit: `924440f450591353a593a903ef47ac238f610858`** (`release: arc mainnet demo and submission evidence`).
+- **Current UI commit (deployed): `068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`** (`feat: apply stageshow refined ui to production app`).
+- Previous release commit: `924440f450591353a593a903ef47ac238f610858` (`release: arc mainnet demo and submission evidence`).
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. It contains the current `contracts/PipelineCoordinator.sol`, tests, and deployment records.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
 - **Production URL: https://relaycrew-omega.vercel.app** — Arc Mainnet, real USDC.
-- **Design Review 02 mockups:** local static review only at `http://localhost:8080/mockups/`; **not deployed**. Entry point: `mockups/index.html`.
-- Production deployment ID: `dpl_4FB9YFD8RbFYEnPahRs8bSXUuXQ1`.
-- Production deployment URL: `https://relaycrew-rom2qwkni-uhhh2.vercel.app`.
+- **Design Review 02 visual system:** implemented in `src/editorial.css` and applied across `src/`; the approved static source remains in `mockups/` for reference. The review-02 mockups themselves were never deployed as a separate site.
+- **Production deployment ID (current): `dpl_EaUHX549UAddLX8DsjZtAqHoYeg6`.**
+- **Production deployment URL: `https://relaycrew-ggsabj0db-uhhh2.vercel.app`.**
+- **Production UI source commit: `068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`.** The Vercel CLI deployment was created from the committed UI source; this handoff/docs update follows in Git.
 - Vercel Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet; Deployment Protection enabled).
 - Preview deployed commit: `4bb066302f17ca6b1c025bafd80beffa37eed57b` (existing Phase 8.5 deployment; not rebuilt in this phase).
 - **Mainnet contract: `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`** (Arc Mainnet, chain ID `5042`).
@@ -89,40 +91,43 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Preview env vars remain Arc Testnet.
 - Added `scripts/deploy-mainnet.mjs` (preflight by default; `--confirm` to broadcast) and `deployments/arc-mainnet.json` evidence.
 
-## Design Review 02 — pending approval (2026-11-02)
+## Design Review 02 — approved and implemented (2026-11-02)
 
 - **Operator request:** install the Stageshow skill by Benji Taylor, generate a new high-fidelity static HTML/CSS mockup set for Home, Create Pipeline, Active Pipeline, and Terminal Settlement, overwrite the previous `mockups/` set, commit as `docs: generate high-fidelity stageshow mockups`, push `main`, and stop for review.
 - **Skill installation:** `.agents/skills/stageshow` and `skills-lock.json` were installed locally by `npx skills add benjitaylor/skills --skill stageshow`. They are intentionally not part of the mockup commit.
 - **Direction:** “Warm Editorial Escrow, review 02” — warmer ivory paper, deeper forest, clay reserved for refusal/refund, 2–3px radii, Newsreader display + Instrument Sans UI + IBM Plex Mono ledger type. Paper artifacts replace generic dashboard cards.
 - **Files:** `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, and `previews/*.webp`. The previous `mobile.html` was removed; every new page is responsive at 1440/1024/768/390.
-- **Scope:** static mockups only. No file in `src/`, no contract file, no deployment configuration, and no production deployment was changed.
+- **Original scope:** static mockups only. The operator subsequently approved the direction and explicitly authorized Phase 7 UI polish; that implementation is now complete.
 - **Accuracy:** illustrative data only; 4 stages summing to `64.00 USDC`; 2–10 stage limits, 1.00 USDC minimum, 100.00 USDC maximum, 24-hour evaluation window, 6-decimal base units, and zero platform fee are represented. No transaction hash or transaction URL is fabricated.
-- **Approval status:** **AWAITING OPERATOR APPROVAL.** The prior “Warm Editorial Escrow” implementation remains the approved live visual system. Review 02 is a proposal, not an approved direction.
+- **Approval status:** **APPROVED — 2026-11-02.** The operator reviewed the set and explicitly approved the “Warm Editorial Escrow, review 02” direction (Stageshow refined) as the premium visual system and authorized Phase 7 UI polish only. Recorded in `docs/DECISIONS.md` (D-27) and `docs/DESIGN_DECISIONS.md`.
+- **Implementation status:** **COMPLETE and deployed.** `src/editorial.css` carries the review-02 component/layout system. Home, Create, Pipelines, Active Detail, Terminal Detail, Docs, Risk, not-found, and loading/error/empty states use the approved tokens and layouts. Dark Warm Editorial remains authorized and was remapped to the same hierarchy. No business logic, contract call, state transition, or security control changed.
 
 ## Tests/evidence
 
 - `npm run typecheck` — **PASS**.
 - `npm run lint` — **PASS** (oxlint, no warnings).
-- Testnet production build — **PASS**; Vite 6.4.5; 1803 modules; JS `657.48 kB` (197.62 kB gzip).
-- Mainnet production build — **PASS**; JS asset `index-eXZt2eAI.js`; the deployed asset SHA-256 matches the local build exactly (`b636b66d7459f3f0b6e7cc22d80f8edc3b3d6f393ed7ba28a42b4647323806f6`).
+- Production build — **PASS**; Vite 6.4.5; 1804 modules; CSS `index-C3NTNPU2.css` `101.47 kB` (`19.73 kB` gzip); JS `673.98 kB` (`201.66 kB` gzip); the only warning is the pre-existing chunk-size warning.
+- `src/editorial.css` is derived from the approved review-02 mockup stylesheet and contains the application integration and Dark Warm Editorial mappings.
 - Arc Studio contract tests (prior Phase 8.5 evidence, source unchanged): **31 passed, 0 failed, 0 skipped**.
 - Source/ABI/compiler parity — **MATCH** against the Arc Studio artifact.
 - Mainnet on-chain reads via official RPC — `usdc()` official, `MAX_STAGES()` `10`, `pipelineCount()` `0`, code `9,992` bytes.
-- Production route checks — `/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`, `/favicon.svg`, `/images/og-relaycrew.png` all returned HTTP 200.
-- Headless Chromium on Production — mainnet badge and real-USDC notices rendered on `/`, `/create`, `/pipelines`, `/pipelines/42`, `/docs`, `/risk`; no configuration-error banner; not-found route renders 404 content.
+- Production route checks after the UI deployment — `/`, `/create`, `/pipelines`, `/pipelines/1`, `/docs`, `/risk`, `/favicon.svg`, `/images/og-relaycrew.png` all returned HTTP 200. Production assets served: `index-B-2Ii37S.js` and `index-C3NTNPU2.css`; the CSS hash matches the local build.
+- Headless Chromium on Production — the new review-02 Home and Create screens render the mainnet strip, Arc Mainnet chip, Newsreader/Instrument Sans/IBM Plex Mono typography, ivory/forest/sage/clay tokens, and the four-step create rail. No configuration-error banner appears.
 - Explorer links checked — contract and deployment tx both return HTTP 200.
 - Contract E2E on Mainnet — **not executed**; pending operator.
 - Design Review 02 static pages — `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, and `index.html` returned HTTP 200 from the local static server; no console errors.
-- Design Review 02 responsive check — no horizontal overflow at 320, 360, 390, 430, 600, 768, 900, 1024, 1280, 1440, or 1920 widths; fonts loaded as Instrument Sans / Newsreader / IBM Plex Mono.
-- Design Review 02 content check — exact illustrative totals reconcile (`12 + 18 + 14 + 20 = 64.00 USDC`); active payout/refund figures reconcile (`52.00 - 18.00 = 34.00` remaining); no real transaction hash is presented as evidence.
+- Review-02 application responsive check — no horizontal overflow at 320, 360, 390, 768, 1024, or 1440 widths; the compact header keeps all five routes visible.
+- Review-02 application state checks — local preview rendered loading, error, and not-found states; mocked read-only RPC data was used only to inspect active and terminal visuals, not as real transaction evidence. Mainnet payloads were not altered.
+- Design Review 02 content check — illustrative totals reconcile (`12 + 18 + 14 + 20 = 64.00 USDC`); active payout/refund figures reconcile (`52.00 - 18.00 = 34.00` remaining); no real transaction hash is presented as evidence.
+- Dark Warm Editorial check — Home and Create rendered correctly with the stored dark preference; colors, chips, buttons, and form surfaces remained legible.
 
 ## Design approval and implementation record
 
-- Final aesthetic: **APPROVED** — “Warm Editorial Escrow,” 2026-10-30; Dark Warm Editorial extension **AUTHORIZED** 2026-10-30.
+- Final aesthetic: **APPROVED** — “Warm Editorial Escrow, review 02,” 2026-11-02; the prior “Warm Editorial Escrow” direction and the Dark Warm Editorial extension remain part of the approved system.
 - Design references: **OPERATOR-SUPPLIED** — `docs/references/reference 1.webp` and `docs/references/reference 2.jpg`.
 - Previously approved mockup set: `mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `mobile.html`, `styles.css` (retained in Git history).
-- **Current mockup set on disk:** Design Review 02 (`mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, `previews/`). **PENDING OPERATOR APPROVAL**; not implemented.
-- Phase 9 did not change the visual direction. It only made network-dependent copy, labels, explorer links, and configuration accurate for Mainnet.
+- **Current mockup set on disk:** Design Review 02 (`mockups/index.html`, `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, `styles.css`, `README.md`, `previews/`). **APPROVED and IMPLEMENTED.**
+- Phase 7 UI polish implemented the approved layout structures and exact tokens in `src/editorial.css`, `src/index.css`, and the React pages. Phase 9 did not change the visual direction; it only made network-dependent copy, labels, explorer links, and configuration accurate for Mainnet.
 - Full record: `docs/DESIGN_DECISIONS.md` and `docs/DECISIONS.md`.
 
 ## Documentation/footer state
@@ -149,14 +154,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 2. If the conservative deadline (2026-11-01 20:59 WAT) was real, it has passed. The later estimate (2026-11-02 04:59 UTC) may still be valid, but the official submission form must be checked manually.
 3. The video walkthrough and builder profile URL are still missing from the submission package.
 4. The contract is unaudited; the client is the sole evaluator and there is no dispute mechanism.
-5. The frontend bundle is about `657 kB` (`197.6 kB` gzip) and Vite reports a chunk-size warning; code splitting is deferred.
-6. Vercel CLI did not attach Git metadata to the production deployment. The deployed source is identified by the local release commit plus matching asset hashes.
-7. The deployed production asset hash matches local mainnet build `b636b66d7459f3f0b6e7cc22d80f8edc3b3d6f393ed7ba28a42b4647323806f6`; the release commit is `924440f450591353a593a903ef47ac238f610858`. Vercel did not attach Git metadata, so this correspondence is established by the matching asset hash plus the committed source.
+5. The frontend bundle is about `674 kB` (`202 kB` gzip); CSS is `101 kB` (`20 kB` gzip). Vite reports the pre-existing chunk-size warning; code splitting is deferred.
+6. Vercel CLI did not attach Git metadata to the production deployment. The deployed source is identified by the committed UI source (`068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`) plus matching asset hashes.
+7. The current production deployment is `dpl_EaUHX549UAddLX8DsjZtAqHoYeg6`; its CSS asset `index-C3NTNPU2.css` matches the local build. Because Vercel built with Production env, the JS asset differs from the local testnet build.
 8. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. Deliberate UI limitation.
 9. The optional attachment URL must fit the combined 240-byte brief limit.
 10. Vercel Deployment Protection remains enabled for the Preview; Production returned HTTP 200 publicly in this check.
-11. **Design Review 02 is not approved.** The mockups are static, use illustrative data, and have not been implemented. Do not style the application from them until the operator explicitly approves or requests revisions.
+11. The review-02 implementation is visual-only and uses the approved static source as its CSS basis. No design approval remains pending. The separate Mainnet E2E evidence task is still outstanding.
 
 ## Single next task
 
-**Operator reviews Design Review 02** at `http://localhost:8080/mockups/` (or directly at the four screen routes) and gives explicit approval or revision notes. Do not implement the new visual direction, change application code, or proceed to Phase 7 restyling until that approval is recorded. The separate pending release task remains the authorized low-value Mainnet E2E on `https://relaycrew-omega.vercel.app`; that is not part of this mockup review.
+**Operator reviews the new Production UI** at `https://relaycrew-omega.vercel.app` and confirms it matches the approved “Warm Editorial Escrow, review 02” mockups. The separate authorized low-value Mainnet E2E remains pending and is not part of this visual review.
