@@ -8,6 +8,7 @@ import { ThemeProvider } from './context/ThemeContext'
 import { TxStatusProvider } from './context/TxStatusContext'
 import { wagmiConfig } from './lib/wagmi'
 import './index.css'
+import './editorial.css'
 
 const queryClient = new QueryClient()
 

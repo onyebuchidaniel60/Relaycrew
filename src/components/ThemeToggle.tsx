@@ -28,7 +28,7 @@ export function ThemeToggle() {
       aria-label={`Switch to ${nextLabel} mode`}
       aria-pressed={theme === 'dark'}
       title={`Switch to ${nextLabel} mode`}
-      className="rc-button rc-button-sm dark:border-line-strong dark:bg-paper-soft"
+      className="btn btn-outline btn-sm"
     >
       {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
       <span className="hidden sm:inline">{theme === 'dark' ? 'Light' : 'Dark'}</span>

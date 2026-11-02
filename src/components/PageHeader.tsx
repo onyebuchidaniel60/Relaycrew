@@ -10,16 +10,16 @@ type PageHeaderProps = {
 
 export function PageHeader({ eyebrow, title, description, action, breadcrumb }: PageHeaderProps) {
   return (
-    <header className="rc-page-head">
-      <div className="max-w-[760px]">
-        {breadcrumb ? <p className="rc-breadcrumb">{breadcrumb}</p> : null}
-        <p className="rc-eyebrow">{eyebrow}</p>
-        <h1 className="rc-page-title">{title}</h1>
-        <p className="mt-4 max-w-[610px] text-[13px] leading-6 text-muted sm:text-sm sm:leading-7">
-          {description}
+    <header className="app-head">
+      <div>
+        {breadcrumb ? <p className="breadcrumb">{breadcrumb}</p> : null}
+        <p className="eyebrow">{eyebrow}</p>
+        <h1>{title}</h1>
+        <p className="app-sub">
+          <span>{description}</span>
         </p>
       </div>
-      {action ? <div className="shrink-0">{action}</div> : null}
+      {action ? <div className="app-head-actions">{action}</div> : null}
     </header>
   )
 }

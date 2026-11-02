@@ -63,8 +63,9 @@ export function DocsPage() {
     : undefined
 
   return (
-    <div>
-      <PageHeader
+    <div className="app-main">
+      <div className="wrap">
+        <PageHeader
         eyebrow="User guide"
         title="How RelayCrew works"
         description="Escrow for Agent Workflows. A wallet-driven escrow for a fixed relay of specialist agents. The client funds the full pipeline, evaluates each stage, and the contract handles the ordered payout and handoff."
@@ -84,7 +85,7 @@ export function DocsPage() {
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="rounded px-2 py-1.5 text-[10px] font-semibold text-muted transition-colors hover:bg-paper hover:text-forest"
+                className="rounded-[2px] px-2 py-1.5 text-[10px] font-semibold text-muted transition-colors hover:bg-paper hover:text-forest"
               >
                 {section.label}
               </a>
@@ -119,14 +120,14 @@ export function DocsPage() {
               not find providers, run AI agents, or judge work automatically.
             </p>
             <div className="grid gap-2 sm:grid-cols-3">
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Client</span>
                 <strong className="mt-1 block text-[11px] text-ink">Funds and evaluates</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
                   Creates the pipeline, approves or rejects each stage, and is the only evaluator.
                 </p>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Provider</span>
                 <strong className="mt-1 block text-[11px] text-ink">Delivers one stage</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
@@ -134,7 +135,7 @@ export function DocsPage() {
                   change terms.
                 </p>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Observer</span>
                 <strong className="mt-1 block text-[11px] text-ink">Inspects and expires</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
@@ -152,22 +153,22 @@ export function DocsPage() {
 
           <DocsSection id="limits" number="02 · Limits and amounts" title="Exact budgets, exact bounds.">
             <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Stages</span>
                 <strong className="mt-1 block font-display text-xl font-medium text-ink">2–10</strong>
                 <span className="text-[9px] text-muted">fixed order</span>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Stage minimum</span>
                 <strong className="mt-1 block font-mono text-lg font-medium text-ink">1 USDC</strong>
                 <span className="text-[9px] text-muted">per stage</span>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Pipeline maximum</span>
                 <strong className="mt-1 block font-mono text-lg font-medium text-ink">100 USDC</strong>
                 <span className="text-[9px] text-muted">total budget</span>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Review window</span>
                 <strong className="mt-1 block font-mono text-lg font-medium text-ink">24h</strong>
                 <span className="text-[9px] text-muted">after submission</span>
@@ -243,7 +244,7 @@ export function DocsPage() {
             title="The client decides. The contract settles."
           >
             <div className="grid gap-2 md:grid-cols-3">
-              <div className="rounded-lg border border-forest-line bg-forest-soft p-3">
+              <div className="rounded-[3px] border border-forest-line bg-forest-soft p-3">
                 <span className="rc-eyebrow">Approve</span>
                 <strong className="mt-1 block text-[11px] text-forest">Pay and activate</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
@@ -251,7 +252,7 @@ export function DocsPage() {
                   transaction. The final approval completes the pipeline.
                 </p>
               </div>
-              <div className="rounded-lg border border-rust-line bg-rust-soft p-3">
+              <div className="rounded-[3px] border border-rust-line bg-rust-soft p-3">
                 <span className="rc-eyebrow">Reject</span>
                 <strong className="mt-1 block text-[11px] text-rust">End and refund</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
@@ -259,7 +260,7 @@ export function DocsPage() {
                   is not paid for that stage. Prior payouts are final.
                 </p>
               </div>
-              <div className="rounded-lg border border-warm-line bg-warm-soft p-3">
+              <div className="rounded-[3px] border border-warm-line bg-warm-soft p-3">
                 <span className="rc-eyebrow">Expire</span>
                 <strong className="mt-1 block text-[11px] text-warm-ink">Permissionless refund</strong>
                 <p className="mt-1 text-[10px] leading-5 text-muted">
@@ -323,7 +324,7 @@ export function DocsPage() {
 
           <DocsSection id="networks" number="08 · Testnet and Mainnet" title="Know which chain you are on.">
             <div className="grid gap-2 sm:grid-cols-2">
-              <div className="rounded-lg border border-forest-line bg-forest-soft p-3">
+              <div className="rounded-[3px] border border-forest-line bg-forest-soft p-3">
                 <span className="rc-eyebrow">This build</span>
                 <strong className="mt-1 block text-[11px] text-forest">
                   {appConfig.networkLabel}
@@ -345,7 +346,7 @@ export function DocsPage() {
                   </div>
                 </dl>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <span className="rc-eyebrow">Other network</span>
                 <strong className="mt-1 block text-[11px] text-ink">
                   {appConfig.isMainnet ? 'Arc Testnet' : 'Arc Mainnet'}
@@ -396,7 +397,7 @@ export function DocsPage() {
                 ['Invalid deliverable', 'Use an https:// or ipfs:// URI between 9 and 256 bytes. Only submit links safe to make public.'],
                 ['Theme preference', 'Use the Light/Dark control in the header. The preference is stored in this browser only; it does not affect on-chain data.'],
               ].map(([title, body]) => (
-                <div key={title} className="rounded-lg border border-line bg-paper-soft p-3">
+                <div key={title} className="rounded-[3px] border border-line bg-paper-soft p-3">
                   <dt className="text-[10px] font-bold text-ink">{title}</dt>
                   <dd className="mt-1 text-[10px] leading-5 text-muted">{body}</dd>
                 </div>
@@ -406,7 +407,7 @@ export function DocsPage() {
 
           <DocsSection id="contract" number="10 · Contract and source" title="Inspect the deployed rail.">
             <dl className="grid gap-2 sm:grid-cols-2">
-              <div className="rounded-lg border border-line bg-paper-soft p-3 sm:col-span-2">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3 sm:col-span-2">
                 <dt className="rc-eyebrow">Coordinator contract · {appConfig.networkLabel}</dt>
                 <dd className="mt-1 break-all font-mono text-[10px] text-ink">
                   {appConfig.pipelineAddress ?? 'Not configured in this build.'}
@@ -422,13 +423,13 @@ export function DocsPage() {
                   </a>
                 ) : null}
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <dt className="rc-eyebrow">USDC ERC-20 interface</dt>
                 <dd className="mt-1 break-all font-mono text-[10px] text-ink">
                   {appConfig.usdcAddress ?? 'Not configured in this build.'}
                 </dd>
               </div>
-              <div className="rounded-lg border border-line bg-paper-soft p-3">
+              <div className="rounded-[3px] border border-line bg-paper-soft p-3">
                 <dt className="rc-eyebrow">Public source</dt>
                 <dd className="mt-1 text-[10px] text-ink">
                   {appConfig.githubUrl ? (
@@ -456,6 +457,7 @@ export function DocsPage() {
             </p>
           </DocsSection>
         </div>
+      </div>
       </div>
     </div>
   )

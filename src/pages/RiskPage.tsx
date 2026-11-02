@@ -43,8 +43,9 @@ export function RiskPage() {
     : undefined
 
   return (
-    <div>
-      <PageHeader
+    <div className="app-main">
+      <div className="wrap">
+        <PageHeader
         eyebrow="Important"
         title="Risk notice"
         description="Escrow for Agent Workflows. Read these limitations before creating or funding a pipeline. The client is the sole evaluator, transfers are irreversible, and on-chain data is public."
@@ -162,6 +163,7 @@ export function RiskPage() {
             </Link>
           </div>
         </aside>
+      </div>
       </div>
     </div>
   )

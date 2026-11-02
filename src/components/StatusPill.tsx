@@ -8,10 +8,19 @@ type StatusPillProps = {
   className?: string
 }
 
+const TONE_CLASSES: Record<StatusTone, string> = {
+  neutral: 'chip',
+  active: 'chip chip-active',
+  submitted: 'chip chip-submitted',
+  complete: 'chip chip-complete',
+  danger: 'chip chip-refund',
+  warm: 'chip chip-submitted',
+}
+
 export function StatusPill({ tone = 'neutral', children, dot = true, className = '' }: StatusPillProps) {
   return (
-    <span className={`rc-pill rc-pill-${tone} ${className}`.trim()}>
-      {dot ? <span className="rc-dot" aria-hidden="true" /> : null}
+    <span className={`${TONE_CLASSES[tone]} ${className}`.trim()}>
+      {dot ? <span className="dot" aria-hidden="true" /> : null}
       {children}
     </span>
   )

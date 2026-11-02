@@ -6,28 +6,39 @@
   color-scheme: light;
 
   /* Raw channels used by Tailwind's opacity modifiers. */
-  --rc-canvas: 245 240 230;
-  --rc-canvas-deep: 238 231 218;
-  --rc-paper: 255 253 248;
-  --rc-paper-soft: 250 246 237;
-  --rc-ink: 27 29 24;
-  --rc-ink-soft: 63 70 62;
-  --rc-muted: 101 108 98;
-  --rc-muted-light: 105 112 101;
-  --rc-line: 222 213 197;
-  --rc-line-strong: 200 188 168;
-  --rc-forest: 23 61 44;
-  --rc-forest-deep: 16 44 32;
-  --rc-forest-soft: 230 237 228;
-  --rc-forest-line: 184 201 184;
-  --rc-sage: 119 137 119;
-  --rc-warm: 154 100 47;
-  --rc-warm-soft: 243 230 209;
-  --rc-warm-ink: 109 74 45;
-  --rc-warm-line: 212 184 144;
-  --rc-rust: 145 66 47;
-  --rc-rust-soft: 242 223 215;
-  --rc-rust-line: 211 179 167;
+  --rc-canvas: 244 238 226;
+  --rc-canvas-deep: 235 226 210;
+  --rc-paper: 251 247 238;
+  --rc-paper-soft: 247 241 229;
+  --rc-paper-warm: 243 234 217;
+  --rc-ink: 25 27 21;
+  --rc-ink-soft: 61 66 55;
+  --rc-muted: 98 104 91;
+  --rc-muted-light: 111 117 104;
+  --rc-line: 219 207 188;
+  --rc-line-strong: 199 184 161;
+  --rc-forest: 23 63 45;
+  --rc-forest-deep: 14 44 31;
+  --rc-forest-mid: 44 90 66;
+  --rc-forest-soft: 229 235 219;
+  --rc-forest-line: 200 212 189;
+  --rc-sage: 169 182 155;
+  --rc-sage-soft: 229 235 219;
+  --rc-sage-line: 200 212 189;
+  --rc-warm: 179 124 57;
+  --rc-warm-soft: 242 230 207;
+  --rc-warm-ink: 121 83 34;
+  --rc-warm-line: 221 200 161;
+  --rc-rust: 159 83 52;
+  --rc-rust-soft: 241 222 210;
+  --rc-rust-line: 216 181 164;
+  --rc-amber: 179 124 57;
+  --rc-amber-soft: 242 230 207;
+  --rc-amber-ink: 121 83 34;
+  --rc-amber-line: 221 200 161;
+  --rc-clay: 159 83 52;
+  --rc-clay-soft: 241 222 210;
+  --rc-clay-line: 216 181 164;
 
   /* Semantic aliases consumed by the component layer. */
   --canvas: rgb(var(--rc-canvas));
@@ -53,20 +64,20 @@
   --rust-soft: rgb(var(--rc-rust-soft));
   --rust-line: rgb(var(--rc-rust-line));
 
-  --on-accent: #fff9f2;
-  --danger-ink: #6f3021;
-  --success-ink: #2e5b3f;
-  --success-soft: #e4eee1;
-  --success-line: #b6c9b3;
-  --green-soft-hover: #dde8da;
-  --rust-strong: #763323;
-  --warm-strong: #7f5125;
-  --input-bg: #fffefa;
-  --preview-bg: #eee2cc;
-  --preview-line: #d7c9b6;
-  --preview-ink: #6c4d2d;
-  --button-hover: rgba(23, 61, 44, 0.045);
-  --focus-ring: rgba(23, 61, 44, 0.09);
+  --on-accent: #f7f1e5;
+  --danger-ink: #6d3520;
+  --success-ink: #24523a;
+  --success-soft: #e5ebdb;
+  --success-line: #c8d4bd;
+  --green-soft-hover: #dce5d2;
+  --rust-strong: #7c3d24;
+  --warm-strong: #8c5c24;
+  --input-bg: #fbf7ee;
+  --preview-bg: #e9dfcd;
+  --preview-line: #d4c5af;
+  --preview-ink: #6d5339;
+  --button-hover: rgba(23, 63, 45, 0.045);
+  --focus-ring: rgba(23, 63, 45, 0.08);
   --grid-line: rgba(27, 29, 24, 0.028);
   --card-shadow: 0 18px 40px rgba(49, 45, 34, 0.055);
   --card-shadow-hover: 0 24px 56px rgba(49, 45, 34, 0.1);
@@ -79,6 +90,7 @@
   --rc-canvas-deep: 15 16 12;
   --rc-paper: 29 31 25;
   --rc-paper-soft: 24 26 21;
+  --rc-paper-warm: 37 33 24;
   --rc-ink: 242 235 221;
   --rc-ink-soft: 216 209 195;
   --rc-muted: 169 166 149;
@@ -87,9 +99,12 @@
   --rc-line-strong: 76 77 64;
   --rc-forest: 203 216 192;
   --rc-forest-deep: 183 199 169;
+  --rc-forest-mid: 157 175 145;
   --rc-forest-soft: 38 51 41;
   --rc-forest-line: 75 96 79;
   --rc-sage: 157 175 145;
+  --rc-sage-soft: 38 51 41;
+  --rc-sage-line: 75 96 79;
   --rc-warm: 201 152 95;
   --rc-warm-soft: 52 40 27;
   --rc-warm-ink: 232 192 142;
@@ -97,6 +112,13 @@
   --rc-rust: 217 138 112;
   --rc-rust-soft: 56 35 29;
   --rc-rust-line: 106 64 52;
+  --rc-amber: 201 152 95;
+  --rc-amber-soft: 52 40 27;
+  --rc-amber-ink: 232 192 142;
+  --rc-amber-line: 92 72 48;
+  --rc-clay: 217 138 112;
+  --rc-clay-soft: 56 35 29;
+  --rc-clay-line: 106 64 52;
 
   --on-accent: #16170f;
   --danger-ink: #f0b5a2;
@@ -131,7 +153,7 @@ body {
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
   background-size: 42px 42px, 42px 42px;
   color: var(--ink);
-  font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-family: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
   font-size: 14px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
@@ -177,7 +199,7 @@ body {
 
   .rc-card {
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--paper);
     box-shadow: var(--card-shadow);
   }
@@ -205,10 +227,10 @@ body {
     justify-content: center;
     gap: 7px;
     border: 1px solid var(--line-strong);
-    border-radius: 6px;
+    border-radius: 2px;
     background: transparent;
     color: var(--ink);
-    font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
     font-size: 11px;
     font-weight: 700;
     line-height: 1.2;
@@ -281,7 +303,7 @@ body {
 
   .rc-button-sm {
     min-height: 31px;
-    border-radius: 5px;
+    border-radius: 2px;
     font-size: 10px;
     padding: 5px 10px;
   }
@@ -389,7 +411,7 @@ body {
   .rc-eyebrow {
     margin: 0;
     color: var(--muted);
-    font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
     font-size: 9px;
     font-weight: 700;
     letter-spacing: 0.17em;
@@ -398,7 +420,7 @@ body {
   }
 
   .rc-display {
-    font-family: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    font-family: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     font-weight: 400;
     letter-spacing: -0.06em;
     line-height: 0.96;
@@ -407,7 +429,7 @@ body {
   .rc-page-title {
     margin: 12px 0 0;
     color: var(--ink);
-    font-family: 'Fraunces', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    font-family: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
     font-size: clamp(2.35rem, 4.6vw, 3.65rem);
     font-weight: 400;
     letter-spacing: -0.06em;
@@ -445,10 +467,10 @@ body {
   .rc-textarea {
     width: 100%;
     border: 1px solid var(--line);
-    border-radius: 5px;
+    border-radius: 2px;
     background: var(--input-bg);
     color: var(--ink);
-    font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
     font-size: 12px;
     line-height: 1.5;
     padding: 10px 11px;
@@ -503,7 +525,7 @@ body {
 
   .rc-alert {
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 3px;
     font-size: 11px;
     line-height: 1.65;
     padding: 12px 14px;
@@ -529,7 +551,7 @@ body {
 
   .rc-note {
     border: 1px solid var(--line);
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--paper-soft);
     color: var(--muted);
     font-size: 10px;
@@ -539,7 +561,7 @@ body {
 
   .rc-warning {
     border: 1px solid var(--amber-line);
-    border-radius: 7px;
+    border-radius: 2px;
     background: var(--amber-soft);
     color: var(--amber-ink);
     font-size: 10px;
@@ -573,7 +595,7 @@ body {
 
   .rc-skeleton {
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 3px;
     background:
       linear-gradient(
         90deg,
@@ -589,7 +611,7 @@ body {
     display: grid;
     grid-template-columns: 25px minmax(0, 1fr);
     gap: 9px;
-    border-radius: 6px;
+    border-radius: 2px;
     color: var(--muted);
     padding: 9px 7px;
   }
@@ -645,7 +667,7 @@ body {
     gap: 16px;
     margin-top: 18px;
     border: 1px solid var(--green-line);
-    border-radius: 8px;
+    border-radius: 3px;
     background: var(--green-soft);
     padding: 16px 17px;
   }
@@ -682,7 +704,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     overflow: hidden;
     border: 1px solid var(--line);
-    border-radius: 10px;
+    border-radius: 3px;
     background: var(--paper);
     box-shadow: var(--card-shadow);
   }
@@ -760,12 +782,12 @@ body {
     height: 39px;
     place-items: center;
     border: 1px solid var(--line);
-    border-radius: 7px;
+    border-radius: 2px;
     background:
       radial-gradient(circle at 34% 24%, rgba(255, 250, 237, 0.8), transparent 25%),
       linear-gradient(145deg, #c3a17b, #72836f);
     color: #fffaf0;
-    font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+    font-family: 'Newsreader', 'Iowan Old Style', Georgia, serif;
     font-size: 19px;
   }
 
@@ -820,7 +842,7 @@ body {
     display: block;
     margin-top: 3px;
     color: var(--muted);
-    font-family: 'Manrope', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    font-family: 'Instrument Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
     font-size: 8px;
     font-weight: 700;
     letter-spacing: 0.09em;
@@ -850,7 +872,7 @@ body {
 
   .rc-action-head h2 {
     margin: 5px 0 0;
-    font-family: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+    font-family: 'Newsreader', 'Iowan Old Style', Georgia, serif;
     font-size: 25px;
     font-weight: 500;
     letter-spacing: -0.05em;
@@ -864,7 +886,7 @@ body {
     gap: 12px;
     margin-top: 14px;
     border: 1px solid var(--line);
-    border-radius: 6px;
+    border-radius: 2px;
     background: var(--paper-soft);
     padding: 10px 11px;
   }
@@ -953,7 +975,7 @@ body {
     overflow: auto;
     margin: auto;
     border: 1px solid var(--line-strong);
-    border-radius: 12px;
+    border-radius: 3px;
     background: var(--paper);
     color: var(--ink);
     padding: 0;

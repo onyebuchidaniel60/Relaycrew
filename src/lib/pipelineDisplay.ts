@@ -19,7 +19,10 @@ export function formatTimestamp(timestamp: bigint | number | undefined): string 
   if (timestamp === undefined) return '—'
   const value = typeof timestamp === 'bigint' ? Number(timestamp) : timestamp
   if (!value) return '—'
-  return new Date(value * 1000).toLocaleString()
+  const date = new Date(value * 1000)
+  const day = date.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+  const time = date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })
+  return `${day} · ${time}`
 }
 
 export function formatDuration(seconds: number): string {

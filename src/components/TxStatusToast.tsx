@@ -23,7 +23,7 @@ export function TxStatusToast() {
     <div
       role="status"
       aria-live="polite"
-      className={`fixed bottom-4 right-4 z-50 w-[min(24rem,calc(100vw-2rem))] rounded-xl border p-4 shadow-paper-hover ${PHASE_STYLES[status.phase]}`}
+      className={`fixed bottom-4 right-4 z-50 w-[min(24rem,calc(100vw-2rem))] rounded-[3px] border p-4 shadow-paper-hover ${PHASE_STYLES[status.phase]}`}
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
@@ -44,7 +44,7 @@ export function TxStatusToast() {
           type="button"
           onClick={clear}
           aria-label="Dismiss transaction status"
-          className="shrink-0 rounded border border-current/30 px-2 py-1 text-[9px] font-semibold transition-colors hover:bg-paper/60"
+          className="shrink-0 rounded-[2px] border border-current/30 px-2 py-1 text-[9px] font-semibold transition-colors hover:bg-paper/60"
         >
           Dismiss
         </button>

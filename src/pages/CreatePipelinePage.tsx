@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAccount, useBalance, usePublicClient } from 'wagmi'
 import { isAddress, parseEventLogs, type Address, type Hash } from 'viem'
-import { PageHeader } from '../components/PageHeader'
 import { StatusPill } from '../components/StatusPill'
 import { useTxStatus } from '../context/TxStatusContext'
 import { useNetworkGuard } from '../hooks/useNetworkGuard'
@@ -73,6 +72,48 @@ function buildStoredBrief(brief: string, attachmentUrl: string) {
   return [cleanBrief, cleanAttachment ? `Attachment: ${cleanAttachment}` : '']
     .filter(Boolean)
     .join('\n\n')
+}
+
+function formatDraftBudget(value: string) {
+  try {
+    return formatUsdcDisplay(parseUsdc(value))
+  } catch {
+    return '—'
+  }
+}
+
+function CheckIcon({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+      className={className}
+    >
+      <path d="m5 12 4 4L19 6" />
+    </svg>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <rect x="5" y="10" width="14" height="10" rx="2" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+    </svg>
+  )
 }
 
 export function CreatePipelinePage() {
@@ -218,6 +259,48 @@ export function CreatePipelinePage() {
       ? 'Draft needs attention'
       : `${stages.length} stages · valid`
 
+  const briefReady = stages.every(
+    (stage) => stage.title.trim().length > 0 && stage.brief.trim().length > 0,
+  )
+  const normalizedProviders = stages.map((stage) => stage.provider.trim().toLowerCase())
+  const crewReady = stages.every((stage, index) => {
+    const provider = stage.provider.trim()
+    if (!isAddress(provider)) return false
+    if (address && provider.toLowerCase() === address.toLowerCase()) return false
+    return normalizedProviders.filter((value) => value === normalizedProviders[index]).length === 1
+  })
+  const termsReady = validation.problems.length === 0
+  const steps = [
+    {
+      number: briefReady ? '✓' : '01',
+      title: 'Brief',
+      body: briefReady ? `${stages.length} stage briefs` : 'Titles & public briefs',
+      state: briefReady ? 'done' : 'active',
+    },
+    {
+      number: briefReady && crewReady ? '✓' : '02',
+      title: 'Crew',
+      body: briefReady && crewReady ? `${stages.length} specialists assigned` : 'Provider addresses',
+      state: briefReady && crewReady ? 'done' : briefReady ? 'active' : '',
+    },
+    {
+      number: termsReady ? '✓' : '03',
+      title: 'Terms',
+      body: termsReady ? 'Budgets & deadlines valid' : 'Budgets & deadlines',
+      state: termsReady ? 'done' : briefReady && crewReady ? 'active' : '',
+    },
+    {
+      number: allowanceStepDone ? '✓' : '04',
+      title: 'Review',
+      body: allowanceStepDone ? 'Allowance covers total' : 'Allowance & funding',
+      state: allowanceStepDone ? 'done' : termsReady ? 'active' : '',
+    },
+  ] as const
+  const budgetPercent =
+    validation.totalBudget >= MAX_PIPELINE_BUDGET
+      ? 100
+      : Number((validation.totalBudget * 100n) / MAX_PIPELINE_BUDGET)
+
   const updateStage = (id: string, patch: Partial<StageDraft>) => {
     setStages((current) => current.map((stage) => (stage.id === id ? { ...stage, ...patch } : stage)))
   }
@@ -357,110 +440,133 @@ export function CreatePipelinePage() {
   }
 
   return (
-    <div>
-      <PageHeader
-        eyebrow="Client action"
-        title="Create a pipeline"
-        description="Define a fixed sequence of 2–10 specialist agents and fund the full budget in one parent escrow. Every amount is exact; every stage is public."
-        breadcrumb={
-          <>
-            <Link to="/">RelayCrew</Link> / Create pipeline
-          </>
-        }
-        action={<StatusPill tone={draftTone}>{draftLabel}</StatusPill>}
-      />
+    <div className="app-main">
+      <div className="wrap">
+        <p className="breadcrumb">
+          <Link to="/">RelayCrew</Link>
+          <span className="slash">/</span>
+          <Link to="/pipelines">Pipelines</Link>
+          <span className="slash">/</span>New pipeline
+        </p>
 
-      <div className="grid items-start gap-3 lg:grid-cols-[230px_minmax(0,1fr)]">
-        <aside className="rc-card rc-card-soft p-5 lg:sticky lg:top-4">
-          <p className="rc-eyebrow">Relay setup</p>
-          <h2 className="mt-2 font-display text-[23px] font-medium leading-[1.05] tracking-[-0.045em] text-ink">
-            The right sequence, funded once.
-          </h2>
+        <header className="app-head">
+          <div>
+            <div className="status-row">
+              <StatusPill tone={draftTone}>{draftLabel}</StatusPill>
+              <span className="chip">
+                <span className="dot" aria-hidden="true" />
+                Client · {address ? shortAddress(address) : 'not connected'}
+              </span>
+            </div>
+            <h1>Create a pipeline.</h1>
+            <p className="app-sub">
+              <span>Define the crew, set the terms, fund once</span>
+              <span>2–10 stages</span>
+              <span>100.00 USDC maximum</span>
+            </p>
+          </div>
+          <div className="app-head-actions">
+            <Link className="btn btn-outline btn-sm" to="/pipelines">
+              Back to pipelines
+            </Link>
+          </div>
+        </header>
 
-          <div className="mt-4 grid gap-1">
-            <div className={`rc-step ${address ? 'rc-step-done' : 'rc-step-current'}`}>
-              <span className="rc-step-marker">{address ? '✓' : '1'}</span>
+        <ol className="stepper" aria-label="Create pipeline progress">
+          {steps.map((step, index) => (
+            <li key={step.title} className={`step ${step.state}`.trim()}>
+              <div className="step-top">
+                <span className="step-no">{step.number}</span>
+                <span>Step {String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <h2>{step.title}</h2>
+              <p>{step.body}</p>
+            </li>
+          ))}
+        </ol>
+
+        <div className="create-grid">
+          <form
+            id="create-pipeline-form"
+            onSubmit={(event) => {
+              event.preventDefault()
+              void submit()
+            }}
+            className="panel form-panel"
+          >
+            <div className="form-head">
               <div>
-                <strong>Client wallet</strong>
-                <span>{address ? shortAddress(address) : 'Connect to identify the client'}</span>
+                <p className="eyebrow">Pipeline terms</p>
+                <h2>Set the terms.</h2>
+                <p>
+                  Each stage has an exact budget and a work deadline. The total is reserved now.
+                  Amounts, order, providers and briefs become immutable when the pipeline is funded.
+                </p>
+              </div>
+              <div className="form-head-count">
+                {stages.length} stages
+                <br />
+                {totalDisplay} USDC
               </div>
             </div>
-            <div
-              className={`rc-step ${
-                stageStepDone ? 'rc-step-done' : address ? 'rc-step-current' : ''
-              }`.trim()}
-            >
-              <span className="rc-step-marker">{stageStepDone ? '✓' : '2'}</span>
+
+            <div className="pipeline-context">
               <div>
-                <strong>Stages & budgets</strong>
-                <span>{stages.length} stage drafts · 2–10 allowed</span>
+                <p className="context-title">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M4 7h16M4 12h16M4 17h10" />
+                  </svg>
+                  Public relay · stored on-chain
+                </p>
+                <div className="context-meta">
+                  <span>{stages.length} specialists</span>
+                  <span>Public briefs</span>
+                  <span>{appConfig.networkLabel}</span>
+                </div>
               </div>
+              <span className="font-mono text-[8px] uppercase tracking-[0.06em] text-muted">
+                Client is sole evaluator
+              </span>
             </div>
-            <div
-              className={`rc-step ${
-                allowanceStepDone ? 'rc-step-done' : stageStepDone ? 'rc-step-current' : ''
-              }`.trim()}
-            >
-              <span className="rc-step-marker">{allowanceStepDone ? '✓' : '3'}</span>
-              <div>
-                <strong>Exact allowance</strong>
-                <span>
-                  {allowance.data === undefined
-                    ? 'Loading allowance…'
-                    : allowanceStepDone
-                      ? 'Covers the exact total'
-                      : 'Set automatically on submit'}
+
+            <div className="mt-4 grid grid-cols-1 border border-line bg-paper-soft sm:grid-cols-3">
+              <div className="border-b border-line px-4 py-3 sm:border-b-0 sm:border-r">
+                <span className="block font-mono text-[8px] uppercase tracking-[0.08em] text-muted">
+                  Client wallet
                 </span>
-              </div>
-            </div>
-            <div
-              className={`rc-step ${canSubmit && allowanceStepDone ? 'rc-step-current' : ''}`.trim()}
-            >
-              <span className="rc-step-marker">4</span>
-              <div>
-                <strong>Fund escrow</strong>
-                <span>{canSubmit && allowanceStepDone ? 'Ready to fund' : 'One wallet flow'}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="rc-warning mt-4">
-            Provider addresses, titles, briefs, budgets, and deliverable URIs are public and
-            permanent. Do not enter secrets or confidential instructions.
-          </div>
-        </aside>
-
-        <form
-          onSubmit={(event) => {
-            event.preventDefault()
-            void submit()
-          }}
-          className="min-w-0 space-y-4"
-        >
-          <div className="rc-card p-4">
-            <div className="grid gap-3 text-[10px] sm:grid-cols-3">
-              <div>
-                <span className="rc-eyebrow">Client wallet</span>
-                <span
-                  className="mt-1 block truncate font-mono text-[10px] text-ink"
+                <strong
+                  className="mt-1 block truncate font-mono text-[10px] font-medium text-ink"
                   title={address ?? undefined}
                 >
                   {address ? shortAddress(address) : 'Not connected'}
-                </span>
+                </strong>
               </div>
-              <div>
-                <span className="rc-eyebrow">USDC balance</span>
-                <span className="mt-1 block font-mono text-[11px] text-ink">
+              <div className="border-b border-line px-4 py-3 sm:border-b-0 sm:border-r">
+                <span className="block font-mono text-[8px] uppercase tracking-[0.08em] text-muted">
+                  USDC balance
+                </span>
+                <strong className="mt-1 block font-mono text-[10px] font-medium text-ink">
                   {balance.data === undefined ? '—' : `${formatUsdcDisplay(balance.data)} USDC`}
-                </span>
+                </strong>
               </div>
-              <div>
-                <span className="rc-eyebrow">Current allowance</span>
-                <span className="mt-1 block font-mono text-[11px] text-ink">
-                  {allowance.data === undefined ? '—' : `${formatUsdcDisplay(allowance.data)} USDC`}
+              <div className="px-4 py-3">
+                <span className="block font-mono text-[8px] uppercase tracking-[0.08em] text-muted">
+                  Current allowance
                 </span>
+                <strong className="mt-1 block font-mono text-[10px] font-medium text-ink">
+                  {allowance.data === undefined ? '—' : `${formatUsdcDisplay(allowance.data)} USDC`}
+                </strong>
               </div>
             </div>
+
             {balance.isError || nativeBalance.isError ? (
               <div className="mt-3 flex flex-wrap items-center gap-3 border-t border-line pt-3 text-[10px] text-rust">
                 <span>Failed to load wallet data.</span>
@@ -470,108 +576,71 @@ export function CreatePipelinePage() {
                     void balance.refetch()
                     void nativeBalance.refetch()
                   }}
-                  className="rc-button rc-button-sm border-rust-line bg-paper text-rust hover:bg-rust-soft"
+                  className="btn btn-outline btn-sm border-rust-line bg-paper text-rust hover:bg-rust-soft"
                 >
                   Retry
                 </button>
               </div>
             ) : null}
-          </div>
 
-          <div className="rc-card p-4 sm:p-5">
-            <div className="flex flex-wrap items-start justify-between gap-4 border-b border-line pb-4">
-              <div>
-                <p className="rc-eyebrow">Tell us about the relay</p>
-                <h2 className="mt-1.5 font-display text-[28px] font-medium leading-none tracking-[-0.05em] text-ink">
-                  Build the specialist chain.
-                </h2>
-                <p className="mt-2 max-w-[540px] text-[11px] leading-5 text-muted">
-                  The client is the evaluator for every stage. Providers must be unique, nonzero,
-                  and different from the client wallet.
-                </p>
-              </div>
-              <div className="flex flex-col items-end gap-1">
-                <button
-                  type="button"
-                  onClick={addStage}
-                  disabled={stages.length >= MAX_STAGES}
-                  className="rc-button rc-button-sm"
-                >
-                  + Add stage
-                </button>
-                <span className="text-[9px] text-muted">
-                  {stages.length} of {MAX_STAGES} stages
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-4 grid gap-3">
+            <div className="term-list">
               {stages.map((stage, index) => (
-                <section
-                  key={stage.id}
-                  className="rounded-lg border border-line bg-paper p-4 dark:bg-paper-soft"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <div className="flex min-w-0 items-center gap-2.5">
-                      <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-forest-line bg-forest-soft font-display text-[13px] text-forest">
-                        {String(index + 1).padStart(2, '0')}
-                      </span>
-                      <div className="min-w-0">
-                        <h3 className="truncate font-display text-[17px] font-medium tracking-[-0.03em] text-ink">
-                          {stage.title.trim() || `Stage ${index + 1}`}
-                        </h3>
-                        <p className="rc-field-note">
-                          Stage {index + 1} · {index === 0 ? 'active first' : `starts after stage ${index}`}
+                <article key={stage.id} className={`term-card ${index === 0 ? 'is-open' : ''}`.trim()}>
+                  <div className="term-top">
+                    <div className="term-id">
+                      <span className="stage-no">{String(index + 1).padStart(2, '0')}</span>
+                      <div className="min-w-0 flex-1">
+                        <label className="field-label" htmlFor={`stage-title-${stage.id}`}>
+                          Stage title
+                        </label>
+                        <input
+                          id={`stage-title-${stage.id}`}
+                          value={stage.title}
+                          onChange={(event) => updateStage(stage.id, { title: event.target.value })}
+                          maxLength={64}
+                          placeholder="Stage title"
+                          className="input mt-1"
+                        />
+                        <p>
+                          <span className="agent-dot" />
+                          {isAddress(stage.provider.trim())
+                            ? shortAddress(stage.provider.trim())
+                            : 'Provider not set'}{' '}
+                          · {byteLength(stage.title.trim())}/64 bytes
                         </p>
                       </div>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => removeStage(stage.id)}
-                      disabled={stages.length <= 2}
-                      className="rc-button-text disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      Remove
-                    </button>
-                  </div>
 
-                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                    <label className="rc-field-label sm:col-span-2">
-                      Provider address
-                      <input
-                        value={stage.provider}
-                        onChange={(event) => updateStage(stage.id, { provider: event.target.value })}
-                        placeholder="0x…"
-                        spellCheck={false}
-                        className="rc-input mt-1.5 font-mono"
-                      />
-                    </label>
+                    <div className="term-fields">
+                      <div className="field">
+                        <label htmlFor={`stage-budget-${stage.id}`}>Budget</label>
+                        <div className="input-affix">
+                          <input
+                            id={`stage-budget-${stage.id}`}
+                            value={stage.budget}
+                            onChange={(event) =>
+                              updateStage(stage.id, { budget: event.target.value })
+                            }
+                            inputMode="decimal"
+                            placeholder="1.00"
+                            className="input"
+                          />
+                          <span className="suffix">USDC</span>
+                        </div>
+                      </div>
+                    </div>
 
-                    <label className="rc-field-label">
-                      Budget (USDC)
-                      <input
-                        value={stage.budget}
-                        onChange={(event) => updateStage(stage.id, { budget: event.target.value })}
-                        inputMode="decimal"
-                        placeholder="1.00"
-                        className="rc-input mt-1.5 font-mono"
-                      />
-                      <span className="rc-field-note mt-1">Minimum 1 USDC per stage.</span>
-                    </label>
-
-                    <fieldset className="rc-field-label min-w-0">
-                      <legend>Duration</legend>
-                      <div className="mt-1.5 grid grid-cols-2 gap-2">
-                        <label className="block min-w-0">
-                          <span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.08em] text-muted">
-                            Days
-                          </span>
+                    <div className="term-fields">
+                      <div className="field">
+                        <span className="field-label">Work duration</span>
+                        <div className="duration-grid" style={{ marginTop: 5 }}>
                           <select
                             value={stage.durationDays}
                             onChange={(event) =>
                               updateStage(stage.id, { durationDays: event.target.value })
                             }
-                            className="rc-input font-mono"
+                            aria-label={`Stage ${index + 1} duration days`}
+                            className="input"
                           >
                             {Array.from({ length: 8 }, (_, value) => (
                               <option key={value} value={value}>
@@ -579,17 +648,14 @@ export function CreatePipelinePage() {
                               </option>
                             ))}
                           </select>
-                        </label>
-                        <label className="block min-w-0">
-                          <span className="mb-1 block text-[9px] font-bold uppercase tracking-[0.08em] text-muted">
-                            Hours
-                          </span>
+                          <span className="unit">d</span>
                           <select
                             value={stage.durationHours}
                             onChange={(event) =>
                               updateStage(stage.id, { durationHours: event.target.value })
                             }
-                            className="rc-input font-mono"
+                            aria-label={`Stage ${index + 1} duration hours`}
+                            className="input"
                           >
                             {Array.from({ length: 24 }, (_, value) => (
                               <option key={value} value={value}>
@@ -597,63 +663,106 @@ export function CreatePipelinePage() {
                               </option>
                             ))}
                           </select>
-                        </label>
+                        </div>
                       </div>
-                      <span className="rc-field-note mt-1">
-                        {formatStageDuration(stage.durationDays, stage.durationHours)} · stored as{' '}
-                        {stageDurationSeconds(stage.durationDays, stage.durationHours)} seconds. 1
-                        hour minimum, 7 days maximum.
-                      </span>
-                    </fieldset>
+                    </div>
 
-                    <label className="rc-field-label sm:col-span-2">
-                      Title
-                      <input
-                        value={stage.title}
-                        onChange={(event) => updateStage(stage.id, { title: event.target.value })}
-                        maxLength={64}
-                        placeholder="Stage title"
-                        className="rc-input mt-1.5"
-                      />
-                      <span className="rc-field-note mt-1">{byteLength(stage.title.trim())}/64 bytes</span>
-                    </label>
-
-                    <label className="rc-field-label sm:col-span-2">
-                      Public brief
-                      <textarea
-                        value={stage.brief}
-                        onChange={(event) => updateStage(stage.id, { brief: event.target.value })}
-                        maxLength={240}
-                        rows={3}
-                        placeholder="What should this specialist deliver?"
-                        className="rc-textarea mt-1.5"
-                      />
-                      <span className="rc-field-note mt-1">
-                        {byteLength(buildStoredBrief(stage.brief, stage.attachmentUrl))}/240 bytes
-                        stored on-chain
+                    <div className="term-note">
+                      <span>
+                        Starts {index === 0 ? 'at funding' : `after stage ${index}`} · 24h review
+                        after submission
                       </span>
-                    </label>
-
-                    <label className="rc-field-label sm:col-span-2">
-                      Attachment URL (optional)
-                      <input
-                        value={stage.attachmentUrl}
-                        onChange={(event) =>
-                          updateStage(stage.id, { attachmentUrl: event.target.value })
-                        }
-                        inputMode="url"
-                        spellCheck={false}
-                        placeholder="https://… or ipfs://…"
-                        className="rc-input mt-1.5 font-mono"
-                      />
-                      <span className="rc-field-note mt-1">
-                        Appended to the public brief as “Attachment: …”. Only https:// or ipfs://
-                        links; the combined brief must stay within 240 bytes.
+                      <span>
+                        {formatStageDuration(stage.durationDays, stage.durationHours)} ·{' '}
+                        {stageDurationSeconds(stage.durationDays, stage.durationHours)}s ·{' '}
+                        <button
+                          type="button"
+                          onClick={() => removeStage(stage.id)}
+                          disabled={stages.length <= 2}
+                          className="link-button"
+                        >
+                          Remove
+                        </button>
                       </span>
-                    </label>
+                    </div>
                   </div>
-                </section>
+
+                  <div className="term-brief">
+                    <div className="brief-label">
+                      <span>Public brief</span>
+                      <span>
+                        {byteLength(buildStoredBrief(stage.brief, stage.attachmentUrl))}/240 bytes
+                      </span>
+                    </div>
+                    <textarea
+                      value={stage.brief}
+                      onChange={(event) => updateStage(stage.id, { brief: event.target.value })}
+                      maxLength={240}
+                      rows={3}
+                      placeholder="What should this specialist deliver?"
+                      className="input mt-2"
+                      aria-label={`Stage ${index + 1} public brief`}
+                    />
+                    <div className="brief-extra">
+                      <div className="field">
+                        <label htmlFor={`stage-provider-${stage.id}`}>Provider address</label>
+                        <input
+                          id={`stage-provider-${stage.id}`}
+                          value={stage.provider}
+                          onChange={(event) =>
+                            updateStage(stage.id, { provider: event.target.value })
+                          }
+                          placeholder="0x…"
+                          spellCheck={false}
+                          className="input mono"
+                        />
+                      </div>
+                      <div className="field">
+                        <label htmlFor={`stage-attachment-${stage.id}`}>
+                          Attachment URL{' '}
+                          <span style={{ textTransform: 'none', letterSpacing: 0 }}>(optional)</span>
+                        </label>
+                        <input
+                          id={`stage-attachment-${stage.id}`}
+                          value={stage.attachmentUrl}
+                          onChange={(event) =>
+                            updateStage(stage.id, { attachmentUrl: event.target.value })
+                          }
+                          inputMode="url"
+                          spellCheck={false}
+                          placeholder="https://… or ipfs://…"
+                          className="input mono"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </article>
               ))}
+
+              <button
+                type="button"
+                onClick={addStage}
+                disabled={stages.length >= MAX_STAGES}
+                className="add-stage"
+              >
+                <span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                  Add another stage
+                </span>
+                <small>
+                  {stages.length} of {MAX_STAGES} stages
+                </small>
+              </button>
             </div>
 
             {validation.problems.length > 0 ? (
@@ -700,65 +809,13 @@ export function CreatePipelinePage() {
                     type="button"
                     onClick={() => void checkPendingReceipt()}
                     disabled={checkingPending}
-                    className="rc-button rc-button-sm border-warm-line bg-paper text-warm-ink"
+                    className="btn btn-outline btn-sm border-warm-line bg-paper text-warm-ink"
                   >
                     {checkingPending ? 'Checking…' : 'Check receipt'}
                   </button>
                 </div>
               </div>
             ) : null}
-
-            <div className="rc-funding-strip">
-              <div className="rc-funding-total">
-                <span>Total escrow</span>
-                <strong>{totalDisplay} USDC</strong>
-              </div>
-              <p>
-                Exact allowance only. One submit checks the allowance, approves the exact total if
-                needed, then funds the pipeline. No platform fee.
-              </p>
-              <button
-                type="submit"
-                disabled={!canSubmit}
-                className="rc-button rc-button-primary w-full sm:w-auto"
-              >
-                {busy
-                  ? 'Preparing transaction…'
-                  : pendingCreateHash
-                    ? 'Transaction pending — check receipt'
-                    : `Create & fund pipeline${validation.totalBudget > 0n ? ` — ${totalDisplay} USDC` : ''}`}
-              </button>
-            </div>
-
-            <div className="mt-4 grid gap-2 border-t border-line pt-4 sm:grid-cols-3">
-              <div className="flex gap-2">
-                <span className="font-mono text-[9px] text-sage">01</span>
-                <div>
-                  <strong className="block text-[10px] text-ink">Allowance check</strong>
-                  <span className="block text-[9px] leading-4 text-muted">
-                    Exact amount; reset first if needed
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <span className="font-mono text-[9px] text-sage">02</span>
-                <div>
-                  <strong className="block text-[10px] text-ink">Fund escrow</strong>
-                  <span className="block text-[9px] leading-4 text-muted">
-                    One createPipeline call
-                  </span>
-                </div>
-              </div>
-              <div className="flex gap-2">
-                <span className="font-mono text-[9px] text-sage">03</span>
-                <div>
-                  <strong className="block text-[10px] text-ink">First specialist active</strong>
-                  <span className="block text-[9px] leading-4 text-muted">
-                    Activated on-chain at funding
-                  </span>
-                </div>
-              </div>
-            </div>
 
             {!guard.isConnected ? (
               <p className="mt-4 text-[10px] text-muted">
@@ -769,8 +826,127 @@ export function CreatePipelinePage() {
                 Switch your wallet to {appConfig.networkLabel} before submitting.
               </p>
             ) : null}
+
+            <div className="form-foot">
+              <div className="form-foot-left">
+                <Link className="btn btn-outline btn-sm" to="/pipelines">
+                  Back to pipelines
+                </Link>
+                <span className="form-foot-note">
+                  Exact allowance set at funding · no unlimited approval
+                </span>
+              </div>
+              <span className="form-foot-note">Fund from the escrow statement →</span>
+            </div>
+          </form>
+
+          <aside className="summary-card" aria-labelledby="escrow-title">
+            <div className="summary-head">
+              <p className="eyebrow no-rule" id="escrow-title">
+                Escrow statement
+              </p>
+              <StatusPill tone={draftTone}>{draftLabel}</StatusPill>
+            </div>
+            <h2 className="summary-title">
+              Your pipeline,
+              <br />
+              funded once.
+            </h2>
+            <p className="summary-meta">
+              {stages.length} specialists · {appConfig.networkLabel} · USDC
+            </p>
+
+            <div className="summary-rows">
+              {stages.map((stage, index) => (
+                <div className="summary-row" key={stage.id}>
+                  <span>
+                    {stage.title.trim() || `Stage ${index + 1}`}
+                    <small>
+                      {isAddress(stage.provider.trim())
+                        ? shortAddress(stage.provider.trim())
+                        : 'Provider not set'}
+                    </small>
+                  </span>
+                  <strong>{formatDraftBudget(stage.budget)}</strong>
+                </div>
+              ))}
+            </div>
+
+            <div className="summary-limit">
+              <div className="limit-head">
+                <span>{totalDisplay} of 100.00 max</span>
+                <strong>{Math.max(0, Math.min(100, budgetPercent))}%</strong>
+              </div>
+              <div className="limit-track">
+                <i style={{ width: `${Math.max(0, Math.min(100, budgetPercent))}%` }} />
+              </div>
+            </div>
+
+            <div className="summary-total">
+              <span>Total escrow</span>
+              <strong>
+                {totalDisplay} <small>USDC</small>
+              </strong>
+            </div>
+
+            <div className="summary-check">
+              <CheckIcon />
+              <span>Exact allowance only. No unlimited approval; reset first if required.</span>
+            </div>
+
+            <div className="summary-actions">
+              <button
+                type="submit"
+                form="create-pipeline-form"
+                disabled={!canSubmit}
+                className="btn btn-primary"
+              >
+                {busy
+                  ? 'Preparing transaction…'
+                  : pendingCreateHash
+                    ? 'Transaction pending — check receipt'
+                    : `Review & fund${validation.totalBudget > 0n ? ` — ${totalDisplay} USDC` : ''}`}
+              </button>
+              <Link className="btn btn-outline" to="/pipelines">
+                Back to pipelines
+              </Link>
+            </div>
+
+            <p className="summary-warning">
+              <strong>Public &amp; permanent.</strong> Titles, briefs, provider addresses, and
+              deliverable URIs are stored on-chain. Do not enter secrets.
+            </p>
+            <p className="summary-foot">
+              <LockIcon />
+              Wallet-signed · RelayCrew never holds a key · {validation.totalBudget.toString()} base
+              units
+            </p>
+          </aside>
+        </div>
+
+        <section className="funding-sequence" aria-label="Funding sequence">
+          <div className="funding-step">
+            <span className="num">01</span>
+            <div>
+              <strong>Approve exact allowance</strong>
+              <span>{totalDisplay} USDC · reset first if needed</span>
+            </div>
           </div>
-        </form>
+          <div className="funding-step">
+            <span className="num">02</span>
+            <div>
+              <strong>Fund the parent escrow</strong>
+              <span>One createPipeline transaction</span>
+            </div>
+          </div>
+          <div className="funding-step">
+            <span className="num">03</span>
+            <div>
+              <strong>First specialist activated</strong>
+              <span>Stage 01 starts on-chain at funding</span>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )

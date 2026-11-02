@@ -2,27 +2,20 @@ type LogoMarkProps = {
   className?: string
 }
 
-export function LogoMark({ className = 'h-8 w-8' }: LogoMarkProps) {
+export function LogoMark({ className = 'wordmark-mark' }: LogoMarkProps) {
   return (
     <svg
-      viewBox="0 0 64 64"
+      viewBox="0 0 40 24"
       className={className}
       aria-hidden="true"
       focusable="false"
       role="presentation"
     >
-      <rect width="64" height="64" rx="14" className="fill-forest" />
-      <path
-        d="M17 47V31.5L32 18l15 13.5V47"
-        fill="none"
-        className="stroke-paper"
-        strokeWidth="3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <circle cx="17" cy="47" r="4" className="fill-paper" />
-      <circle cx="32" cy="18" r="4" className="fill-warm-soft" />
-      <circle cx="47" cy="47" r="4" className="fill-paper" />
+      <path d="M3 19 14 10l12 4L37 4" />
+      <circle cx="3" cy="19" r="2.2" />
+      <circle cx="14" cy="10" r="2.2" />
+      <circle cx="26" cy="14" r="2.2" />
+      <circle cx="37" cy="4" r="2.2" />
     </svg>
   )
 }
