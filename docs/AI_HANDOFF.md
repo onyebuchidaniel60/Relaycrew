@@ -1,8 +1,8 @@
 # AI_HANDOFF.md — RelayCrew current project state
 
-**Last updated:** 2026-11-02
+**Last updated:** 2026-11-08
 
-**Status:** Phase 9 mainnet release is live, and the operator completed the authorized 2-stage Arc Mainnet E2E on 2026-11-02. Pipeline #1 is `Completed` with a 2 USDC total budget, 2 USDC paid, and 0 refunded. The production frontend uses the approved review-02 design system: Newsreader display, Instrument Sans UI, IBM Plex Mono ledger type, the ivory/forest/sage/clay palette, 2–3px radii, the editorial home dossier, four-step create rail and escrow statement, vertical stage relay with separated action panel, and terminal settlement ledger. A programmatically generated 82-second demo video with an AI voiceover is in `relaycrew_demo.mp4`. The Arc Studio workspace requires Circle sign-in, so the video's Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings. No contract, state, accounting, permission, or security behavior changed.
+**Status:** Phase 9 mainnet release is live, and the operator completed the authorized 2-stage Arc Mainnet E2E on 2026-11-02. Pipeline #1 is `Completed` with a 2 USDC total budget, 2 USDC paid, and 0 refunded. The production frontend uses the approved review-02 design system. A programmatically generated 82-second demo video with an AI voiceover is in `assets/relaycrew_demo.mp4`. On 2026-11-08 the repository was reorganized as a generic open-source boilerplate: the internal planning/implementation Markdown moved into `docs/`, the root `README.md` was rewritten as a quickstart and build-your-own guide, the in-app `/docs` page was replaced with a developer testing guide, demo media moved to `assets/`, and an MIT license was added. The Arc Studio workspace requires Circle sign-in, so the video's Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings. No contract, state, accounting, permission, or security behavior changed.
 
 ## Project
 
@@ -20,7 +20,7 @@ Read before any implementation:
 3. `IMPLEMENTATION_PLAN.md`
 4. `AGENTS.md`
 5. This file
-6. `docs/DECISIONS.md`, `docs/CONTRACT_INTERFACE.md`, `docs/SECURITY.md`, `docs/DEPLOYMENT.md`, `docs/DESIGN_DECISIONS.md` and any relevant docs before the corresponding phase.
+6. `DECISIONS.md`, `CONTRACT_INTERFACE.md`, `SECURITY.md`, `DEPLOYMENT.md`, `DESIGN_DECISIONS.md` and any relevant docs before the corresponding phase.
 
 Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md`.
 
@@ -41,7 +41,16 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Phase 9 mainnet release is complete, including the operator's 2-stage Mainnet E2E.** The contract and Production app remain live on Arc Mainnet. The approved review-02 styling has been applied to the React shell, Home, Create, Pipelines, Pipeline Detail (active and terminal), Docs, Risk, not-found, and loading/error/empty states. The demo video is generated. The remaining submission items are the builder profile URL and confirmation of the final submission cutoff.
+**Final open-source cleanup and documentation pass is complete.** The repository is now positioned as a generic boilerplate: a clean root README, a developer testing guide at `/docs`, planning and decision records under `docs/`, and demo media under `assets/`. The reference implementation and its Mainnet evidence remain intact. The remaining submission items are the builder profile URL and confirmation of the final submission cutoff.
+
+## Open-source boilerplate cleanup (2026-11-08)
+
+- Moved `AGENTS.md`, `AI_HANDOFF.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, `PROJECT_SPEC.md`, `MASTER_BLUEPRINT.md`, and `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md` into `docs/`.
+- Moved `relaycrew_demo.mp4` and `voiceover.mp3` into `assets/` and updated the demo generation scripts.
+- Rewrote the root `README.md` as a generic quickstart, architecture, features, build-your-own-pipeline, and reference-implementation guide.
+- Replaced the in-app `/docs` page with a developer testing guide covering the Circle Faucet, Arc Testnet MetaMask setup, local configuration, the client/provider/provider escrow flow, explorer reconciliation, guardrail tests, the public-data warning, risk limits, and troubleshooting.
+- Added an MIT `LICENSE`.
+- No contract, transaction, accounting, permission, or security behavior changed.
 
 ## URLs and deployments
 
@@ -69,7 +78,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
   - Stage 2 approve: `0x2f1929bb583352c8f2c6c7e1231acdad777e17227ab4be9f4563aaebd849785b` — `StageReleased(1)` + `PipelineCompleted` + 1 USDC transfer.
 - Testnet contract: `0x7f9fc5bc88876e07e6674cd29bc73b9dbf02f070`; deployment tx `0xc4e95d930cefbd61266f3c603915ceae928046f2d28e1a7a89e44ce76a2f98d3`.
 - Previous 5-stage testnet contract (superseded): `0x85bbf546b09d990959de0672c273b56400f84f05`.
-- Video walkthrough: **`relaycrew_demo.mp4`** — 82 seconds, 1440×900, H.264/AAC, AI voiceover. Generated by `scripts/generate_voice.py`, `scripts/record_video.js`, `scripts/record_explorer.js`, and `scripts/build_video.sh`. The Arc Studio workspace requires sign-in, so the Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings.
+- Video walkthrough: **`assets/relaycrew_demo.mp4`** — 82 seconds, 1440×900, H.264/AAC, AI voiceover. Generated by `scripts/generate_voice.py`, `scripts/record_video.js`, `scripts/record_explorer.js`, and `scripts/build_video.sh`. The Arc Studio workspace requires sign-in, so the Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings.
 - Builder profile URL for submission: use actual operator-supplied or verified URL; do not invent.
 
 ## Phase 9 completed work
@@ -132,7 +141,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Headless Chromium on Production — the new review-02 Home and Create screens render the mainnet strip, Arc Mainnet chip, Newsreader/Instrument Sans/IBM Plex Mono typography, ivory/forest/sage/clay tokens, and the four-step create rail. No configuration-error banner appears.
 - Explorer links checked — contract and deployment tx both return HTTP 200.
 - Contract E2E on Mainnet — **completed and verified 2026-11-02**. `pipelineCount()` = `1`; pipeline #1 summary: client `0x6B24…E054`, total `2,000,000` base units, paid `2,000,000`, refunded `0`, current stage `1`, stage count `2`, status `Completed`. The create/fund, both submissions, and both approvals were verified from receipts and contract events. The operator-supplied “create/fund” hash is the USDC allowance approval; the actual create/fund hash is recorded above.
-- Demo video — `relaycrew_demo.mp4` is 82.0 seconds, 1440×900, H.264 High/yuv420p at 25 fps, AAC mono. `ffmpeg -v error -i relaycrew_demo.mp4 -f null -` decoded without errors. The voiceover starts at 5.28 seconds; the title card is 0–7 seconds. The app, Studio export, pipeline ledger, Arc explorer top, and token-transfer tab are all visible at the intended narration points.
+- Demo video — `assets/relaycrew_demo.mp4` is 82.0 seconds, 1440×900, H.264 High/yuv420p at 25 fps, AAC mono. `ffmpeg -v error -i assets/relaycrew_demo.mp4 -f null -` decoded without errors. The voiceover starts at 5.28 seconds; the title card is 0–7 seconds. The app, Studio export, pipeline ledger, Arc explorer top, and token-transfer tab are all visible at the intended narration points.
 - Design Review 02 static pages — `home.html`, `create.html`, `pipeline-active.html`, `pipeline-terminal.html`, and `index.html` returned HTTP 200 from the local static server; no console errors.
 - Review-02 application responsive check — no horizontal overflow at 320, 360, 390, 768, 1024, or 1440 widths; the compact header keeps all five routes visible.
 - Review-02 application state checks — local preview rendered loading, error, and not-found states; mocked read-only RPC data was used only to inspect active and terminal visuals, not as real transaction evidence. Mainnet payloads were not altered.
@@ -154,7 +163,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - Footer Documentation resolves to `/docs`; Risk notice resolves to `/risk`.
 - GitHub footer destination is the verified public repository configured in `VITE_GITHUB_REPOSITORY_URL`.
 - Contract footer destination opens the active network's verified coordinator address in the official explorer (Production: Mainnet; Preview: Testnet).
-- Root `README.md`, `AI_HANDOFF.md`, `PROJECT_SPEC.md`, `docs/DEPLOYMENT.md`, `docs/CONTRACT_INTERFACE.md`, `docs/SECURITY.md`, `docs/USER_GUIDE.md`, `docs/DECISIONS.md`, `docs/DESIGN_DECISIONS.md`, `docs/REQUIREMENT_MATRIX.md`, and `docs/SOURCES.md` now record the Mainnet deployment and remaining operator evidence.
+- Root `README.md`; `docs/AI_HANDOFF.md`, `docs/PROJECT_SPEC.md`, `docs/DEPLOYMENT.md`, `docs/CONTRACT_INTERFACE.md`, `docs/SECURITY.md`, `docs/USER_GUIDE.md`, `docs/DECISIONS.md`, `docs/DESIGN_DECISIONS.md`, `docs/REQUIREMENT_MATRIX.md`, and `docs/SOURCES.md` now record the Mainnet deployment and remaining operator evidence.
 
 ## Safety and deployment constraints
 
@@ -184,4 +193,4 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Single next task
 
-**Operator reviews `relaycrew_demo.mp4`** (82 seconds, 1440×900) and confirms the exported-source Studio treatment and the Mainnet E2E evidence are acceptable for submission.
+**Operator reviews `assets/relaycrew_demo.mp4`** (82 seconds, 1440×900) and confirms the exported-source Studio treatment and the Mainnet E2E evidence are acceptable for submission.

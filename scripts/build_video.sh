@@ -53,12 +53,12 @@ ffmpeg -y -f concat -safe 0 -i "$BUILD_DIR/concat.txt" -c copy \
 
 # The title card occupies the first 5 seconds; the voiceover is padded to the
 # full 82-second runtime so the end card is not cut off.
-ffmpeg -y -i "$BUILD_DIR/video-noaudio.mp4" -i voiceover.mp3 \
+ffmpeg -y -i "$BUILD_DIR/video-noaudio.mp4" -i assets/voiceover.mp3 \
   -filter_complex "[1:a]adelay=5000|5000,apad=pad_dur=5[a]" \
   -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -shortest \
-  -movflags +faststart relaycrew_demo.mp4
+  -movflags +faststart assets/relaycrew_demo.mp4
 
-echo "Wrote $(pwd)/relaycrew_demo.mp4"
+echo "Wrote $(pwd)/assets/relaycrew_demo.mp4"
 ffprobe -v error -show_entries format=duration,size \
   -show_entries stream=index,codec_name,codec_type,width,height,r_frame_rate \
-  -of default=noprint_wrappers=1 relaycrew_demo.mp4
+  -of default=noprint_wrappers=1 assets/relaycrew_demo.mp4

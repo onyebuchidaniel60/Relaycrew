@@ -152,4 +152,4 @@ Production was smoke-tested on 2026-11-01:
 - The deployed JS asset `index-eXZt2eAI.js` matched the local mainnet build's SHA-256 exactly.
 - The deployed bundle contains the mainnet contract address and official USDC address.
 
-Still required: the operator's browser-wallet E2E pipeline and Explorer reconciliation. Record the actual create/submit/approve transaction hashes in README and `AI_HANDOFF.md` after execution.
+Completed 2026-11-02: the operator executed the 2-stage browser-wallet E2E and the create/submit/approve transaction hashes were reconciled. Pipeline #1 is `Completed` with 2 USDC paid and 0 refunded. Evidence is recorded in `../README.md`, `AI_HANDOFF.md`, and `../deployments/arc-mainnet.json`.

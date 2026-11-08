@@ -41,7 +41,7 @@
     "note": "The operator-supplied create/fund hash is the USDC allowance approval, not the pipeline creation. The createFundTx above is the verified PipelineCreated transaction. Stage 1 approve emitted StageReleased(0) and StageHired(1); Stage 2 approve emitted StageReleased(1) and PipelineCompleted."
   },
   "demoVideo": {
-    "file": "relaycrew_demo.mp4",
+    "file": "assets/relaycrew_demo.mp4",
     "durationSeconds": 82,
     "resolution": "1440x900",
     "codec": "H.264/AAC",

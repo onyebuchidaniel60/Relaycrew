@@ -18,10 +18,11 @@ SCRIPT = (
     "orchestration layer for multi-agent execution. Thanks for watching!"
 )
 
-OUTPUT = Path(__file__).resolve().parent.parent / "voiceover.mp3"
+OUTPUT = Path(__file__).resolve().parent.parent / "assets" / "voiceover.mp3"
 
 
 def main() -> None:
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     tts = gTTS(text=SCRIPT, lang="en", tld="com", slow=False)
     tts.save(str(OUTPUT))
     print(f"Wrote {OUTPUT} ({OUTPUT.stat().st_size} bytes)")

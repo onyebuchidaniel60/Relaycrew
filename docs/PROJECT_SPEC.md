@@ -182,7 +182,7 @@ Contract authorization is authoritative. UI visibility alone is never a security
 - Footer links to real `/docs` and actual public GitHub repo URL after verified. Never guess URLs or expose a private repo.
 - Responsive layouts, keyboard accessibility, metadata, favicon, all action/status/error states and working links are acceptance criteria.
 
-Detailed actor/precondition/input/processing/output/permission/validation/error/edge-case/acceptance records are also maintained in [`docs/REQUIREMENT_MATRIX.md`](docs/REQUIREMENT_MATRIX.md).
+Detailed actor/precondition/input/processing/output/permission/validation/error/edge-case/acceptance records are also maintained in [`docs/REQUIREMENT_MATRIX.md`](REQUIREMENT_MATRIX.md).
 
 ## 7. Business rules and states
 
@@ -324,4 +324,4 @@ Only after acceptance may the agent collect/agree on design references, produce 
 
 ## 15. Feature requirement matrix
 
-The complete implementation-level feature matrix—including actors, preconditions, inputs, processing, outputs, permissions, validation, errors, edge cases, and acceptance criteria—is maintained in [`docs/REQUIREMENT_MATRIX.md`](docs/REQUIREMENT_MATRIX.md). The coding agent must follow it as a normative project document.
+The complete implementation-level feature matrix—including actors, preconditions, inputs, processing, outputs, permissions, validation, errors, edge cases, and acceptance criteria—is maintained in [`docs/REQUIREMENT_MATRIX.md`](REQUIREMENT_MATRIX.md). The coding agent must follow it as a normative project document.

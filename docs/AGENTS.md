@@ -1,6 +1,6 @@
 # AGENTS.md — RelayCrew implementation rules
 
-You are the implementation executor, not the product manager or architect. The operator and source-of-truth documents own product behavior, scope, architecture, security, and acceptance. Read `PROJECT_SPEC.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, this file, `AI_HANDOFF.md`, and relevant `docs/` files before changing code.
+You are the implementation executor, not the product manager or architect. The operator and source-of-truth documents own product behavior, scope, architecture, security, and acceptance. Read `PROJECT_SPEC.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, this file, `AI_HANDOFF.md`, and the relevant files in this folder before changing code.
 
 ## 1. Project and fixed architecture
 
@@ -100,7 +100,7 @@ After functional E2E acceptance:
 3. Create mockups/prototypes for principal desktop/mobile screens and key states.
 4. Present them, collect feedback and revise.
 5. STOP and wait for explicit operator approval. No approval means no final visual implementation.
-6. Record references, mockups, approval and deviations in `docs/DESIGN_DECISIONS.md` and `AI_HANDOFF.md`.
+6. Record references, mockups, approval and deviations in `DESIGN_DECISIONS.md` and `AI_HANDOFF.md`.
 
 Once approved, implement only visual styling on top of working flows. Do not change business logic, contract interface, architecture, permissions, or product scope in a visual-only phase. If a requested look would require behavior/architecture change, stop and ask first.
 
