@@ -54,16 +54,18 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## URLs and deployments
 
-- **Current UI commit (deployed): `068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`** (`feat: apply stageshow refined ui to production app`).
+- **Current UI commit (deployed): `a2c04354ed2804780cbceff0f661b50f58a9529d`** (`docs: clarify testnet scope in developer guide`).
+- **Open-source cleanup commit: `44d481e1f7f933054820220e2831a71badf69aa4`** (`refactor: prepare generic open-source boilerplate`).
 - **Demo/evidence repository commit: `0a16460df975bd7d7ffe071bff3a6ce4e08d9049`** (`feat: generate automated demo video and mainnet evidence`).
 - Previous release commit: `924440f450591353a593a903ef47ac238f610858` (`release: arc mainnet demo and submission evidence`).
 - Arc Studio contract app: **App ID `9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`**; workspace `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961`. It contains the current `contracts/PipelineCoordinator.sol`, tests, and deployment records.
 - GitHub repository URL: **https://github.com/onyebuchidaniel60/Relaycrew** (verified public; default branch `main`).
 - **Production URL: https://relaycrew-omega.vercel.app** — Arc Mainnet, real USDC.
 - **Design Review 02 visual system:** implemented in `src/editorial.css` and applied across `src/`; the approved static source remains in `mockups/` for reference. The review-02 mockups themselves were never deployed as a separate site.
-- **Production deployment ID (current): `dpl_EaUHX549UAddLX8DsjZtAqHoYeg6`.**
-- **Production deployment URL: `https://relaycrew-ggsabj0db-uhhh2.vercel.app`.**
-- **Production UI source commit: `068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`.** The Vercel CLI deployment was created from the committed UI source; this handoff/docs update follows in Git.
+- **Production deployment ID (current): `dpl_FyZtemus58MkG8EhytGbczXdM7vd`.**
+- **Production deployment URL: `https://relaycrew-8rsupzdqd-uhhh2.vercel.app`** (Deployment Protection enabled; use the public Production alias below).
+- **Production UI source commit: `a2c04354ed2804780cbceff0f661b50f58a9529d`.** The Vercel CLI deployment was created from the committed source; this handoff/docs update follows in Git.
+- **Generic README and `/docs` deployment:** Production serves the rewritten generic README content in the repository and the developer testing guide at `/docs`. The page is explicitly labelled “Testnet guide” while the Production build remains Arc Mainnet.
 - Vercel Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet; Deployment Protection enabled).
 - Preview deployed commit: `4bb066302f17ca6b1c025bafd80beffa37eed57b` (existing Phase 8.5 deployment; not rebuilt in this phase).
 - **Mainnet contract: `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`** (Arc Mainnet, chain ID `5042`).
@@ -132,11 +134,14 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 - `npm run typecheck` — **PASS**.
 - `npm run lint` — **PASS** (oxlint, no warnings).
-- Production build — **PASS**; Vite 6.4.5; 1804 modules; CSS `index-C3NTNPU2.css` `101.47 kB` (`19.73 kB` gzip); JS `673.98 kB` (`201.66 kB` gzip); the only warning is the pre-existing chunk-size warning.
+- Local production build — **PASS**; Vite 6.4.5; 1804 modules; CSS `index-CtF3l6P2.css` `101.60 kB` (`19.76 kB` gzip); testnet JS `index-1V-k_Bg2.js` `680.70 kB` (`203.56 kB` gzip); the only warning is the pre-existing chunk-size warning.
+- Deployed Production assets — CSS `index-CtF3l6P2.css`; mainnet JS `index-NsMhtdqj.js`. The CSS hash matches the local build; the JS differs because Production uses the Arc Mainnet environment.
+- Production `/docs` deployment check — `https://relaycrew-omega.vercel.app/docs` returned HTTP 200 with the new “Test the escrow flow on Arc Testnet” heading, 11 guide sections, faucet and public-data warning content, no console errors, and no horizontal overflow at 1440×900 or 390×844. The page clearly labels itself “Testnet guide” while the Production build displays Arc Mainnet.
+- Production route checks after the cleanup deployment — `/`, `/create`, `/docs`, `/risk`, and `/pipelines/1` returned HTTP 200.
 - `src/editorial.css` is derived from the approved review-02 mockup stylesheet and contains the application integration and Dark Warm Editorial mappings.
 - Arc Studio contract tests (prior Phase 8.5 evidence, source unchanged): **31 passed, 0 failed, 0 skipped**.
 - Source/ABI/compiler parity — **MATCH** against the Arc Studio artifact.
-- Mainnet on-chain reads via official RPC — `usdc()` official, `MAX_STAGES()` `10`, `pipelineCount()` `0`, code `9,992` bytes.
+- Mainnet on-chain reads via official RPC — `usdc()` official, `MAX_STAGES()` `10`, `pipelineCount()` `0` after deployment and `1` after the E2E, code `9,992` bytes.
 - Production route checks after the UI deployment — `/`, `/create`, `/pipelines`, `/pipelines/1`, `/docs`, `/risk`, `/favicon.svg`, `/images/og-relaycrew.png` all returned HTTP 200. Production assets served: `index-B-2Ii37S.js` and `index-C3NTNPU2.css`; the CSS hash matches the local build.
 - Headless Chromium on Production — the new review-02 Home and Create screens render the mainnet strip, Arc Mainnet chip, Newsreader/Instrument Sans/IBM Plex Mono typography, ivory/forest/sage/clay tokens, and the four-step create rail. No configuration-error banner appears.
 - Explorer links checked — contract and deployment tx both return HTTP 200.
@@ -182,15 +187,16 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 3. **The Arc Studio workspace is auth-gated.** `https://studio.arc.io/app/9ad3cdcd-b77f-4cd3-9b03-c6dbb9704961` redirects to Circle sign-in when no authenticated session is present. The demo video's Studio segment therefore uses the exported source and the 31-test evidence in a local view labelled “EXPORTED SOURCE”; it is not a live capture of the Studio UI. The app and Explorer segments are live recordings.
 4. The builder profile URL is still missing from the submission package. The demo video is generated and needs operator review.
 5. The contract is unaudited; the client is the sole evaluator and there is no dispute mechanism.
-6. The frontend bundle is about `674 kB` (`202 kB` gzip); CSS is `101 kB` (`20 kB` gzip). Vite reports the pre-existing chunk-size warning; code splitting is deferred.
-7. Vercel CLI did not attach Git metadata to the production deployment. The deployed source is identified by the committed UI source (`068e16d4c97f0aaa01de1bd4f92885fc3b9ab2a9`) plus matching asset hashes.
-8. The current production deployment is `dpl_EaUHX549UAddLX8DsjZtAqHoYeg6`; its CSS asset `index-C3NTNPU2.css` matches the local build. Because Vercel built with Production env, the JS asset differs from the local testnet build.
+6. The frontend bundle is about `681 kB` (`204 kB` gzip); CSS is `101.60 kB` (`19.76 kB` gzip). Vite reports the pre-existing chunk-size warning; code splitting is deferred.
+7. Vercel CLI did not attach Git metadata to the production deployment. The deployed source is identified by the committed UI source (`a2c04354ed2804780cbceff0f661b50f58a9529d`) plus matching asset hashes.
+8. The current production deployment is `dpl_FyZtemus58MkG8EhytGbczXdM7vd`; its CSS asset `index-CtF3l6P2.css` matches the local build. Because Vercel built with Production env, the JS asset `index-NsMhtdqj.js` differs from the local testnet build.
 9. The duration selectors are hour-granular, so the minimum selectable duration is 1 hour even though the contract accepts 15 minutes. Deliberate UI limitation.
 10. The optional attachment URL must fit the combined 240-byte brief limit.
 11. Vercel Deployment Protection remains enabled for the Preview; Production returned HTTP 200 publicly in this check.
 12. The Mainnet contract is not verified on the Arc explorer. Decoded input and log views are unavailable, and the explorer displays a verification prompt. The demo video uses the token-transfer tab, which independently shows the 1 USDC ERC-20 transfer.
-13. The review-02 implementation is visual-only and uses the approved static source as its CSS basis. No design approval remains pending. The Mainnet E2E evidence is now recorded; the demo video is generated and awaits operator review.
+13. The review-02 implementation is visual-only and uses the approved static source as its CSS basis. No design approval remains pending. The generic README and developer testing guide are deployed; the demo video is generated and awaits operator review.
+14. **Reference deployment addresses remain in the template.** `.env.example` and `src/lib/contracts.ts` still point at the RelayCrew Testnet/Mainnet deployments so the reference app works out of the box. Forks must replace them with their own coordinator address; the README calls this out explicitly.
 
 ## Single next task
 
-**Operator reviews `assets/relaycrew_demo.mp4`** (82 seconds, 1440×900) and confirms the exported-source Studio treatment and the Mainnet E2E evidence are acceptable for submission.
+**Operator reviews the generic README on GitHub and the Production `/docs` page** at `https://relaycrew-omega.vercel.app/docs`, and confirms the “Testnet guide” labeling is acceptable.
