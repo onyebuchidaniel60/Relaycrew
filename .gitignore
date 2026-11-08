@@ -14,3 +14,7 @@ cache/
 
 # Generated demo recordings and intermediate renders
 recordings/
+
+# Local agent tooling and generated skill locks
+.agents/
+skills-lock.json
