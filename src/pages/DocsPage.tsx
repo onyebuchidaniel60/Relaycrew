@@ -85,14 +85,14 @@ export function DocsPage() {
       <div className="wrap">
         <PageHeader
           eyebrow="Developer testing guide"
-          title={<span className="block pt-3">Run the escrow flow on Arc Testnet.</span>}
-          description="A practical, wallet-by-wallet checklist for testing a 2-stage pipeline with test USDC. The app is frontend-only; every state change is a real Arc transaction, and the contract is the source of truth."
+          title={<span className="block pt-3">Test the escrow flow on Arc Testnet.</span>}
+          description="A wallet-by-wallet checklist for a 2-stage pipeline with test USDC. Use a local or Testnet build for these steps; this Production app is Arc Mainnet and uses real USDC."
           breadcrumb={
             <>
               <Link to="/">RelayCrew</Link> / Docs
             </>
           }
-          action={<StatusPill tone="active">{appConfig.chain.name} guide</StatusPill>}
+          action={<StatusPill tone="active">Testnet guide</StatusPill>}
         />
 
         <div className="grid items-start gap-3 lg:grid-cols-[220px_minmax(0,1fr)]">
@@ -114,6 +114,14 @@ export function DocsPage() {
               {appConfig.isMainnet
                 ? 'This build targets Arc Mainnet. Real USDC is at risk. Verify every transaction before signing.'
                 : 'This build is an Arc Testnet preview. Use test USDC only. No real funds.'}
+            </div>
+
+            <div className="mt-2 rounded-[3px] border border-line bg-paper-soft p-3">
+              <p className="rc-eyebrow">Guide network</p>
+              <p className="mt-1 text-[10px] leading-5 text-muted">
+                These steps use <strong className="text-ink">Arc Testnet</strong> (chain 5042002).
+                The current build is <strong className="text-ink">{appConfig.networkLabel}</strong>.
+              </p>
             </div>
 
             <div className="mt-4 rounded-[3px] border border-line bg-paper-soft p-3">
@@ -152,6 +160,10 @@ export function DocsPage() {
                 client funds every stage budget up front in one parent USDC escrow. Each specialist is
                 a wallet address controlled by a human freelancer, an agent, or a team. RelayCrew does
                 not find providers, run AI agents, or judge work automatically.
+              </p>
+              <p>
+                This guide uses <strong className="text-ink">Arc Testnet</strong> so you can test the
+                full flow without risking real funds. Do not use real USDC for these steps.
               </p>
               <div className="grid gap-2 sm:grid-cols-3">
                 <div className="rounded-[3px] border border-line bg-paper-soft p-3">
