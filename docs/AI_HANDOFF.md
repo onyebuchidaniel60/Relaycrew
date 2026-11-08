@@ -1,6 +1,6 @@
 # AI_HANDOFF.md — RelayCrew current project state
 
-**Last updated:** 2026-11-08
+**Last updated:** 2026-11-09
 
 **Status:** Phase 9 mainnet release is live, and the operator completed the authorized 2-stage Arc Mainnet E2E on 2026-11-02. Pipeline #1 is `Completed` with a 2 USDC total budget, 2 USDC paid, and 0 refunded. The production frontend uses the approved review-02 design system. A programmatically generated 82-second demo video with an AI voiceover is in `assets/relaycrew_demo.mp4`. On 2026-11-08 the repository was cleaned up and documented for both audiences: the internal planning/implementation Markdown moved into `docs/`, the root `README.md` now prioritizes the live Arc Mainnet product with the developer/boilerplate guide at the bottom, the in-app `/docs` page was replaced with a developer testing guide, demo media moved to `assets/`, and an MIT license was added. On 2026-11-09 the README was rewritten again to lead with the end-user experience and the live deployment. The Arc Studio workspace requires Circle sign-in, so the video's Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings. No contract, state, accounting, permission, or security behavior changed.
 
