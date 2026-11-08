@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-11-08
 
-**Status:** Phase 9 mainnet release is live, and the operator completed the authorized 2-stage Arc Mainnet E2E on 2026-11-02. Pipeline #1 is `Completed` with a 2 USDC total budget, 2 USDC paid, and 0 refunded. The production frontend uses the approved review-02 design system. A programmatically generated 82-second demo video with an AI voiceover is in `assets/relaycrew_demo.mp4`. On 2026-11-08 the repository was reorganized as a generic open-source boilerplate: the internal planning/implementation Markdown moved into `docs/`, the root `README.md` was rewritten as a quickstart and build-your-own guide, the in-app `/docs` page was replaced with a developer testing guide, demo media moved to `assets/`, and an MIT license was added. The Arc Studio workspace requires Circle sign-in, so the video's Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings. No contract, state, accounting, permission, or security behavior changed.
+**Status:** Phase 9 mainnet release is live, and the operator completed the authorized 2-stage Arc Mainnet E2E on 2026-11-02. Pipeline #1 is `Completed` with a 2 USDC total budget, 2 USDC paid, and 0 refunded. The production frontend uses the approved review-02 design system. A programmatically generated 82-second demo video with an AI voiceover is in `assets/relaycrew_demo.mp4`. On 2026-11-08 the repository was cleaned up and documented for both audiences: the internal planning/implementation Markdown moved into `docs/`, the root `README.md` now prioritizes the live Arc Mainnet product with the developer/boilerplate guide at the bottom, the in-app `/docs` page was replaced with a developer testing guide, demo media moved to `assets/`, and an MIT license was added. On 2026-11-09 the README was rewritten again to lead with the end-user experience and the live deployment. The Arc Studio workspace requires Circle sign-in, so the video's Studio segment uses the exported source and 31-test evidence labelled “EXPORTED SOURCE”; the app and Explorer segments are live recordings. No contract, state, accounting, permission, or security behavior changed.
 
 ## Project
 
@@ -41,13 +41,13 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 
 ## Current phase
 
-**Final open-source cleanup and documentation pass is complete.** The repository is now positioned as a generic boilerplate: a clean root README, a developer testing guide at `/docs`, planning and decision records under `docs/`, and demo media under `assets/`. The reference implementation and its Mainnet evidence remain intact. The remaining submission items are the builder profile URL and confirmation of the final submission cutoff.
+**End-user-first documentation pass is complete.** The root README now leads with the live Arc Mainnet product, the demo video, screenshots, and a plain-language explanation of the escrow flow; the developer/boilerplate guide is at the bottom. The developer testing guide remains at `/docs`, planning and decision records under `docs/`, and demo media under `assets/`. The live deployment and Mainnet evidence remain intact. The remaining submission items are the builder profile URL and confirmation of the final submission cutoff.
 
 ## Open-source boilerplate cleanup (2026-11-08)
 
 - Moved `AGENTS.md`, `AI_HANDOFF.md`, `ARCHITECTURE.md`, `IMPLEMENTATION_PLAN.md`, `PROJECT_SPEC.md`, `MASTER_BLUEPRINT.md`, and `PROPER_VIBE_CODING_WORKFLOW_REVISED(1).md` into `docs/`.
 - Moved `relaycrew_demo.mp4` and `voiceover.mp3` into `assets/` and updated the demo generation scripts.
-- Rewrote the root `README.md` as a generic quickstart, architecture, features, build-your-own-pipeline, and reference-implementation guide.
+- Rewrote the root `README.md` to prioritize end users and the live product: live app and demo links, Mainnet contract, problem/solution, user flow, screenshots, and a developer setup section at the bottom.
 - Replaced the in-app `/docs` page with a developer testing guide covering the Circle Faucet, Arc Testnet MetaMask setup, local configuration, the client/provider/provider escrow flow, explorer reconciliation, guardrail tests, the public-data warning, risk limits, and troubleshooting.
 - Added an MIT `LICENSE`.
 - No contract, transaction, accounting, permission, or security behavior changed.
@@ -65,7 +65,7 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 - **Production deployment ID (current): `dpl_FyZtemus58MkG8EhytGbczXdM7vd`.**
 - **Production deployment URL: `https://relaycrew-8rsupzdqd-uhhh2.vercel.app`** (Deployment Protection enabled; use the public Production alias below).
 - **Production UI source commit: `a2c04354ed2804780cbceff0f661b50f58a9529d`.** The Vercel CLI deployment was created from the committed source; this handoff/docs update follows in Git.
-- **Generic README and `/docs` deployment:** Production serves the rewritten generic README content in the repository and the developer testing guide at `/docs`. The page is explicitly labelled “Testnet guide” while the Production build remains Arc Mainnet.
+- **README and `/docs` deployment:** GitHub serves the rewritten end-user-first README; Production serves the developer testing guide at `/docs`. The page is explicitly labelled “Testnet guide” while the Production build remains Arc Mainnet.
 - Vercel Preview URL: **https://relaycrew-1gp6xbcd6-uhhh2.vercel.app** (Arc Testnet; Deployment Protection enabled).
 - Preview deployed commit: `4bb066302f17ca6b1c025bafd80beffa37eed57b` (existing Phase 8.5 deployment; not rebuilt in this phase).
 - **Mainnet contract: `0x9b85cd94f9dedd8ee6ef09a5c904502da52a9114`** (Arc Mainnet, chain ID `5042`).
@@ -194,9 +194,9 @@ Workflow reference supplied by operator: `PROPER_VIBE_CODING_WORKFLOW_REVISED(1)
 10. The optional attachment URL must fit the combined 240-byte brief limit.
 11. Vercel Deployment Protection remains enabled for the Preview; Production returned HTTP 200 publicly in this check.
 12. The Mainnet contract is not verified on the Arc explorer. Decoded input and log views are unavailable, and the explorer displays a verification prompt. The demo video uses the token-transfer tab, which independently shows the 1 USDC ERC-20 transfer.
-13. The review-02 implementation is visual-only and uses the approved static source as its CSS basis. No design approval remains pending. The generic README and developer testing guide are deployed; the demo video is generated and awaits operator review.
+13. The review-02 implementation is visual-only and uses the approved static source as its CSS basis. No design approval remains pending. The end-user-first README and developer testing guide are deployed; the demo video is generated and awaits operator review.
 14. **Reference deployment addresses remain in the template.** `.env.example` and `src/lib/contracts.ts` still point at the RelayCrew Testnet/Mainnet deployments so the reference app works out of the box. Forks must replace them with their own coordinator address; the README calls this out explicitly.
 
 ## Single next task
 
-**Operator reviews the generic README on GitHub and the Production `/docs` page** at `https://relaycrew-omega.vercel.app/docs`, and confirms the “Testnet guide” labeling is acceptable.
+**Operator reviews the end-user-first README on GitHub and the Production `/docs` page** at `https://relaycrew-omega.vercel.app/docs`, and confirms the live-product framing and “Testnet guide” labeling are acceptable.
